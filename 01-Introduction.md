@@ -2,13 +2,28 @@
 
 The JavaScript core language features are defined in a standard called ECMA-262. The language defined in this standard is called ECMAScript, of which the JavaScript in the browser and Node.js environments are a superset. While browsers and Node.js may add more capabilities through additional objects and methods, the core of the language remains as defined in ECMAScript, which is why the ongoing development of ECMA-262 is vital to the success of JavaScript as a whole.
 
+JavaScript核心特性定义在一个叫ECMA-262的标准中。该核心特性在标准中被称为ECMAScript，并且是作为一个父集存在于浏览器和NodeJs环境中。浏览器和NodeJs可通过额外的对象、方法和定义在ECMAScript中的其它核心特性来增加更多的能力，这就是为什么可持续发展的ECMA-262在成功的JavaScript中是不可或缺的一部分。
+
+
 In 2007, JavaScript was at a crossroads. The popularity of Ajax was ushering in a new age of dynamic web applications while JavaScript hadn’t changed since the third edition of ECMA-262 was published in 1999. TC-39, the committee responsible for driving the ECMAScript process, put together a large draft specification for ECMAScript 4. ECMAScript 4 was massive in scope, introducing changes both small and large to the language. Language features included new syntax, modules, classes, classical inheritance, private object members, optional type annotations, and more.
+
+在2007年，JavaScript发展处于一个十字路口。Ajax的普及开创了一个新的动态的web应用程序时代，但JavaScript并没有更新因为ECMA-262的第3版是在1999年推出。负责ECMAScript的委员会TC-39为ECMAScript4起草了一个大规范。ECMAScript4是大规模的改变，更改了语言从小到大的部分，包括新的语法、模块、类、经典继承、私有对象成员、可选的类型注释、以及更多。
+
 
 The scope of the ECMAScript 4 changes caused a rift to form in TC-39, with some members feeling that the fourth edition was trying to accomplish too much. A group of leaders from Yahoo, Google, and Microsoft came up with an alternate proposal for the next version of ECMAScript that they initially called ECMAScript 3.1. The “3.1” was intended to show that this was an incremental change to the existing standard.
 
+ECMAScript4改变的部分引起了TC-39的内部形成了分裂，一些成员觉得第4版试图完成的部分太多了。来自Yahoo, Google, 和 Microsoft的领导完成了ECMAScript的下一个版本，该版本一开始被称为ECMAScript 3.1。3.1版本意图是对现有版本循循渐进的改变。
+
+
 ECMAScript 3.1 introduced very few syntax changes, instead focusing on property attributes, native JSON support, and adding methods to already-existing objects. Although there was an early attempt to reconcile ECMAScript 3.1 and ECMAScript 4, this ultimately failed as the two camps had difficulty with the very different perspectives on how the language should grow.
 
+ECMAScript 3.1介绍了非常少的语法变化，反而侧重于property属性，本地JSON支持和对已经存在的对象添加方法。尽管ECMAScript 3.1和 ECMAScript 4早期企图调和，但这终将失败，因为这两阵营对于语言的发展的视角非常不一样。
+
+
 In 2008, Brendan Eich, the creator of JavaScript, announced that TC-39 would focus its efforts on standardizing ECMAScript 3.1. They would table the major syntax and feature changes of ECMAScript 4 until after the next version of ECMAScript was standardized, and all members of the committee would work to bring the best pieces of ECMAScript 3.1 and 4 together after that point into an effort initially nicknamed ECMAScript Harmony.
+
+在2008年，JavaScript的创始人Brendan Eich宣布TC-39将致力于规范ECMAScript 3.1。他们将搁置ECMAScript 4改变的主要语法和特性直到ECMAScript下一个版本标准化，并且所有委员会的成员将努力汇集 ECMAScript 3.1 和 4 最佳的特性，在这之后这些特性会指向一个起初被叫作“ECMAScript Harmony”绰号的努力。
+
 
 ECMAScript 3.1 was eventually standardized as the fifth edition of ECMA-262, also described as ECMAScript 5. The committee never released an ECMAScript 4 standard to avoid confusion with the now-defunct effort of the same name. Work then began on ECMAScript Harmony, with ECMAScript 6 being the first standard released in this new “harmonious” spirit.
 
