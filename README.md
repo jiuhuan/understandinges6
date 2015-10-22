@@ -3,13 +3,13 @@
 Github：https://github.com/nzakas/understandinges6<br>
 英文版在线阅读：https://leanpub.com/understandinges6/read
 
-- [介绍](Introduction.md)
+- [介绍](01-Introduction.md)
   - 浏览器和NodeJS的兼容性情况
   - 这本书适合谁看
   - 概述
   - 帮助和支持
 
-- Block Bindings
+- [Block Bindings](02-Block-Bindings.md)
   - Var Declarations and Hoisting
   - Block-Level Declarations
   - Block Binding in Loops
@@ -17,14 +17,14 @@ Github：https://github.com/nzakas/understandinges6<br>
   - Emerging Best Practices for Block Bindings
   - Summary
 
-- Strings and Regular Expressions
+- [Strings and Regular Expressions](03-Strings-and-Regular-Expressions.md)
   - Better Unicode Support
   - Other String Changes
   - Other Regular Expression Changes
   - Template Literals
   - Summary
 
-- Functions
+- [Functions](04-Strings-and-Regular-Expressions.md)
   - Default Parameters
   - The arguments Object
   - Default Parameter Expressions
@@ -39,7 +39,7 @@ Github：https://github.com/nzakas/understandinges6<br>
   - Tail Call Optimization
   - Summary
 
-- Objects
+- [Objects](05-Objects.md)
   - Object Categories
   - Object Literal Extensions
   - Object.is()
@@ -49,14 +49,14 @@ Github：https://github.com/nzakas/understandinges6<br>
   - Super References
   - Summary
 
-- Destructuring
+- [Destructuring](06-Destructuring.md)
   - Object Destructuring
   - Array Destructuring
   - Mixed Destructuring
   - Destructured Parameters
   - Summary
 
-- Symbols
+- [Symbols](07-Symbols.md)
   - Creating Symbols
   - Identifying Symbols
   - Using Symbols
@@ -66,7 +66,7 @@ Github：https://github.com/nzakas/understandinges6<br>
   - Well-Known Symbols
   - Summary
 
-- Iterators and Generators
+- [Iterators and Generators](08-Iterators-and-Generators.md)
   - What are Iterators?
   - Generators
   - Iterables and for-of
@@ -74,7 +74,7 @@ Github：https://github.com/nzakas/understandinges6<br>
   - Advanced Functionality
   - Summary
 
-- Classes
+- [Classes](09-Classes.md)
   - Class-Like Structures in ECMAScript 5
   - Class Declarations
   - Class Expressions
@@ -84,7 +84,7 @@ Github：https://github.com/nzakas/understandinges6<br>
   - new.target
   - Summary
 
-- Promises
+- [Promises](10-Promises.md)
   - Asynchronous Programming Background
   - Promise Basics
   - Chaining Promises
@@ -93,7 +93,7 @@ Github：https://github.com/nzakas/understandinges6<br>
   - Inheriting from Promises
   - Summary
 
-- Modules
+- [Modules](11-Modules.md)
   - What are Modules?
   - Basic Exporting and Importing
   - Renaming Exports and Imports
@@ -102,7 +102,7 @@ Github：https://github.com/nzakas/understandinges6<br>
   - Importing Without Bindings
   - Summary
 
-- Appendix A: Other Changes
+- [Appendix A: Other Changes](12-Appendix-A-Other-Changes.md)
   - Working with Integers
   - New Math Methods
   - Unicode Identifiers
