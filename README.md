@@ -24,7 +24,7 @@ Github：https://github.com/nzakas/understandinges6<br>
   - Template Literals
   - Summary
 
-- [Functions](04-Strings-and-Regular-Expressions.md)
+- [Functions](04-Functions.md)
   - Default Parameters
   - The arguments Object
   - Default Parameter Expressions
