@@ -22,13 +22,17 @@ ECMAScript 3.1介绍了非常少的语法变化，反而侧重于property属性�
 
 In 2008, Brendan Eich, the creator of JavaScript, announced that TC-39 would focus its efforts on standardizing ECMAScript 3.1. They would table the major syntax and feature changes of ECMAScript 4 until after the next version of ECMAScript was standardized, and all members of the committee would work to bring the best pieces of ECMAScript 3.1 and 4 together after that point into an effort initially nicknamed ECMAScript Harmony.
 
-在2008年，JavaScript的创始人Brendan Eich宣布TC-39将致力于规范ECMAScript 3.1。他们将搁置ECMAScript 4改变的主要语法和特性直到ECMAScript下一个版本标准化，并且所有委员会的成员将努力汇集 ECMAScript 3.1 和 4 最佳的特性，在这之后这些特性会指向一个起初被叫作“ECMAScript Harmony”绰号的努力。
+在2008年，JavaScript的创始人Brendan Eich宣布TC-39将致力于规范ECMAScript 3.1。他们将集中讨论ECMAScript 4主要变化的语法和特性直到ECMAScript下一个版本标准化，并且所有委员会的成员将努力汇集 ECMAScript 3.1 和 4 最佳的特性，在这之后这些特性会指向一个起初被叫作“ECMAScript Harmony”绰号的努力。
 
 
 ECMAScript 3.1 was eventually standardized as the fifth edition of ECMA-262, also described as ECMAScript 5. The committee never released an ECMAScript 4 standard to avoid confusion with the now-defunct effort of the same name. Work then began on ECMAScript Harmony, with ECMAScript 6 being the first standard released in this new “harmonious” spirit.
 
+ECMAScript 3.1最终被规范为ECMA-262的第5个版本，也就是ECMAScript 5。委员会没有把该版本以ECMAScript 4命名发布是为了避免和之前讨论的ECMAScript 4同名而造成混乱。然后工作开始于ECMAScript Harmony，ECMAScript 6成为这种新的“Harmony”精神的第一个标准。
+
+
 ECMAScript 6 reached feature complete status in 2015 was formally dubbed “ECMAScript 2015” (though this text still refers to it as ECMAScript 6, the name most familiar to developers). The features vary widely from completely new objects and patterns to syntax changes to new methods on existing objects. The exciting thing about ECMAScript 6 is that all of these changes are geared towards problems that developers are actually facing. And while it will still take time for adoption and implementation to reach the point where ECMAScript 6 is the minimum that developers can expect, there’s a lot to be gained from a good understanding of what the future of JavaScript looks like.
 
+ECMAScript 6在2015年达到功能完整的状态并被正式命名为ECMAScript 2015（但本文还是叫它为大多数开发者熟悉的ECMAScript 6）。The features vary widely from completely new objects and patterns to syntax changes to new methods on existing objects. 令人兴奋的是ECMAScript 6的所有这些变化是针对开发者所面临的问题。虽然对于采用和实施以达到让开发者所期望的ECMAScript 6的最基本内容还需要些时间，还有很多好的方式可以知道JavaScript的特性是怎样的。
 
 ##Browser and Node.js Compatibility
 Many JavaScript environments, such as web browsers and Node.js, are actively working on implementing ECMAScript 6. This book does not attempt to address the inconsistencies between implementations and instead focuses on what the specification defines as the correct behavior. As such, it’s possible that your JavaScript environment may not conform to the behavior described in this book.
