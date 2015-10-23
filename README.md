@@ -4,7 +4,7 @@ Github：https://github.com/nzakas/understandinges6<br>
 英文版在线阅读：https://leanpub.com/understandinges6/read
 
 - [介绍](01-Introduction.md)
-  - 浏览器和NodeJS的兼容性情况
+  - 浏览器和NodeJs的兼容性
   - 这本书适合谁看
   - 概述
   - 帮助和支持
