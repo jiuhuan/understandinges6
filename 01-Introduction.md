@@ -42,7 +42,11 @@ Many JavaScript environments, such as web browsers and Node.js, are actively wor
 ###Who This Book is For 这本书适合谁看
 This book is intended as a guide for those who are already familiar with JavaScript and ECMAScript 5. While a deep understanding of the language isn’t necessary to use this book, it is helpful in understanding the differences between ECMAScript 5 and 6. In particular, this book is aimed at intermediate-to-advanced JavaScript developers (both browser and Node.js environments) who want to learn about the future of the language.
 
+
 This book is not for beginners who have never written JavaScript. You will need to have a good basic understanding of the language to make use of this book.
+
+这本书不适合没写过JavaScript的开发者。你需要一个不错的语言基础才能看懂本书的内容。
+
 
 ###Overview
 Chapter 1: Block Bindings talks about let and const, the block-level replacement for var.
