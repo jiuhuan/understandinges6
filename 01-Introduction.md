@@ -41,7 +41,7 @@ Many JavaScript environments, such as web browsers and Node.js, are actively wor
 
 ###Who This Book is For 这本书适合谁看
 This book is intended as a guide for those who are already familiar with JavaScript and ECMAScript 5. While a deep understanding of the language isn’t necessary to use this book, it is helpful in understanding the differences between ECMAScript 5 and 6. In particular, this book is aimed at intermediate-to-advanced JavaScript developers (both browser and Node.js environments) who want to learn about the future of the language.
-
+这本书的目的是作为一个为那些已经熟悉JavaScript和ECMAScript 5开发者的指南。这本书不适合用来深入理解语言，它只是用来帮助理解ECMAScript 5 和 6之间的区别。特别是，这本书这本书是针对想要了解语言未来的中级到高级的JavaScript开发者（包括浏览器和Node.js环境）。
 
 This book is not for beginners who have never written JavaScript. You will need to have a good basic understanding of the language to make use of this book.
 
