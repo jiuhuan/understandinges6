@@ -50,6 +50,8 @@ This book is not for beginners who have never written JavaScript. You will need 
 
 ###Overview
 Chapter 1: Block Bindings talks about let and const, the block-level replacement for var.
+第1章：替换var的块级别绑定let和const。
+
 
 Chapter 2: Strings and Regular Expressions covers the additions to string manipulation and inspection as well as the introduction of template strings.
 
