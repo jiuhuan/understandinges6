@@ -2,7 +2,7 @@
 
 The JavaScript core language features are defined in a standard called ECMA-262. The language defined in this standard is called ECMAScript, of which the JavaScript in the browser and Node.js environments are a superset. While browsers and Node.js may add more capabilities through additional objects and methods, the core of the language remains as defined in ECMAScript, which is why the ongoing development of ECMA-262 is vital to the success of JavaScript as a whole.
 
-JavaScript核心特性定义在一个叫ECMA-262的标准中。语言的核心特性在标准中被称为ECMAScript，并且是作为一个父集存在于浏览器和NodeJs环境中。当浏览器和NodeJs可通过额外的对象和方法来增加更多的功能，这种核心特性就会被定义为ECMAScript，这就是为什么ECMA-262标准的持续发展对JavaScript作为一个整体能否成功起着至关重要的作用。
+JavaScript核心特性根据 ECMA-262 标准制定。语言的核心特性在标准中被称为ECMAScript，并且是作为一个父集存在于浏览器和NodeJs环境中。当浏览器和NodeJs可通过额外的对象和方法来增加更多的功能，这种核心特性就会被定义为ECMAScript，这就是为什么ECMA-262标准的持续发展对JavaScript作为一个整体能否成功起着至关重要的作用。
 
 
 In 2007, JavaScript was at a crossroads. The popularity of Ajax was ushering in a new age of dynamic web applications while JavaScript hadn’t changed since the third edition of ECMA-262 was published in 1999. TC-39, the committee responsible for driving the ECMAScript process, put together a large draft specification for ECMAScript 4. ECMAScript 4 was massive in scope, introducing changes both small and large to the language. Language features included new syntax, modules, classes, classical inheritance, private object members, optional type annotations, and more.
