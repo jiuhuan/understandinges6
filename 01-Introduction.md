@@ -41,6 +41,7 @@ Many JavaScript environments, such as web browsers and Node.js, are actively wor
 
 ###Who This Book is For 这本书适合谁看
 This book is intended as a guide for those who are already familiar with JavaScript and ECMAScript 5. While a deep understanding of the language isn’t necessary to use this book, it is helpful in understanding the differences between ECMAScript 5 and 6. In particular, this book is aimed at intermediate-to-advanced JavaScript developers (both browser and Node.js environments) who want to learn about the future of the language.
+
 这本书的目的是作为一个为那些已经熟悉JavaScript和ECMAScript 5开发者的指南。这本书不适合用来深入理解语言，它只是用来帮助理解ECMAScript 5 和 6之间的区别。特别是，这本书这本书是针对想要了解语言未来的中级到高级的JavaScript开发者（包括浏览器和Node.js环境）。
 
 This book is not for beginners who have never written JavaScript. You will need to have a good basic understanding of the language to make use of this book.
@@ -51,25 +52,30 @@ This book is not for beginners who have never written JavaScript. You will need 
 ###Overview
 Chapter 1: Block Bindings talks about let and const, the block-level replacement for var.
 
-第1章：替换var的块级别绑定 let 和 const 。
+第1章：替换 var 的块级别绑定 let 和 const 。
 
 
 Chapter 2: Strings and Regular Expressions covers the additions to string manipulation and inspection as well as the introduction of template strings.
 
-第2章：字符串扩展，包括Strings、正则表达式和模板字符串
+第2章：字符串扩展，包括Strings、Regular Expressions 和模板字符串
 
 Chapter 3: Functions discusses the various changes to functions. This includes the arrow function form, default parameters, rest parameters, and more.
 
-第3章：讨论函数的各种变化，包括箭头函数形式，默认参数，其他参数，以及更多。
+第3章：讨论 Functions 的各种变化，包括 arrow，默认参数，其他参数，以及更多。
 
 Chapter 4: Objects explains the changes to how objects are created, modified, and used. Topics include changes to object literal syntax, and new reflection methods.
 
-第4章：对象扩展解释了对象的创建、修改和使用的变化。主题还讨论对象字面量的语法和新的反射方法。
+第4章：Objects 扩展解释了对象的创建、修改和使用的变化。主题还讨论对象字面量的语法和新的反射方法。
 
 
 Chapter 5: Destructuring introduces object and array destructuring, which allow you to decompose objects and arrays using a concise syntax.
 
+第5章：解构对象和数组。
+
+
 Chapter 6: Symbols introduces the concept of symbols, a new way to define properties. Symbols are a new primitive type that can be used to obscure (but not hide) object properties and methods.
+
+第6章：介绍新的原始数据类型Symbols，可以用来掩盖（但不隐藏）对象的属性和方法。
 
 Chapter 7: Iterators and Generators discusses the addition of iterators and generators to the language. These features allow you to work with collections of data in powerful ways that were not possible in previous versions of JavaScript.
 
