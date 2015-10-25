@@ -55,14 +55,19 @@ Block-level declarations are those that declare variables that are inaccessible 
 Block scoping is how many C-based languages work, and the introduction of block-level declarations in ECMAScript 6 is intended to bring that same flexibility (and uniformity) to JavaScript.
 
 块级声明是那些在给定的块范围之外的不可访问的变量。块级作用域创建：
-1. 函数内
-2. 块内（包裹在{和}内）
+
+1.  函数内
+2.  块内（包裹在{和}内）
+
 块级作用域类似C-based语言的工作原理， ECMAScript 6 提出块级声明为JavaScript带来了弹性（均匀）
 
 
-####Let Declarations
+
+####Let Declarations let 声明
 
 The let declaration syntax is the same as the syntax for var. You can basically replace var with let to declare a variable, but limit the variable’s scope to only the current code block. Since let declarations are not hoisted to the top of the enclosing block, you may want to always place let declarations first in the block, so that they are available to the entire block. Here’s an example:
+
+let 声明语法和 var 的是一致的。你基本上可以用let代替var去声明一个变量，但限制变量的作用域仅在当前代码块。自从 let 声明不被提升至封闭块的顶部，你可能想要把 let 声明放在块的第一行，这样整个块才能使用这些变量，例子如下：
 
 ```JavaScript
 function getValue(condition) {
