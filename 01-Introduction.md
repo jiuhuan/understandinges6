@@ -56,9 +56,16 @@ Chapter 1: Block Bindings talks about let and const, the block-level replacement
 
 Chapter 2: Strings and Regular Expressions covers the additions to string manipulation and inspection as well as the introduction of template strings.
 
+第2章：字符串扩展，包括Strings、正则表达式和模板字符串
+
 Chapter 3: Functions discusses the various changes to functions. This includes the arrow function form, default parameters, rest parameters, and more.
 
+第3章：讨论函数的各种变化，包括箭头函数形式，默认参数，其他参数，以及更多。
+
 Chapter 4: Objects explains the changes to how objects are created, modified, and used. Topics include changes to object literal syntax, and new reflection methods.
+
+第4章：对象扩展解释了对象的创建、修改和使用的变化。主题还讨论对象字面量的语法和新的反射方法。
+
 
 Chapter 5: Destructuring introduces object and array destructuring, which allow you to decompose objects and arrays using a concise syntax.
 
