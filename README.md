@@ -1,5 +1,7 @@
 ###Understanding ECMAScript 6 中文翻译
 
+>######免责声明：翻译纯属个人兴趣爱好翻译，不能保证翻译得完全正确和理解到位，如果有问题，请指出来，我会更正
+
 Github：https://github.com/nzakas/understandinges6<br>
 英文版在线阅读：https://leanpub.com/understandinges6/read
 
