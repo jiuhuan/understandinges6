@@ -2,7 +2,7 @@
 Traditionally, one tricky part of programming in JavaScript has been the way variable declarations work. In most C-based languages, variables (or bindings) are created at the spot where the declaration occurs. In JavaScript, however, this is not the case. Where your variables are actually created depends on how you declare them, and ECMAScript 6 offers options to make controlling scope easier. This chapter demonstrates why classic var declarations can be confusing, introduces block-level bindings in ECMAScript 6, and then offers some best practices for using them.
 
 
->####Var Declarations and Hoisting 变量声明和提升
+####*Var Declarations and Hoisting 变量声明和提升*
 
 Variable declarations using var are hoisted to the top of the function (or to global scope, if declared outside of a function) regardless of where the actual declaration occurs. For a demonstration of what hoisting does, consider the following function definition:
 
@@ -47,7 +47,7 @@ It often takes new JavaScript developers some time to get used to declaration ho
 
 这经常浪费JavaScript开发者去习惯声明提升，不懂这一独特的行为最终将引起bugs。根据这些原因，ECMAScript 6 介绍了块级作用域选项，从而让控制变量的声明周期变得更强大。
 
->####Block-Level Declarations 块级声明
+####*Block-Level Declarations 块级声明*
 
 Block-level declarations are those that declare variables that are inaccessible outside of a given block scope. Block scopes are created:
 1. Inside of a function
@@ -216,7 +216,7 @@ The variable value isn’t in the TDZ when the typeof operation executes because
 
 The TDZ is just one unique aspect of block bindings. Another unique aspect has to do with their use inside of loops.
 
->####Block Binding in Loops
+####*Block Binding in Loops*
 
 Perhaps one area where developers most want block level scoping of variables is with for loops, where the throwaway counter variable is meant to be used only inside the loop. For instance, it’s not uncommon to see code such as this in JavaScript:
 
@@ -275,7 +275,8 @@ funcs.forEach(function(func) {
 ```
 This version uses an IIFE inside of the loop. The i variable is passed to the IIFE, which creates its own copy and stores it as value. This is the value used by the function for that iteration, so calling each function returns the expected value as the loop counts up from 0 to 9. Fortunately, block-level binding with let and const in ECMAScript 6 can simplify this loop for you.
 
-Let Declarations in Loops
+####Let Declarations in Loops
+
 A let declaration simplifies loops by effectively mimicking what the IIFE does in the previous example. On each iteration, the loop creates a new variable and initializes it to the value of the variable with the same name from the previous iteration. That means you can omit the IIFE altogether and get the results you expect, like this:
 
 ```JavaScript
@@ -354,7 +355,7 @@ funcs.forEach(function(func) {
 ```
 This code functions almost exactly the same as the second example in the “Let Declarations in Loops” section. The only difference is that the value of key cannot be changed inside the loop. The for-in and for-of loops work with const because the loop initializer creates a new binding on each iteration through the loop rather than attempting to modify the value of an existing binding (as was the case with the previous example using for instead of for-in).
 
->####Global Block Bindings
+####*Global Block Bindings*
 
 It’s unusual to use let or const in the global scope, but if you do, understand that there is a potential for naming collisions when doing so, because the global object has predefined properties. In many JavaScript environments, global variables are assigned as properties on the global object, and global object properties are accessed transparently as non-qualified identifiers (such as name or location). Using a block binding declaration to define a variable that shares a name with a property of the global object can produce an error because global object properties may be nonconfigurable. Since block bindings disallow redefinition of an identifier in the same scope, it’s not possible to shadow nonconfigurable global properties. Attempting to do so will result in an error. For example:
 
@@ -362,13 +363,13 @@ let RegExp = "Hello!";          // ok
 let undefined = "Hello!";       // throws error
 The first line of this example redefines the global RegExp as a string. Even though this would be problematic, there is no error thrown. The second line throws an error because undefined is a nonconfigurable own property of the global object. Since its definition is locked down by the environment, the let declaration is illegal.
 
->####Emerging Best Practices for Block Bindings
+####*Emerging Best Practices for Block Bindings*
 
 While ECMAScript 6 was in development, there was widespread belief you should use let by default instead of var for variable declarations. For many JavaScript developers, let behaves exactly the way they thought var should have behaved, and so the direct replacement makes logical sense. In this case, you would use const for variables that needed modification protection.
 
 However, as more developers migrated to ECMAScript 6, an alternate approach gained popularity: use const by default and only use let when you know a variable’s value needs to change. The rationale is that most variables should not change their value after initialization because unexpected value changes are a source of bugs. This idea has gained a significant amount of traction and is worth exploring in your code as you adopt ECMAScript 6.
 
->####Summary
+####*Summary*
 
 The let and const block bindings introduce lexical scoping to JavaScript. These declarations are not hoisted and only exist within the block in which they are declared. This offers behavior that is more like other languages and less likely to cause unintentional errors, as variables can now be declared exactly where they are needed. As a side effect, you cannot access variables before they are declared, even with safe operators such as typeof. Attempting to access a block binding before its declaration results in an error due to the binding’s presence in the temporal dead zone (TDZ).
 
