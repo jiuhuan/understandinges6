@@ -61,11 +61,11 @@ Chapter 2: Strings and Regular Expressions covers the additions to string manipu
 
 Chapter 3: Functions discusses the various changes to functions. This includes the arrow function form, default parameters, rest parameters, and more.
 
-第3章：讨论 Functions 的各种变化，包括 arrow，默认参数，其他参数，以及更多。
+第3章：讨论函数的各种变化，包括 arrow，默认参数，其他参数，以及更多。
 
 Chapter 4: Objects explains the changes to how objects are created, modified, and used. Topics include changes to object literal syntax, and new reflection methods.
 
-第4章：Objects 扩展解释了对象的创建、修改和使用的变化。主题还讨论对象字面量的语法和新的反射方法。
+第4章：对象扩展解释了对象的创建、修改和使用的变化。主题还讨论对象字面量的语法和新的反射方法。
 
 
 Chapter 5: Destructuring introduces object and array destructuring, which allow you to decompose objects and arrays using a concise syntax.
@@ -79,19 +79,37 @@ Chapter 6: Symbols introduces the concept of symbols, a new way to define proper
 
 Chapter 7: Iterators and Generators discusses the addition of iterators and generators to the language. These features allow you to work with collections of data in powerful ways that were not possible in previous versions of JavaScript.
 
+第7章：迭代器和生成器扩展允许收集通过强大的方式收集数据。
+
+
 Chapter 8: Classes introduces the first formal concept of classes in JavaScript. Often a point of confusion for those coming from other languages, the addition of class syntax in JavaScript makes the language more approachable to others and more concise for enthusiasts.
+
+第8章：类在JavaScript中第一次有正式概念。常常和其他语言的 class 造成混乱，JavaScript添加的 class 语法使开发者更容易使用。
 
 Chapter 9: Arrays details the changes to native arrays and the interesting new ways they can be used in JavaScript.
 
+第9章：数组详述了原生数组的改变和新的有趣的方法。
+
 Chapter 10: Collections details the new collection types of Set, WeakSet, Map, and WeakMap. These types expand on the usefulness of arrays by adding semantics, de-duping, and memory management designed specifically for JavaScript.
+
+第10章：新的收集方式 Set, WeakSet, Map 和 WeakMap，这些方式通过添加语义，de-duping和专门为JavaScript设计的内存管理以提高数组的效率。
 
 Chapter 11: Promises introduces promises as a new part of the language. Promises were a grassroots effort that eventually took off and gained in popularity due to extensive library support. ECMAScript 6 formalizes promises and makes them available by default.
 
+第11章：
+
 Chapter 12: Reflection introduces the formalized reflection API for JavaScript. Similar to other languages, ECMAScript 6 reflection allows you to inspect objects at a granular level, even if you didn’t create the object.
+
+第12章：介绍JavaScript正式的reflection API，允许检查对象的粒度级别，即使没有创建对象。
 
 Chapter 13: Proxies discusses the new proxy object that allows you to intercept every operation performed on an object. Proxies give developers unprecedented control over objects and, as such, unlimited possibilities for defining new interaction patterns.
 
+第13章：介绍新的代理对象，允许拦截对象上的每一个操作。代理给开发者提供了对对象前所未有的控制，因此，这种新的交互模式提供了无需的可能。
+
+
 Chapter 14: Modules details the official module format for JavaScript. The intent is that these modules can replace the numerous ad-hoc module definition formats that have appeared over the years.
+
+第14章：介绍模块的格式，这些模块可以取代已经出现了多年的众多的特设模块格式。
 
 ###Help and Support
 You can file issues, suggest changes, and open pull requests against this book by visiting: https://github.com/nzakas/understandinges6
