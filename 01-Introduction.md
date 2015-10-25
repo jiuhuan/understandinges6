@@ -1,5 +1,5 @@
-##Introduction 介绍
-
+##Introduction 
+####介绍
 The JavaScript core language features are defined in a standard called ECMA-262. The language defined in this standard is called ECMAScript, of which the JavaScript in the browser and Node.js environments are a superset. While browsers and Node.js may add more capabilities through additional objects and methods, the core of the language remains as defined in ECMAScript, which is why the ongoing development of ECMA-262 is vital to the success of JavaScript as a whole.
 
 JavaScript核心特性根据 ECMA-262 标准制定。语言的核心特性在标准中被称为ECMAScript，并且是作为一个父集存在于浏览器和NodeJs环境中。当浏览器和NodeJs可通过额外的对象和方法来增加更多的功能，这种核心特性就会被定义为ECMAScript，这就是为什么ECMA-262标准的持续发展对JavaScript作为一个整体能否成功起着至关重要的作用。
@@ -34,12 +34,14 @@ ECMAScript 6 reached feature complete status in 2015 was formally dubbed “ECMA
 
 ECMAScript 6在2015年达到功能完整的状态并被正式命名为ECMAScript 2015（但本文还是叫它为大多数开发者熟悉的ECMAScript 6）。The features vary widely from completely new objects and patterns to syntax changes to new methods on existing objects. 令人兴奋的是ECMAScript 6的所有这些变化是针对开发者所面临的问题。虽然对于采用和实施以达到让开发者所期望的ECMAScript 6的最基本内容还需要些时间，还有很多好的方式可以知道JavaScript的特性是怎样的。
 
-##Browser and Node.js Compatibility 浏览器和NodeJs的兼容性
+##Browser and Node.js Compatibility 
+####浏览器和NodeJs的兼容性
 Many JavaScript environments, such as web browsers and Node.js, are actively working on implementing ECMAScript 6. This book does not attempt to address the inconsistencies between implementations and instead focuses on what the specification defines as the correct behavior. As such, it’s possible that your JavaScript environment may not conform to the behavior described in this book.
 
 很多JavaScript环境，如浏览器和NodeJs,正在努力实现ECMAScript。这本书不是尝试划分实现间的不一致，取而代之的是把重点放在规范定义的正确行为上。因此，你的JavaScript环境可能不符合这本书讨论的行为。
 
-##Who This Book is For 这本书适合谁看
+##Who This Book is For 
+####这本书适合谁看
 This book is intended as a guide for those who are already familiar with JavaScript and ECMAScript 5. While a deep understanding of the language isn’t necessary to use this book, it is helpful in understanding the differences between ECMAScript 5 and 6. In particular, this book is aimed at intermediate-to-advanced JavaScript developers (both browser and Node.js environments) who want to learn about the future of the language.
 
 这本书的目的是作为一个为那些已经熟悉JavaScript和ECMAScript 5开发者的指南。这本书不适合用来深入理解语言，它只是用来帮助理解ECMAScript 5 和 6之间的区别。特别是，这本书这本书是针对想要了解语言未来的中级到高级的JavaScript开发者（包括浏览器和Node.js环境）。
@@ -50,6 +52,7 @@ This book is not for beginners who have never written JavaScript. You will need 
 
 
 ##Overview
+####概述
 Chapter 1: Block Bindings talks about let and const, the block-level replacement for var.
 
 第1章：替换 var 的块级别绑定 let 和 const 。
