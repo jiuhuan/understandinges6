@@ -257,7 +257,7 @@ The variable value isn’t in the TDZ when the typeof operation executes because
 
 The TDZ is just one unique aspect of block bindings. Another unique aspect has to do with their use inside of loops.
 
-####*Block Binding in Loops*
+###*Block Binding in Loops*
 
 Perhaps one area where developers most want block level scoping of variables is with for loops, where the throwaway counter variable is meant to be used only inside the loop. For instance, it’s not uncommon to see code such as this in JavaScript:
 
@@ -396,7 +396,7 @@ funcs.forEach(function(func) {
 ```
 This code functions almost exactly the same as the second example in the “Let Declarations in Loops” section. The only difference is that the value of key cannot be changed inside the loop. The for-in and for-of loops work with const because the loop initializer creates a new binding on each iteration through the loop rather than attempting to modify the value of an existing binding (as was the case with the previous example using for instead of for-in).
 
-####*Global Block Bindings*
+###*Global Block Bindings*
 
 It’s unusual to use let or const in the global scope, but if you do, understand that there is a potential for naming collisions when doing so, because the global object has predefined properties. In many JavaScript environments, global variables are assigned as properties on the global object, and global object properties are accessed transparently as non-qualified identifiers (such as name or location). Using a block binding declaration to define a variable that shares a name with a property of the global object can produce an error because global object properties may be nonconfigurable. Since block bindings disallow redefinition of an identifier in the same scope, it’s not possible to shadow nonconfigurable global properties. Attempting to do so will result in an error. For example:
 
@@ -404,13 +404,13 @@ let RegExp = "Hello!";          // ok
 let undefined = "Hello!";       // throws error
 The first line of this example redefines the global RegExp as a string. Even though this would be problematic, there is no error thrown. The second line throws an error because undefined is a nonconfigurable own property of the global object. Since its definition is locked down by the environment, the let declaration is illegal.
 
-####*Emerging Best Practices for Block Bindings*
+###*Emerging Best Practices for Block Bindings*
 
 While ECMAScript 6 was in development, there was widespread belief you should use let by default instead of var for variable declarations. For many JavaScript developers, let behaves exactly the way they thought var should have behaved, and so the direct replacement makes logical sense. In this case, you would use const for variables that needed modification protection.
 
 However, as more developers migrated to ECMAScript 6, an alternate approach gained popularity: use const by default and only use let when you know a variable’s value needs to change. The rationale is that most variables should not change their value after initialization because unexpected value changes are a source of bugs. This idea has gained a significant amount of traction and is worth exploring in your code as you adopt ECMAScript 6.
 
-####*Summary*
+###*Summary*
 
 The let and const block bindings introduce lexical scoping to JavaScript. These declarations are not hoisted and only exist within the block in which they are declared. This offers behavior that is more like other languages and less likely to cause unintentional errors, as variables can now be declared exactly where they are needed. As a side effect, you cannot access variables before they are declared, even with safe operators such as typeof. Attempting to access a block binding before its declaration results in an error due to the binding’s presence in the temporal dead zone (TDZ).
 
