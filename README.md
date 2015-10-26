@@ -5,17 +5,17 @@
 Github：https://github.com/nzakas/understandinges6<br>
 英文版在线阅读：https://leanpub.com/understandinges6/read
 
->####[介绍](01-Introduction.md)
+>####[Introduction 介绍](01-Introduction.md)
 
-  - 浏览器和NodeJs的兼容性
-  - 这本书适合谁看
-  - 概述
-  - 帮助和支持
+  - Browser and Node.js Compatibility 浏览器和NodeJs的兼容性
+  - Who This Book is For 这本书适合谁看
+  - Overview 概述
+  - Help and Support 帮助和支持
 
->####[Block Bindings](02-Block-Bindings.md)
+>####[Block Bindings 块绑定](02-Block-Bindings.md)
 
-  - Var Declarations and Hoisting
-  - Block-Level Declarations
+  - Var Declarations and Hoisting 变量声明和提升
+  - Block-Level Declarations 块级声明
   - Block Binding in Loops
   - Global Block Bindings
   - Emerging Best Practices for Block Bindings
