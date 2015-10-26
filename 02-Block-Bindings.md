@@ -277,9 +277,11 @@ The TDZ is just one unique aspect of block bindings. Another unique aspect has t
 
 TDZ 只是块绑定的一个独特的方面。另一个独特的方面是必须在内部。
 
-###*Block Binding in Loops*
+###*Block Binding in Loops* 循环中的块绑定
 
 Perhaps one area where developers most want block level scoping of variables is with for loops, where the throwaway counter variable is meant to be used only inside the loop. For instance, it’s not uncommon to see code such as this in JavaScript:
+
+这可能是开发者最想给循环声明块作用域变量的一点，循环内的一次性计时器变量只能在循环内使用。下面的例子在JavaScript中并不少见：
 
 ```JavaScript
 for (var i=0; i < 10; i++) {
@@ -290,6 +292,8 @@ for (var i=0; i < 10; i++) {
 console.log(i);                     // 10
 ```
 In other languages, where block level scoping is the default, code like this works as intended, and only the for loop has access to the i variable. In JavaScript, the variable i is still accessible after the loop is completed because the var declaration gets hoisted. Using let instead, as in the following code, allows you to get the intended behavior:
+
+
 
 ```JavaScript
 for (let i=0; i < 10; i++) {
