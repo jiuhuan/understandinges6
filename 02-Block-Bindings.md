@@ -251,7 +251,7 @@ if (condition) {
 
 Here, the variable value is defined and initialized using let, but that statement is never executed because the previous line throws an error. The issue is that value exists in what has become known in the JavaScript community as the temporal dead zone (TDZ). The TDZ is never named explicitly in the specification, but it’s a term often used to describe the non-hoisting behavior of let and const. This section covers some subtleties of declaration placement that the TDZ causes, and although the examples shown all use let, note that the same information applies to const.
 
-代码中，变量使用 let 定义并初始化，但这个声明永远不会执行因为前一行抛出了个错误。这个问题这个价值以 TDZ 在 JavaScript 社区中被广泛知晓。在规范中 TDZ 没有明确的命名，但它经常被用来描述 let 和 const 无提升。这部分讨论由TDZ引起的声明位置间的一些细微差别，虽然这些例子都用 let ，但注意同样也适用于 const 。
+代码中，变量使用 let 定义并初始化，但这个声明永远不会执行因为前一行抛出了个错误。这个问题以 TDZ 在 JavaScript 社区中被广泛知晓。在规范中 TDZ 没有明确的命名，但它经常被用来描述 let 和 const 无提升。这部分讨论由TDZ引起的声明位置间的一些细微差别，虽然这些例子都用 let ，但注意同样也适用于 const 。
 
 When a JavaScript engine looks through an upcoming block and finds a variable declaration, it either hoists the declaration (for var) or places the declaration in the TDZ (for let and const). Any attempt to access a variable in the TDZ results in a runtime error. That variable is only removed from the TDZ, and therefore safe to use, once execution flows to the variable declaration.
 
