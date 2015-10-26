@@ -71,29 +71,28 @@ let 声明语法和 var 的是一致的。你基本上可以用let代替var去�
 
 ```JavaScript
 function getValue(condition) {
-
     if (condition) {
         let value = "blue";
-
         // other code
-
         return value;
     } else {
-
         // value doesn't exist here
-
         return null;
     }
-
     // value doesn't exist here
 }
 ```
 
 This version of the getValue function behaves much closer to what you’d expect in other C-based languages. The variable value is declared using let instead of var. That means the declaration is not hoisted to the top of the function definition, and the variable value is destroyed once execution has flowed out of the if block. If condition evaluates to false, then value is never declared or initialized.
 
-####No Redeclaration
+这个版本的getValue函数写法更接近你期望的C-based语言。变量声明用let代替var。这意味着声明没有被提升到函数顶部，一旦执行走出了块的范围，变量将被销毁。如果执行条件为false，变量就永远不会被声明或者初始化。
+
+
+####No Redeclaration 不可重复声明
 
 If an identifier has already been defined in a scope, then using the identifier in a let declaration inside that scope causes an error to be thrown. For example:
+
+如果在一个作用域中已经存在了一个已经被var被声明了的变量，在该作用域中使用 let 声明同样的标识符将抛出一个错误。例子：
 
 ``` JavaScript
 var count = 30;
@@ -104,18 +103,20 @@ let count = 40;
 
 In this example, count is declared twice, once with var and once with let. Because let will not redefine an identifier that already exists in the same scope, the declaration throws an error. No error is thrown if a let declaration creates a new variable in a scope with the same name as a variable in the containing scope, which is demonstrated in the following code:
 
+例子中，count被声明了两次，一次用 var 和一次用 let 。因为 let 不会在同样的作用域中重复定义一个已经存在的标识符，所以这个声明会抛出错误。
+
 ``` JavaScript
 var count = 30;
 
 // Does not throw an error
 if (condition) {
-
     let count = 40;
-
     // more code
 }
 ```
 This let declaration doesn’t throw an error because it creates a new variable called count within the if statement, instead of in the surrounding block. Inside the if block, this new variable shadows the global count, preventing access to it until execution leaves the block.
+
+
 
 ####Constant Declarations
 
