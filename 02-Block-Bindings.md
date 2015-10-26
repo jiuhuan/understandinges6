@@ -236,8 +236,11 @@ Here, the binding person is created with an initial value of an object with one 
 几个浏览器实现了 pre-ECMAScript 6 版本的 const，所以当使用这些声明方式时请注意这些。实现范围重简单的 var （允许值被修改）到实际定义的常量但只在全局或者函数作用域内。根据这些原因，在产品中使用 const 要特别小心。它可能不会满足你的期望。
 
 
-####The Temporal Dead Zone
+####The Temporal Dead Zone TDZ
+
 Unlike var, let and const have no hoisting characteristics. A variable declared with either cannot be accessed until after the declaration. Attempting to do so results in a reference error, even when using normally safe operations such as typeof:
+
+和 var 不同，let 和 const 没有提升的特征。变量在没有声明之前不会被访问。尝试这么做结果会返回一个引用错误，甚至是使用正式安全的 typeof ：
 
 ```JavaScript
 if (condition) {
@@ -245,11 +248,18 @@ if (condition) {
     let value = "blue";
 }
 ```
+
 Here, the variable value is defined and initialized using let, but that statement is never executed because the previous line throws an error. The issue is that value exists in what has become known in the JavaScript community as the temporal dead zone (TDZ). The TDZ is never named explicitly in the specification, but it’s a term often used to describe the non-hoisting behavior of let and const. This section covers some subtleties of declaration placement that the TDZ causes, and although the examples shown all use let, note that the same information applies to const.
+
+代码中，变量使用 let 定义并初始化，但这个声明永远不会执行因为前一行抛出了个错误。这个问题这个价值以 TDZ 在 JavaScript 社区中被广泛知晓。在规范中 TDZ 没有明确的命名，但它经常被用来描述 let 和 const 无提升。这部分讨论由TDZ引起的声明位置间的一些细微差别，虽然这些例子都用 let ，但注意同样也适用于 const 。
 
 When a JavaScript engine looks through an upcoming block and finds a variable declaration, it either hoists the declaration (for var) or places the declaration in the TDZ (for let and const). Any attempt to access a variable in the TDZ results in a runtime error. That variable is only removed from the TDZ, and therefore safe to use, once execution flows to the variable declaration.
 
+当 JavaScript 通过一个即将到来的块中寻找一个变量声明，不是提升声明（var）就是通过TDZ找到声明的位置（ let 和 const ）。任何尝试在TDZ中使用一个变量都将引起一个运行是的错误。变量仅在 TDZ 中被移除，因此才能被安全使用，一旦执行到变量声明。
+
 This is true anytime you attempt to use a variable declared with let before it’s been defined, even the normally safe typeof operator. You can, however, use typeof on a variable outside of the block where that variable is declared, though it may not give the results you’re after. Consider this code:
+
+任何时候你尝试在 let 声明的变量之前使用该变量都是可以的，甚至是使用 typeof 运算符。然而在变量定义的块之外使用 typeof 变量，它不会给你想要的结果。例子： 
 
 ```JavaScript
 console.log(typeof value);     // "undefined"
@@ -258,9 +268,14 @@ if (condition) {
     let value = "blue";
 }
 ```
+
 The variable value isn’t in the TDZ when the typeof operation executes because it occurs outside of the block in which value is declared. That means there is no value binding, and typeof simply returns "undefined".
 
+当 typeof 变量执行时，变量 value 没有在TDZ中，因为这发生在 value 声明的代码块之外。这意味着没有值绑定，所以typeof 简单的返回 undefined。
+
 The TDZ is just one unique aspect of block bindings. Another unique aspect has to do with their use inside of loops.
+
+TDZ 只是块绑定的一个独特的方面。另一个独特的方面是必须在内部。
 
 ###*Block Binding in Loops*
 
