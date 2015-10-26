@@ -207,9 +207,11 @@ Much like constants in other languages, the maxItems variable can’t be assigne
 
 像其他语言中的常量，后面的变量 maxItems 不能被赋值。然而，与其他语言中常量不同的是，如果常量是一个对象，便可以被修改。
 
-####Declaring Objects with Const
+####Declaring Objects with Const const 声明对象
 
 A const declaration prevents modification of the binding and not of the value itself. That means const declarations for objects do not prevent modification of those objects. For example:
+
+const 声明防止引用被修改而不是值本身。这就意味着 const 声明的对象不能防止被修改。
 
 ```JavaScript
 const person = {
@@ -227,8 +229,11 @@ person = {
 
 Here, the binding person is created with an initial value of an object with one property. It’s possible to change person.name without causing an error because this changes what person contains and doesn’t change the value that person is bound to. When this code attempts to assign a value to person (attempting to change the binding), an error is thrown. This subtlety in how const works with objects is easy to misunderstand. Just remember: const prevents modification of the binding, not modification of the bound value.
 
+代码中，person 创建并初始化为带一个属性的对象。改变 persion.name 而不引起错误是有可能的，因为改变的是 person 包含的属性而不是改变 person 绑定的值。当代码尝试给 person 赋值（尝试改变绑定），就会抛出错误。const objects 这一细微的差别很容易造成误解。记住：const 防止绑定修改，不修改的绑定值。
+
 >Several browsers implement pre-ECMAScript 6 versions of const, so be aware of this when you use this declaration type. Implementations range from being simply a synonym for var (allowing the value to be overwritten) to actually defining constants but only in the global or function scope. For this reason, be especially careful with using const in a production system. It may not be providing you with the functionality you expect.
 
+几个浏览器实现了 pre-ECMAScript 6 版本的 const，所以当使用这些声明方式时请注意这些。实现范围重简单的 var （允许值被修改）到实际定义的常量但只在全局或者函数作用域内。根据这些原因，在产品中使用 const 要特别小心。它可能不会满足你的期望。
 
 
 ####The Temporal Dead Zone
