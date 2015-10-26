@@ -2,22 +2,28 @@
 Traditionally, one tricky part of programming in JavaScript has been the way variable declarations work. In most C-based languages, variables (or bindings) are created at the spot where the declaration occurs. In JavaScript, however, this is not the case. Where your variables are actually created depends on how you declare them, and ECMAScript 6 offers options to make controlling scope easier. This chapter demonstrates why classic var declarations can be confusing, introduces block-level bindings in ECMAScript 6, and then offers some best practices for using them.
 
 
-####*Var Declarations and Hoisting 变量声明和提升*
+###*Var Declarations and Hoisting 变量声明和提升*
 
 Variable declarations using var are hoisted to the top of the function (or to global scope, if declared outside of a function) regardless of where the actual declaration occurs. For a demonstration of what hoisting does, consider the following function definition:
 
 使用 var 声明的变量无论声明在哪都会被提升到 function （或者全局作用域，如果声明在 function 外）顶部。举一个提升的例子，考虑下面的函数定义：
 
-``` JavaScript
+```JavaScript
 function getValue(condition) {
+
     if (condition) {
         var value = "blue";
-        // other code 
+
+        // other code
+
         return value;
     } else {
+
         // value exists here with a value of undefined
+
         return null;
     }
+
     // value exists here with a value of undefined
 }
 ```
@@ -26,14 +32,19 @@ If you are unfamiliar with JavaScript, then you might expect the variable value 
 
 如果你熟悉JavaScript，你可能期望变量在条件为真的时候创造。事实上，变量已经被创建。在屏幕后，JavaScript引擎改变了函数 getValue，如下所示：
 
-``` JavaScript
+```JavaScript
 function getValue(condition) {
+
     var value;
+
     if (condition) {
         value = "blue";
+
         // other code
+
         return value;
     } else {
+
         return null;
     }
 }
@@ -47,7 +58,7 @@ It often takes new JavaScript developers some time to get used to declaration ho
 
 这经常浪费JavaScript开发者去习惯声明提升，不懂这一独特的行为最终将引起bugs。根据这些原因，ECMAScript 6 介绍了块级作用域选项，从而让控制变量的声明周期变得更强大。
 
-####*Block-Level Declarations 块级声明*
+###*Block-Level Declarations 块级声明*
 
 Block-level declarations are those that declare variables that are inaccessible outside of a given block scope. Block scopes are created:
 1. Inside of a function
@@ -71,14 +82,20 @@ let 声明语法和 var 的是一致的。你基本上可以用let代替var去�
 
 ```JavaScript
 function getValue(condition) {
+
     if (condition) {
         let value = "blue";
+
         // other code
+
         return value;
     } else {
+
         // value doesn't exist here
+
         return null;
     }
+
     // value doesn't exist here
 }
 ```
@@ -94,7 +111,7 @@ If an identifier has already been defined in a scope, then using the identifier 
 
 如果在一个作用域中已经存在了一个已经被var被声明了的变量，在该作用域中使用 let 声明同样的标识符将抛出一个错误。例子：
 
-``` JavaScript
+```JavaScript
 var count = 30;
 
 // Syntax error
@@ -103,24 +120,29 @@ let count = 40;
 
 In this example, count is declared twice, once with var and once with let. Because let will not redefine an identifier that already exists in the same scope, the declaration throws an error. No error is thrown if a let declaration creates a new variable in a scope with the same name as a variable in the containing scope, which is demonstrated in the following code:
 
-例子中，count被声明了两次，一次用 var 和一次用 let 。因为 let 不会在同样的作用域中重复定义一个已经存在的标识符，所以这个声明会抛出错误。
+例子中，count被声明了两次，一次用 var 和一次用 let 。因为 let 不会在同样的作用域中重复定义一个已经存在的标识符，所以这个声明会抛出错误。如果 let 声明了一个和包含了该块的作用域里的一个同名的变量就不会有错误，例子：
 
-``` JavaScript
+```JavaScript
 var count = 30;
 
 // Does not throw an error
 if (condition) {
+
     let count = 40;
+
     // more code
 }
 ```
+
 This let declaration doesn’t throw an error because it creates a new variable called count within the if statement, instead of in the surrounding block. Inside the if block, this new variable shadows the global count, preventing access to it until execution leaves the block.
 
+这里的 let 声明不会抛出错误因为变量创建在一个 if 声明中，而不是在count的附近。在块内部，新变量遮盖了全局的 count，防止引用到全局变量直到执行离开该块。
 
-
-####Constant Declarations
+####Constant Declarations 常量声明
 
 Another way to define variables in ECMAScript 6 is to use the const declaration syntax. Variables declared using const are considered constants, meaning their values cannot be changed once set. For this reason, every const variable must be initialized on declaration, as shown in this example:
+
+在 ECMAScript 6 中还可以用 const 来定义一个变量。使用 const 声明的变量是常量，意思是它们的值一旦设定便无法再次改变。因为这个原因，每一个const变量必须在声明时初始化，例子：
 
 ```JavaScript
 // Valid constant
@@ -132,9 +154,13 @@ const name;
 
 The maxItems variable is initialized, so its const declaration should work without a problem. The name variable, however, would cause an error if you tried to run the program containing this code because it is not initialized. All constant declarations must be initialized or else a syntax error is reported.
 
-####Similarities and Differences from Let
+变量 maxItems 初始化了，所以它的 const 声明执行起来应该没有问题。然而，如果运行包含这段代码的程序运行起来变量 name 就会引起一个错误因为它没有初始化。所有常量声明必须初始化，否则会出现错误。
+
+####Similarities and Differences from Let 和 let 的相识点和不同点
 
 Constants, like let declarations, are block-level declarations. That means constants are destroyed once execution flows out of the block in which they were declared, and declarations are not hoisted to the top of the block, as demonstrated in this example:
+
+常量和 let 声明一样是块级声明。这意味着一旦执行走出他们声明所在的块，它们就会被销毁，并且声明不会被提升到块的顶部。例子：
 
 ```JavaScript
 if (condition) {
@@ -148,7 +174,11 @@ if (condition) {
 
 In this code, the constant maxItems is declared within an if statement. Once the statement finishes executing, maxItems is destroyed and is not accessible outside of that block.
 
+这段代码中，常量 maxItems 被声明在 if 中。一旦 if 执行完，maxItems 就被销毁和无法在这个块以外取得。
+
 In another similarity to let, a const declaration throws an error when made with an identifier for an already-defined variable in the same scope. It doesn’t matter if that variable was declared using var (for global or function scope) or let (for block scope). For example, consider this code:
+
+和 let 类似的另一个点是，当一个标识符已经存在作用域中，const 声明同名的标识符会抛出错误。无论变量是用var声明（全局或者函数作用域）还是用let声明（块作用域）。例子：
 
 ```JavaScript
 var message = "Hello!";
@@ -161,16 +191,21 @@ const age = 30;
 
 The two const declarations would be valid alone, but given the previous var and let declarations in this case, neither will work as intended.
 
+这两个变量如果单独只用将会有效，但在这个案例中前面给出了 var 和 let 声明，便没有一个会按预期工作。
+
 Despite those similarities, there is one big difference between let and const to remember. Attempting to assign a const to a previously defined constant will throw an error, in both strict and non-strict modes:
+
+尽管类似，let 和 const 之间存在一个很大的区别。不管是严格还是非严格模式下，试图赋值一个先前定义了的常量将抛出错误：
 
 ```JavaScript
 const maxItems = 5;
 
 maxItems = 6;      // throws error
-
 ```
 
 Much like constants in other languages, the maxItems variable can’t be assigned a new value later on. However, unlike constants in other language, the value a constant hold may be modified if it is an object.
+
+像其他语言中的常量，后面的变量 maxItems 不能被赋值。然而，与其他语言中常量不同的是，如果常量是一个对象，便可以被修改。
 
 ####Declaring Objects with Const
 
