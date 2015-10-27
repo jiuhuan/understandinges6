@@ -293,7 +293,7 @@ console.log(i);                     // 10
 ```
 In other languages, where block level scoping is the default, code like this works as intended, and only the for loop has access to the i variable. In JavaScript, the variable i is still accessible after the loop is completed because the var declaration gets hoisted. Using let instead, as in the following code, allows you to get the intended behavior:
 
-
+在其他语言中，块级作用域是默认的，代码按预期的工作，并且只有循环访问变量 i。在JavaScript中，因为 var 声明提升的原因，变量 i  在循环完成后仍可以访问。使用 let 替换 var，如下例子，可以达到你想要的行为：
 
 ```JavaScript
 for (let i=0; i < 10; i++) {
@@ -303,10 +303,16 @@ for (let i=0; i < 10; i++) {
 // i is not accessible here - throws an error
 console.log(i);
 ```
+
 In this example, the variable i only exists within the for loop. Once the loop is complete, the variable is destroyed and is no longer accessible elsewhere.
 
-Functions in Loops
+在这个例子中，变量 i 仅存在循环中。一旦循环结束，变量便被摧毁，不会再其他地方使用。
+
+####Functions in Loops 函数中的循环
+
 The characteristics of var have long made creating functions inside of loops problematic, because the loop variables are accessible from outside the scope of the loop. Consider the following code:
+
+长期以来，在循环内部的函数都存在一个关于var特性的问题，因为循环中的变量是可以在外部循环中获得的，考虑下面代码：
 
 ```JavaScript
 var funcs = [];
@@ -319,9 +325,14 @@ funcs.forEach(function(func) {
     func();     // outputs the number "10" ten times
 });
 ```
+
 You might ordinarily expect this code to print 0 to 9, but it outputs the number 10 ten times in a row. That’s because the variable i is shared across each iteration of the loop, meaning the functions created inside the loop all hold a reference to the same variable. The variable i has a value of 10 once the loop completes, and so when console.log(i) is called, that’s the value it outputs each time.
 
+通常你可能希望这段代码打印0到9，但是它输出了10次数字10。这是因为变量 i 在每次循环中都是共通的，意思是在循环内部中创建的函数都持有同一个相同变量的引用。一旦循环结束，变量 i 的值会是10，所以当每次执行 console.log(i) ，都打印了10。
+
 To fix this problem, developers use immediately-invoked function expressions (IIFEs) inside of loops to force a new copy of the variable they want to iterate over to be created, as in this example:
+
+为了解决这个问题，开发者在循环内部使用立即执行函数表达式（IIFES）来创建拷贝他们想要遍历，例子：
 
 ```JavaScript
 var funcs = [];
@@ -338,7 +349,10 @@ funcs.forEach(function(func) {
     func();     // outputs 0, then 1, then 2, up to 9
 });
 ```
+
 This version uses an IIFE inside of the loop. The i variable is passed to the IIFE, which creates its own copy and stores it as value. This is the value used by the function for that iteration, so calling each function returns the expected value as the loop counts up from 0 to 9. Fortunately, block-level binding with let and const in ECMAScript 6 can simplify this loop for you.
+
+这段代码中在循环内部使用 IIFE。变量 i 传递给 IIFE，IIFE创建并保存了 i 作为值。这个值在迭代中被函数使用，所以每调用函数返回期望的值像循环从 0 到 9 计数。幸运的是，在 ECMAScript 6 使用 let 和 const 块级绑定会为你简化这个循环。
 
 ####Let Declarations in Loops
 
