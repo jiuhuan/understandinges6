@@ -17,9 +17,9 @@ Github：https://github.com/nzakas/understandinges6<br>
   - Var Declarations and Hoisting - 变量声明和提升
   - Block-Level Declarations - 块级声明
   - Block Binding in Loops - 循环中的块绑定
-  - Global Block Bindings
-  - Emerging Best Practices for Block Bindings
-  - Summary
+  - Global Block Bindings - 全局块绑定
+  - Emerging Best Practices for Block Bindings - 新兴的块绑定最佳实践
+  - Summary - 总结
 
 >####[Strings and Regular Expressions](03-Strings-and-Regular-Expressions.md)
 
