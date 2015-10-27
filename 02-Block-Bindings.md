@@ -354,9 +354,11 @@ This version uses an IIFE inside of the loop. The i variable is passed to the II
 
 这段代码中在循环内部使用 IIFE。变量 i 传递给 IIFE，IIFE创建并保存了 i 作为值。这个值在迭代中被函数使用，所以每调用函数返回期望的值像循环从 0 到 9 计数。幸运的是，在 ECMAScript 6 使用 let 和 const 块级绑定会为你简化这个循环。
 
-####Let Declarations in Loops
+####Let Declarations in Loops 循环中的 let
 
 A let declaration simplifies loops by effectively mimicking what the IIFE does in the previous example. On each iteration, the loop creates a new variable and initializes it to the value of the variable with the same name from the previous iteration. That means you can omit the IIFE altogether and get the results you expect, like this:
+
+let 声明通过有效的模仿 IIFE 简化了循环。在每次迭代中，循环从上一次迭代中创造了一个同一个变量名并初始化它的值。这意味着你可以省略 IIFE 并拿到你预期的结果，像这样：
 
 ```JavaScript
 var funcs = [];
@@ -371,7 +373,10 @@ funcs.forEach(function(func) {
     func();     // outputs 0, then 1, then 2, up to 9
 })
 ```
+
 This code works exactly like the code that used var and an IIFE but is, arguably, cleaner. The let declaration creates a new variable i each time through the loop, so each function created inside the loop gets its own copy of i. Each copy of i has the value it was assigned at the beginning of the loop iteration in which it was created. The same is true for for-in and for-of loops, as shown here:
+
+这段代码准确无误的工作，像代码使用了 var 和 IIFE，但是可以说，更加简洁了。let 声明在每次穿过循环时创造了一个新的变量 i ，所以循环内的每个函数都拿到了自己 i 的拷贝。 每一个有值的 i 在迭代开始时被分配。对于 for-in 和 for-of 循环也同样成立，如下：
 
 ```JavaScript
 var funcs = [],
@@ -391,13 +396,20 @@ funcs.forEach(function(func) {
     func();     // outputs "a", then "b", then "c"
 });
 ```
+
 In this example, the for-in loop shows the same behavior as the for loop. Each time through the loop, a new key binding is created, and so each function has its own copy of the key variable. The result is that each function outputs a different value. If var were used to declare key, all functions would output "c".
+
+在这个例子中，for-in 循环展示了和普通循环同样的行为。每次穿过循环，新的 key 绑定被创建，所以每个函数都持有自己对变量 key 的拷贝。结果是每个函数都输出了不同的值。如果使用 var 去声明 key，所有函数将输出 'c'。
 
 It’s important to understand that the behavior of let declarations in loops is a specially-defined behavior in the specification and is not necessarily related to the non-hoisting characteristics of let. In fact, early implementations of let did not have this behavior, as it was added later on in the process.
 
-####Constant Declarations in Loops
+理解规范中在循环中 let 声明行为是一个特殊定义的行为而和 let 无提升的特性没有太大的关联的这点很重要。 事实上，早起let的实现并没有这样的行为，这是在后续进程中添加的。
+
+####Constant Declarations in Loops 循环中的 const
 
 The ECMAScript 6 specification doesn’t explicitly disallow const declarations in loops; however, there are different behaviors based on the type of loop you’re using. For a normal for loop, you can use const in the initializer, but the loop will throw a warning if you attempt to change the value. For example:
+
+ECMAScript 6 规范明确指出不允许在循环中使用 const；然而，不同的行为基于你使用不同的循环。只用一个普通的循环，你可以在初始化中使用 const，但是循环将会抛出一个错误如果你尝试改变值。例子：
 
 ```JavaScript
 var funcs = [];
@@ -409,9 +421,14 @@ for (const i=0; i < 10; i++) {
     });
 }
 ```
+
 In this code, the i variable is declared as a constant. The first iteration of the loop, where i is 0, executes successfully. An error is thrown when i++ executes because it’s attempting to modify a constant. As such, you can only use const to declare a variable in the loop initializer if you are not modifying that variable.
 
+代码中，变量 i 被声明为一个常量。循环的第一次迭代，i 的值为 0，执行成功。当 i++ 执行时便会抛出错误因为试图修改常量的值。因此，你仅仅可以在循环初始化处使用 const 声明一个变量如果不修改变量的值。
+
 When used in a for-in or for-of loop, on the other hand, a const variable behaves the same as a let variable. So the following should not cause an error:
+
+另一方面，当使用在 for-in 和 for-of 循环中，一个由 const 的变量的行为和一个由 let 声明的变量一样。所以下面的例子不会引起错误：
 
 ```JavaScript
 var funcs = [],
@@ -432,7 +449,10 @@ funcs.forEach(function(func) {
     func();     // outputs "a", then "b", then "c"
 });
 ```
+
 This code functions almost exactly the same as the second example in the “Let Declarations in Loops” section. The only difference is that the value of key cannot be changed inside the loop. The for-in and for-of loops work with const because the loop initializer creates a new binding on each iteration through the loop rather than attempting to modify the value of an existing binding (as was the case with the previous example using for instead of for-in).
+
+这段代码几乎和‘循环中的 let ’部分中的第二个例子一样。唯一一点不同的是 key 的值不能在循环内部被改变。for-in 和 for-of 循环通过 const 运行是因为循环初始化为每次迭代创造了一个新的绑定而不是尝试修改已经存在的绑定的值（就和前面使用 for-in 代替 for 的例子）。
 
 ###*Global Block Bindings*
 
