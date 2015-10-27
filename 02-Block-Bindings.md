@@ -277,7 +277,7 @@ The TDZ is just one unique aspect of block bindings. Another unique aspect has t
 
 TDZ 只是块绑定的一个独特的方面。另一个独特的方面是必须在内部。
 
-###*Block Binding in Loops* 循环中的块绑定
+###*Block Binding in Loops 循环中的块绑定*
 
 Perhaps one area where developers most want block level scoping of variables is with for loops, where the throwaway counter variable is meant to be used only inside the loop. For instance, it’s not uncommon to see code such as this in JavaScript:
 
