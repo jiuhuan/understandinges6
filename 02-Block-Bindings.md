@@ -454,9 +454,11 @@ This code functions almost exactly the same as the second example in the “Let 
 
 这段代码几乎和‘循环中的 let ’部分中的第二个例子一样。唯一一点不同的是 key 的值不能在循环内部被改变。for-in 和 for-of 循环通过 const 运行是因为循环初始化为每次迭代创造了一个新的绑定而不是尝试修改已经存在的绑定的值（就和前面使用 for-in 代替 for 的例子）。
 
-###*Global Block Bindings*
+###*Global Block Bindings 全局块绑定*
 
 It’s unusual to use let or const in the global scope, but if you do, understand that there is a potential for naming collisions when doing so, because the global object has predefined properties. In many JavaScript environments, global variables are assigned as properties on the global object, and global object properties are accessed transparently as non-qualified identifiers (such as name or location). Using a block binding declaration to define a variable that shares a name with a property of the global object can produce an error because global object properties may be nonconfigurable. Since block bindings disallow redefinition of an identifier in the same scope, it’s not possible to shadow nonconfigurable global properties. Attempting to do so will result in an error. For example:
+
+使用 let 和 const 全局作用域是不常有的，如果这么做，理解一个潜在的命名冲突，因为全局对象有预定义属性。在很多 JavaScript 环境中，全局变量被分配到全局对象中，全局对象属性被明显定义成不合格的标识符（名字或者位置）。使用一个块绑定声明定义一个共享全局对象一个属性名字变量会产生一个错误因为全局对象的属性可能不可配置。由于块绑定不允许在同一个作用域重新定义一个标识符，shadow 不可配置的全局属性是不可能的。尝试这么做将会引起一个错误。例子：
 
 ```JavaScript
 let RegExp = "Hello!";          // ok
@@ -465,13 +467,19 @@ let undefined = "Hello!";       // throws error
 
 The first line of this example redefines the global RegExp as a string. Even though this would be problematic, there is no error thrown. The second line throws an error because undefined is a nonconfigurable own property of the global object. Since its definition is locked down by the environment, the let declaration is illegal.
 
-###*Emerging Best Practices for Block Bindings*
+例子的第一行重定义了相当于一个字符串的全局 RegExp。即使这样有问题，也不会有错误抛出。第二行抛出了错误是因为 undefined 是全局对象的一个不可配置的私有属性。因为它的定义被环境锁定，let 声明是病态的。
+
+###*Emerging Best Practices for Block Bindings 新兴的块绑定最佳实践*
 
 While ECMAScript 6 was in development, there was widespread belief you should use let by default instead of var for variable declarations. For many JavaScript developers, let behaves exactly the way they thought var should have behaved, and so the direct replacement makes logical sense. In this case, you would use const for variables that needed modification protection.
 
+ECMAScript 6 正在开发中，你应该有使用 let 代替默认的 var 来声明变量。对于很多开发者，let behaves exactly the way they thought var should have behaved, and so the direct replacement makes logical sense. In this case。 这种情况下，你应该使用 const 来保护那些不能修改的变量。
+
 However, as more developers migrated to ECMAScript 6, an alternate approach gained popularity: use const by default and only use let when you know a variable’s value needs to change. The rationale is that most variables should not change their value after initialization because unexpected value changes are a source of bugs. This idea has gained a significant amount of traction and is worth exploring in your code as you adopt ECMAScript 6.
 
-###*Summary*
+然而，随着很多开发者迁移到 ECMAScript 6 ，另一个方法得到普及：默认使用 const和仅当你知道一个变量的值需要修改再使用 let 。理论来说，大部分变量不应该在初始化之后改变他们自己的值因为值意外地变化是一个错误的来源。这一想法已经增加了大量重大的牵扯，值得你采用ECMAScript 6来探索。
+
+###*Summary 总结*
 
 The let and const block bindings introduce lexical scoping to JavaScript. These declarations are not hoisted and only exist within the block in which they are declared. This offers behavior that is more like other languages and less likely to cause unintentional errors, as variables can now be declared exactly where they are needed. As a side effect, you cannot access variables before they are declared, even with safe operators such as typeof. Attempting to access a block binding before its declaration results in an error due to the binding’s presence in the temporal dead zone (TDZ).
 
