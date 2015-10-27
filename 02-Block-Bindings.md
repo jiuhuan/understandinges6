@@ -458,8 +458,11 @@ This code functions almost exactly the same as the second example in the “Let 
 
 It’s unusual to use let or const in the global scope, but if you do, understand that there is a potential for naming collisions when doing so, because the global object has predefined properties. In many JavaScript environments, global variables are assigned as properties on the global object, and global object properties are accessed transparently as non-qualified identifiers (such as name or location). Using a block binding declaration to define a variable that shares a name with a property of the global object can produce an error because global object properties may be nonconfigurable. Since block bindings disallow redefinition of an identifier in the same scope, it’s not possible to shadow nonconfigurable global properties. Attempting to do so will result in an error. For example:
 
+```JavaScript
 let RegExp = "Hello!";          // ok
 let undefined = "Hello!";       // throws error
+```
+
 The first line of this example redefines the global RegExp as a string. Even though this would be problematic, there is no error thrown. The second line throws an error because undefined is a nonconfigurable own property of the global object. Since its definition is locked down by the environment, the let declaration is illegal.
 
 ###*Emerging Best Practices for Block Bindings*
