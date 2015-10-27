@@ -483,9 +483,15 @@ However, as more developers migrated to ECMAScript 6, an alternate approach gain
 
 The let and const block bindings introduce lexical scoping to JavaScript. These declarations are not hoisted and only exist within the block in which they are declared. This offers behavior that is more like other languages and less likely to cause unintentional errors, as variables can now be declared exactly where they are needed. As a side effect, you cannot access variables before they are declared, even with safe operators such as typeof. Attempting to access a block binding before its declaration results in an error due to the binding’s presence in the temporal dead zone (TDZ).
 
+let 和 const 块绑定介绍了 JavaScript 的词法作用域。这些声明不会被提升，只存在声明的块内。提供的行为比较像其他语言，不大可能引起无意的错误，变量可以完全正确地定义在他们需要的地方。一个副作用，你不能在他们什么之前获得变量，甚至是 typeof 这样安全的操作。TDZ中，尝试获得一个在声明之前的块绑定，结果会错误
+
 In many cases, let and const behave in a manner similar to var; however, this is not true for loops. For both let and const, for-in and for-of loops create a new binding with each iteration through the loop. That means functions created inside the loop body can access the loop bindings values as they are during the current iteration, rather than as they were after the loop’s final iteration (the behavior with var). The same is true for let declarations in for loops, while attempting to use const declarations in a for loop may result in an error.
 
+在很多例子，let 和 const 行为类似 var ；然而，在循环中就不一样了。let 和 const，for-in 和 for-of 循环在每次迭代中创建一个新的绑定。这意味着创建在循环内部的函数可以获得循环绑定值当他们处在当前迭代中，而不是在循环结束后（var 的做法）。循环中 let 声明也是同样的，当尝试在循环中用 const 声明结果将错误。
+
 The current best practice for block bindings is to use const by default and only use let when you know a variable’s value needs to change. This ensures a basic level of immutability in code that can help prevent certain types of errors.
+
+目前块绑定的最佳实践是默认是用默认使用 const和仅当你知道一个变量的值需要修改再使用 let。这保证了代码的基本不变的水平，帮助防止某些类型错误。
 
 
 
