@@ -43,9 +43,15 @@ console.log(text.charCodeAt(1));    // 57271
 
 In this example, a single Unicode character is represented using surrogate pairs, and as such, the JavaScript string operations treat the string as having two 16-bit characters. That means:
 
-length is 2
-a regular expression trying to match a single character fails
-charAt() is unable to return a valid character string
+在这个例子中，一个 Unicode 字符通过使用 surrogate pairs 来表示，因此，JavaScript 字符串操作视该字符串有两个16位的字符。这意味着：
+
+- length is 2
+- a regular expression trying to match a single character fails
+- charAt() is unable to return a valid character string
+
+- 长度为2
+- 
+
 The charCodeAt() method returns the appropriate 16-bit number for each code unit, but that is the closest you could get to the real value in ECMAScript 5.
 
 ECMAScript 6 enforces encoding of strings in UTF-16. Standardizing on this character encoding means that the language can now support functionality designed to work specifically with surrogate pairs.
