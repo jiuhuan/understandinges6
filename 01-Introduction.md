@@ -120,8 +120,3 @@ You can file issues, suggest changes, and open pull requests against this book b
 For anything else, please send a message to the mailing list: http://groups.google.com/group/zakasbooks.
 
 
-
-
-
-
-http://www.infoq.com/cn/es6-in-depth
