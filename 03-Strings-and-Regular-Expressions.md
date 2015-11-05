@@ -2,17 +2,29 @@
 ###**
 ####
 
-##Strings and Regular Expressions 
+##Strings and Regular Expressions 字符串和正则表达式
 
 Strings are arguably one of the most important data types in programming. Found in nearly every higher-level programming language, the way developers work with strings is a fundamental capability for creating useful programs. Regular expressions, by extension, are important because of their relationship to strings and the extra power that developers can wield on strings through regular expressions. That’s why ECMAScript 6 improved strings and regular expressions, adding new capabilities and long-missing functionality.
 
+字符串可以说是程序中最重要的数据类型之一。在几乎每个高级别程序语言中，开发者使用字符串来创造有用的程序是一项基本的能力。正则表达式，通过扩展，这很重要是因为他们和字符串的关系以及让开发者能通过正则表达式执掌字符串。这就是为什么 ECMAScript 6 ， 提出了字符串和正则表达式，增加了新的能力和长期缺失的功能.
+
 ###*Better Unicode Support 更好地支持 Unicode*
+
 Prior to ECMAScript 6, JavaScript strings were based solely on the idea of 16-bit character encodings. All string properties and methods, such as length and charAt(), were based around the idea that every 16-bit sequence represented a single character. ECMAScript 5 allowed JavaScript engines to decide which of two encodings to use, either UCS-2 or UTF-16 (both encodings use 16-bit code units, making all observable operations the same). While it’s true that all of the world’s characters used to fit into 16 bits at one point in time, that is no longer the case.
 
-UTF-16 Code Points
+在 ECMAScript 6 之前，JavaScript 字符串完全基于16位字符编码的思想。全部字符属性和方法，如长度和charAt()，是围绕每16位序列代表一个字符。ECMAScript 5 允许 JavaScript 引擎决定使用 UCS-2 或者是 UTF-16 两种编码（这两种编码都使用16位编码单元，使所有观察到的操作相同）
+
+####UTF-16 Code Points UTF-16 编码点
+
 Keeping within 16 bits wasn’t possible for Unicode’s stated goal of providing a globally unique identifier to every character in the world. These globally unique identifiers, called code points, are simply numbers starting at 0 (you might think of these as character codes, though there is a subtle difference). A character encoding is responsible for encoding a code point into code units that are internally consistent. While UCS-2 had a one-to-one mapping of code point to code unit, UTF-16 is more variable.
 
+通过16位来保持 Unicode 规定地为世界上每一个字符提供一个全局唯一的标识符的目标是不可能的。这些全局的唯一标识符，被称为编码点，是简单地开始于0的数字（你可能会认为这些是字符码，尽管有些微妙的不同）。一个字符编码负责一个编码点进入代码直到内部一致。
+While UCS-2 had a one-to-one mapping of code point to code unit, UTF-16 is more variable.
+
 The first 2^16 code points are represented as single 16-bit code units in UTF-16. This is called the Basic Multilingual Plane (BMP). Everything beyond that range is considered to be in a supplementary plane, where the code points can no longer be represented in just 16-bits. UTF-16 solves this problem by introducing surrogate pairs in which a single code point is represented by two 16-bit code units. That means any single character in a string can be either one code unit (for BMP, total of 16 bits) or two (for supplementary plane characters, total of 32 bits).
+
+在 UTF-16 中，第一个 2^16 编码点被代表为16位编码单元。称为 Basic Multilingual Plane (BMP)。一切超出范围都会被认为是在一个补充的平面，一个无法用单单16位来代表的代码点。UTF-16 解决了这个难点通过代理两个16位的编码单元来表示一个编码点。这意味着一个字符串中的任何一个字符可以是一个编码单元（for BMP， 共16位）或者是两个（for supplementary plane characters，共32位）。
+
 
 ECMAScript 5 kept all operations working on 16-bit code units, meaning that you could get unexpected results from strings containing surrogate pairs. For example:
 
@@ -174,7 +186,7 @@ This function uses the RegExp constructor to pass in the u flag as an argument. 
 
 If your code still needs to work in older JavaScript engines, it’s best to use the RegExp constructor exclusively when using the u flag. This will prevent syntax errors and allow you to optionally detect and use the u flag without aborting execution.
 
-Other String Changes
+###*Other String Changes*
 JavaScript strings have always lagged behind similar features of other languages. It was only in ECMAScript 5 that strings finally gained a trim() method, and ECMAScript 6 continues extending strings with new functionality.
 
 includes(), startsWith(), endsWith()
@@ -218,7 +230,9 @@ var indent = " ".repeat(size),
 
 // whenever you increase the indent
 var newIndent = indent.repeat(++indentLevel);
-Other Regular Expression Changes
+
+
+###*Other Regular Expression Changes*
 Regular expressions are an important part of working with strings in JavaScript, and like many parts of the language, haven’t really changed very much in recent versions. ECMAScript 6, however, makes several improvements to regular expressions to go along with the updates to strings.
 
 The Regular Expression y Flag
@@ -354,7 +368,7 @@ console.log(re.source);     // "ab"
 console.log(re.flags);      // "g"
 Using source and flags together allow you to extract just the pieces of the regular expression that are necessary without needing to parse the regular expression string directly.
 
-Template Literals
+###*Template Literals*
 JavaScript’s strings have been fairly limited when compared to those in other languages. template literals add new syntax to allow the creation of domain-specific languages (DSLs) for working with content in a way that is safer than the solutions we have today. The description on the template literal strawman was as follows:
 
 This scheme extends ECMAScript syntax with syntactic sugar to allow libraries to provide DSLs that easily produce, query, and manipulate content from other languages that are immune or resistant to injection attacks such as XSS, SQL Injection, etc.
@@ -552,7 +566,7 @@ console.log(message);           // "Multiline\\nstring"
 console.log(message.length);    // 17
 This example uses literals.raw instead of literals to output the string result. That means any character escapes, including Unicode code point escapes, will be returned in their raw form.
 
-Summary
+###*Summary*
 Full Unicode support allows JavaScript to start dealing with UTF-16 characters in logical ways. The ability to transfer between code point and character via codePointAt() and String.fromCodePoint() is an important step for string manipulation. The addition of the regular expression u flag makes it possible to operate on code points instead of 16-bit characters, and the normalize() method allows for more appropriate string comparisons.
 
 Additional methods for working with strings were added, allowing you to more easily identify substrings no matter where they are found, and more functionality was added to regular expressions.
