@@ -50,15 +50,22 @@ In this example, a single Unicode character is represented using surrogate pairs
 - charAt() is unable to return a valid character string
 
 - 长度为2
-- 
+- 正则表达式无法尝试匹配字符
+- charAt() 不能返回一个有效的字符串
 
 The charCodeAt() method returns the appropriate 16-bit number for each code unit, but that is the closest you could get to the real value in ECMAScript 5.
 
+`charCodeAt()` 方法返回每个编码单元相应的16位数，但在 ECMAScript 5 中那是你能获取到的最接近的值。
+
 ECMAScript 6 enforces encoding of strings in UTF-16. Standardizing on this character encoding means that the language can now support functionality designed to work specifically with surrogate pairs.
 
-The codePointAt() Method
+ECMAScript 6 在 UTF-16 中执行字符串编码。标准化这种字符编码意味着语言现在支持专门用来配合 surrogate pairs 的功能。
+
+####The codePointAt() Method
+
 The first example of fully supporting UTF-16 is the codePointAt() method, which can be used to retrieve the Unicode code point that maps to a given position in a string. This method accepts the code unit position (not the character position) and returns an integer value:
 
+```JavaScript
 var text = "𠮷a";
 
 console.log(text.charCodeAt(0));    // 55362
@@ -68,6 +75,8 @@ console.log(text.charCodeAt(2));    // 97
 console.log(text.codePointAt(0));   // 134071
 console.log(text.codePointAt(1));   // 57271
 console.log(text.codePointAt(2));   // 97
+
+```
 The codePointAt() method works in the same manner as charCodeAt() except for non-BMP characters. The first character in text is non-BMP and is therefore comprised of two code units, meaning the entire length of the string is 3 rather than 2. The charCodeAt() method returns only the first code unit for position 0 whereas codePointAt() returns the full code point even though it spans multiple code units. Both methods return the same value for positions 1 (the second code unit of the first character) and 2 (the "a").
 
 This method is the easiest way to determine if a given character is represented by one or two code points:
