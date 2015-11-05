@@ -28,6 +28,9 @@ The first 2^16 code points are represented as single 16-bit code units in UTF-16
 
 ECMAScript 5 kept all operations working on 16-bit code units, meaning that you could get unexpected results from strings containing surrogate pairs. For example:
 
+ECMAScript 5 让所有操作运行在16位编码单元上，意味着你可能会从字符串（包括代理对）中得到意想不到的结果。例如：
+
+```JavaScript
 var text = "𠮷";
 
 console.log(text.length);           // 2
@@ -36,6 +39,8 @@ console.log(text.charAt(0));        // ""
 console.log(text.charAt(1));        // ""
 console.log(text.charCodeAt(0));    // 55362
 console.log(text.charCodeAt(1));    // 57271
+```
+
 In this example, a single Unicode character is represented using surrogate pairs, and as such, the JavaScript string operations treat the string as having two 16-bit characters. That means:
 
 length is 2
