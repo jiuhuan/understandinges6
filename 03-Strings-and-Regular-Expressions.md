@@ -1,7 +1,3 @@
-##
-###**
-####
-
 ##Strings and Regular Expressions 字符串和正则表达式
 
 Strings are arguably one of the most important data types in programming. Found in nearly every higher-level programming language, the way developers work with strings is a fundamental capability for creating useful programs. Regular expressions, by extension, are important because of their relationship to strings and the extra power that developers can wield on strings through regular expressions. That’s why ECMAScript 6 improved strings and regular expressions, adding new capabilities and long-missing functionality.
@@ -160,16 +156,17 @@ function supportsExtendedEscape() {
 }
 ```
 
-####The normalize() Method
+####The normalize() Method normalize() 方法
 
 Another interesting aspect of Unicode is that different characters may be considered equivalent for the purposes of sorting or other comparison-based operations. There are two ways to define these relationships. First, canonical equivalence means that two sequences of code points are considered interchangeable in all respects. That even means that a combination of two characters can be canonically equivalent to one character. The second relationship is compatibility, meaning that two sequences of code points having different appearances but can be used interchangeably in certain situations.
 
-
+Unicode另一个有趣的方面是不同的字符可能可以排序或者其他基于比较的操作。有两种方式定义这些关系。第一， 标准等价意味着两个编码点的序列在任何方面都是能够相互转换的。这甚至意味着两个字符的组合可以被转换成一个字符。第二种关系是兼容的，意味着编码点的两个序列有不同的外观但在某些情况下可以互换。
 
 The important thing to understand is that due to these relationships, it’s possible to have two strings that represent fundamentally the same text and yet have them contain different code point sequences. For example, the character “æ” and the string “ae” may be used interchangeably even though they are different code points. These two strings would therefore be unequal in JavaScript unless they are normalized in some way.
 
 ECMAScript 6 supports Unicode normalization forms through a new normalize() method on strings. This method optionally accepts a single string parameter indicating the Unicode normalization form to apply: "NFC" (default), "NFD", "NFKC", or "NFKD". It’s beyond the scope of this book to explain the differences between these four forms. Just keep in mind that, when comparing strings, both strings must be normalized to the same form. For example:
 
+```JavaScript
 var normalized = values.map(function(text) {
     return text.normalize();
 });
@@ -183,8 +180,11 @@ normalized.sort(function(first, second) {
         return 1;
     }
 });
+```
+
 In this code, the strings in a values array are converted into a normalized form so that the array can be sorted appropriately. You can accomplish the sort on the original array by calling normalize() as part of the comparator:
 
+```JavaScript
 values.sort(function(first, second) {
     var firstNormalized = first.normalize(),
         secondNormalized = second.normalize();
@@ -197,8 +197,11 @@ values.sort(function(first, second) {
         return 1;
     }
 });
+```
+
 Once again, the most important thing to remember is that both values must be normalized in the same way. These examples have used the default, NFC, but you can just as easily specify one of the others:
 
+```JavaScript
 values.sort(function(first, second) {
     var firstNormalized = first.normalize("NFD"),
         secondNormalized = second.normalize("NFD");
@@ -211,6 +214,8 @@ values.sort(function(first, second) {
         return 1;
     }
 });
+```
+
 If you’ve never worried about Unicode normalization before, then you probably won’t have much use for this method. However, knowing that it is available will help, should you ever end up working on an internationalized application.
 
 The Regular Expression u Flag
