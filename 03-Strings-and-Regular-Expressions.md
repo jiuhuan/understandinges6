@@ -45,25 +45,23 @@ In this example, a single Unicode character is represented using surrogate pairs
 
 在这个例子中，一个 Unicode 字符通过使用 surrogate pairs 来表示，因此，JavaScript 字符串操作视该字符串有两个16位的字符。这意味着：
 
-- length is 2
-- a regular expression trying to match a single character fails
-- charAt() is unable to return a valid character string
-
-- 长度为2
-- 正则表达式无法尝试匹配字符
-- charAt() 不能返回一个有效的字符串
+- length is 2 长度为2
+- a regular expression trying to match a single character fails 正则表达式无法尝试匹配字符
+- charAt() is unable to return a valid character string charAt() 不能返回一个有效的字符串
 
 The charCodeAt() method returns the appropriate 16-bit number for each code unit, but that is the closest you could get to the real value in ECMAScript 5.
 
-`charCodeAt()` 方法返回每个编码单元相应的16位数，但在 ECMAScript 5 中那是你能获取到的最接近的值。
+charCodeAt() 方法返回每个编码单元相应的16位数，但在 ECMAScript 5 中那是你能获取到的最接近的值。
 
 ECMAScript 6 enforces encoding of strings in UTF-16. Standardizing on this character encoding means that the language can now support functionality designed to work specifically with surrogate pairs.
 
 ECMAScript 6 在 UTF-16 中执行字符串编码。标准化这种字符编码意味着语言现在支持专门用来配合 surrogate pairs 的功能。
 
-####The codePointAt() Method
+####The codePointAt() Method codePointAt() 方法
 
 The first example of fully supporting UTF-16 is the codePointAt() method, which can be used to retrieve the Unicode code point that maps to a given position in a string. This method accepts the code unit position (not the character position) and returns an integer value:
+
+完全支持UTF-16的第一个例子是 codePointAt() 方法，该方法可用来检索一个字符串中给定位置对应的Unicode编码点。这个方法接受一个编码单元位置（不是字符位置）并返回一个整数。
 
 ```JavaScript
 var text = "𠮷a";
@@ -77,40 +75,81 @@ console.log(text.codePointAt(1));   // 57271
 console.log(text.codePointAt(2));   // 97
 
 ```
+
 The codePointAt() method works in the same manner as charCodeAt() except for non-BMP characters. The first character in text is non-BMP and is therefore comprised of two code units, meaning the entire length of the string is 3 rather than 2. The charCodeAt() method returns only the first code unit for position 0 whereas codePointAt() returns the full code point even though it spans multiple code units. Both methods return the same value for positions 1 (the second code unit of the first character) and 2 (the "a").
+
+除非BMP字符外，codePointAt() 和 charCodeAt() 的工作方式是一样的。text中第一个字符为非BMP，由两个编码单元构成，意味着整个长度为3而不为2。方法 charCodeAt() 方法只返回位置0的第一个编码单元而codePointAt() 返回整个编码点虽然它跨越多个代码单元。两个方法返回位置1的值相同（第一个字符的第二个编码单元）和2（字符 a）。
 
 This method is the easiest way to determine if a given character is represented by one or two code points:
 
+该方法是最简单的方式来判断给出的字符被1个还是2个代码点代表：
+
+```JavaScript
 function is32Bit(c) {
     return c.codePointAt(0) > 0xFFFF;
 }
 
 console.log(is32Bit("𠮷"));         // true
 console.log(is32Bit("a"));          // false
+```
+
 The upper bound of 16-bit characters is represented in hexadecimal as FFFF, so any code point above that number must be represented by two code units.
 
-String.fromCodePoint()
+16位字符的上限为16进制的FFFF，所以任何在这个数值之上的编码点必须被两个编码单元代表。
+
+####String.fromCodePoint()
+
 When ECMAScript provides a way to do something, it also tends to provide a way to do the reverse. You can use codePointAt() to retrieve the code point for a character in a string, while String.fromCodePoint() produces a single-character string for the given code point. For example:
 
+当 ECMAScript 提供了做某事的方法时，它也提供了反向的方法。你可以使用 codePointAt() 检索一个字符串中的一个字符的编码点，而 String.fromCodePoint() 通过给定的编码点生成了一个单字符字符串。例如：
+
+```JavaScript
 console.log(String.fromCodePoint(134071));  // "𠮷"
+```
+
 You can think of String.fromCodePoint() as a more complete version of String.fromCharCode(). Each method has the same result for all characters in the BMP; the only difference is with characters outside of that range.
 
-Escaping Non-BMP Characters
+你可以认为 String.fromCodePoint() 是 String.fromCharCode() 的一个更为完整版本。在BMP中，对于所有字符每个方法都有相同的返回值；唯一不同出现在字符超出这个范围。
+
+####Escaping Non-BMP Characters
+
 ECMAScript 5 allows strings to contain 16-bit Unicode characters represented by an escape sequence. The escape sequence is the \u followed by four hexadecimal values. For example, the escape sequence \u0061 represents the letter "a":
 
+ECMAScript 5 允许字符串包含被an escape sequence代表的16位Unicode字符。转义序列是由\u和 4进制值组成。如例子，转义序列 \u0061 代表字母"a"：
+
+```JavaScript
 console.log("\u0061");      // "a"
+```
+
 If you try to use an escape sequence with a number past FFFF, the upper bound of the BMP, then you can get some surprising results:
 
+如果想对一个超过FFFF（BMP的范围）的数值使用转义序列，会得到一些令你惊讶的结果：
+
+```JavaScript
 console.log("\u20BB7");     // "₻7"
+```
+
 Since Unicode escape sequences were defined as always having exactly four hexadecimal characters, ECMAScript evaluates \u20BB7 as two characters: \u20BB and "7". The first character is unprintable and the second is the number 7.
+
+由于Unicode转义序列总是被精确的4进制字符定义，ECMAScript 处理 \u20BB7 为两个字符：\u20BB 和 "7"。第一个字符是不可输出的第二个是数字7。
 
 ECMAScript 6 solves this problem by introducing an extended Unicode escape sequence where the hexadecimal numbers are contained within curly braces. This allows any number of hexadecimal characters to specify a single character:
 
+ECMAScript 6 通过将16进制数值包括在大括号内扩展Unicode转义序列来解决了这个问题。这允许任何一个16进制字符的数值来指定一个字符：
+
+```JavaScript
 console.log("\u{20BB7}");     // "𠮷"
+```
+
 Using the extended escape sequence, the correct character is contained in the string.
+
+通过使用扩展的转义序列得到了正确的字符。
 
 Make sure that you use this new escape sequence only in an ECMAScript 6 environment. In all other environments, doing so causes a syntax error. You may want to check and see if the environment supports the extended escape sequence using a function such as:
 
+确保在 ECMAScript 6 中使用这个新的转义序列。在其他环境中使用会引起一个语法错误。你可能想要检测环境是否支持扩展了的转义序列，可通过下面函数：
+
+```JavaScript
 function supportsExtendedEscape() {
     try {
         eval("'\\u{00FF1}'");
@@ -119,8 +158,13 @@ function supportsExtendedEscape() {
         return false;
     }
 }
-The normalize() Method
+```
+
+####The normalize() Method
+
 Another interesting aspect of Unicode is that different characters may be considered equivalent for the purposes of sorting or other comparison-based operations. There are two ways to define these relationships. First, canonical equivalence means that two sequences of code points are considered interchangeable in all respects. That even means that a combination of two characters can be canonically equivalent to one character. The second relationship is compatibility, meaning that two sequences of code points having different appearances but can be used interchangeably in certain situations.
+
+
 
 The important thing to understand is that due to these relationships, it’s possible to have two strings that represent fundamentally the same text and yet have them contain different code point sequences. For example, the character “æ” and the string “ae” may be used interchangeably even though they are different code points. These two strings would therefore be unequal in JavaScript unless they are normalized in some way.
 
