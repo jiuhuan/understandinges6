@@ -107,11 +107,11 @@ You can think of String.fromCodePoint() as a more complete version of String.fro
 
 你可以认为 String.fromCodePoint() 是 String.fromCharCode() 的一个更为完整版本。在BMP中，对于所有字符每个方法都有相同的返回值；唯一不同出现在字符超出这个范围。
 
-####Escaping Non-BMP Characters
+####Escaping Non-BMP Characters 转义非BMP字符
 
 ECMAScript 5 allows strings to contain 16-bit Unicode characters represented by an escape sequence. The escape sequence is the \u followed by four hexadecimal values. For example, the escape sequence \u0061 represents the letter "a":
 
-ECMAScript 5 允许字符串包含被an escape sequence代表的16位Unicode字符。转义序列是由\u和 4进制值组成。如例子，转义序列 \u0061 代表字母"a"：
+ECMAScript 5 允许字符串包含被an escape sequence代表的16位Unicode字符。转义序列是由\u和4进制值组成。如例子，转义序列 \u0061 代表字母"a"：
 
 ```JavaScript
 console.log("\u0061");      // "a"
