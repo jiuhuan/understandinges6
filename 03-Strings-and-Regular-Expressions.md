@@ -267,8 +267,13 @@ The regular expression in this example matches both whitespace and non-whitespac
 
 Although this approach works, it’s not very fast, especially when applied to long strings. Try to minimize counting code points whenever possible. Hopefully ECMAScript 7 will bring a more performant means by which to count code points.
 
+尽管这个方法有效，但效率不高，特别是当提交长的字符串时。尽可能减少编码点地计算。希望在ECMAScript 7将带来计算编码点的高性能方法。
+
 Since the u flag is a syntax change, attempting to use it in non-compliant JavaScript engines means a syntax error is thrown. The safest way to determine if the u flag is supported is with a function:
 
+因为 u 标志是一个新的语法，试图在非兼容的JavaScript工程值中使用它便会抛出一个错误。使用下面的函数可以最快的检查u标志是否被支持：
+
+```JavaScript
 function hasRegExpU() {
     try {
         var pattern = new RegExp(".", "u");
@@ -277,11 +282,19 @@ function hasRegExpU() {
         return false;
     }
 }
+
+```
+
 This function uses the RegExp constructor to pass in the u flag as an argument. This is valid syntax even in older JavaScript engines, however, the constructor will throw an error if u isn’t supported.
+
+这个函数使用RegExp构造器传递 u 标志作为一个参数。对于旧版本的JavaScript这是有效的语法，但是，如果不支持u构造器将抛出一个错误。
 
 If your code still needs to work in older JavaScript engines, it’s best to use the RegExp constructor exclusively when using the u flag. This will prevent syntax errors and allow you to optionally detect and use the u flag without aborting execution.
 
-###*Other String Changes*
+如果你的代码仍需要运行于旧的JavaScript工程中，当使用u标志时最好专门使用RegExp构造器。这将预防代码错误并允许你不需要终止执行以检测和使用u 标志。
+
+###*Other String Changes 其他字符串的改变*
+
 JavaScript strings have always lagged behind similar features of other languages. It was only in ECMAScript 5 that strings finally gained a trim() method, and ECMAScript 6 continues extending strings with new functionality.
 
 includes(), startsWith(), endsWith()
