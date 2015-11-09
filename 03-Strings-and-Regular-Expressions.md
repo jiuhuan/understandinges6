@@ -160,11 +160,15 @@ function supportsExtendedEscape() {
 
 Another interesting aspect of Unicode is that different characters may be considered equivalent for the purposes of sorting or other comparison-based operations. There are two ways to define these relationships. First, canonical equivalence means that two sequences of code points are considered interchangeable in all respects. That even means that a combination of two characters can be canonically equivalent to one character. The second relationship is compatibility, meaning that two sequences of code points having different appearances but can be used interchangeably in certain situations.
 
-Unicode另一个有趣的方面是不同的字符可能可以排序或者其他基于比较的操作。有两种方式定义这些关系。第一， 标准等价意味着两个编码点的序列在任何方面都是能够相互转换的。这甚至意味着两个字符的组合可以被转换成一个字符。第二种关系是兼容的，意味着编码点的两个序列有不同的外观但在某些情况下可以互换。
+Unicode另一个有趣的方面是不同的字符可能可以排序或者其他基于比较的操作。有两种方式定义这些关系。第一， 标准对等意味着两个编码点的序列在任何方面能够相互转换。甚至两个字符的组合可以被转换成一个字符。第二种关系是兼容的，意味着编码点的两个序列有不同点但在某些情况下可以互换。
 
 The important thing to understand is that due to these relationships, it’s possible to have two strings that represent fundamentally the same text and yet have them contain different code point sequences. For example, the character “æ” and the string “ae” may be used interchangeably even though they are different code points. These two strings would therefore be unequal in JavaScript unless they are normalized in some way.
 
+理解这些很重要，由于这些关系，有可能有两个字符串代表基本相同的文字但他们包含着不同的编码点序列。例如，字符 “æ” 和字符 “ae” 可能可以相互转换即使他们是不同的编码点。因此这两个字符串在JavaScript中不相等除非他们使用某些方法后被正常化。
+
 ECMAScript 6 supports Unicode normalization forms through a new normalize() method on strings. This method optionally accepts a single string parameter indicating the Unicode normalization form to apply: "NFC" (default), "NFD", "NFKC", or "NFKD". It’s beyond the scope of this book to explain the differences between these four forms. Just keep in mind that, when comparing strings, both strings must be normalized to the same form. For example:
+
+ECMAScript 6 支持Unicode规范化形式通过对字符串使用 a new normalize()。这个方法可接受一个字符串参数以选择Unicode规范化形式通过提交："NFC" (默认), "NFD", "NFKC", 或者 "NFKD"。解释这4种形式间的差异已经超出了这本书的范围。只要记得，当比较字符串时，全部字符串都必须使用相同的形式正常化。例如：
 
 ```JavaScript
 var normalized = values.map(function(text) {
@@ -184,6 +188,9 @@ normalized.sort(function(first, second) {
 
 In this code, the strings in a values array are converted into a normalized form so that the array can be sorted appropriately. You can accomplish the sort on the original array by calling normalize() as part of the comparator:
 
+这段代码中，值数组中的字符串被转换为一个正常化的形式所以数组可以被适当地排序。你可以通过在原始数组中使用 normalize()
+ 完成排序：
+
 ```JavaScript
 values.sort(function(first, second) {
     var firstNormalized = first.normalize(),
@@ -200,6 +207,8 @@ values.sort(function(first, second) {
 ```
 
 Once again, the most important thing to remember is that both values must be normalized in the same way. These examples have used the default, NFC, but you can just as easily specify one of the others:
+
+再一次，记住这个很重要：所有值必须使用相同的方式被正常化。这些例子已经使用了默认的NFC，但你可以容易地指定它们其中一个：
 
 ```JavaScript
 values.sort(function(first, second) {
@@ -218,18 +227,31 @@ values.sort(function(first, second) {
 
 If you’ve never worried about Unicode normalization before, then you probably won’t have much use for this method. However, knowing that it is available will help, should you ever end up working on an internationalized application.
 
-The Regular Expression u Flag
+如果你不需担心Unicode正常化，那你可能不会过多的使用这些方法。然而，了解它的可用性是有用的，你可能开发一个国际化的应用。
+
+####The Regular Expression u Flag 正则表达式 u 标志
+
 Many common string operations are accomplished by using regular expressions. However, as noted earlier, regular expressions also work on the basis of 16-bit code units each representing a single character. To address this problem, ECMAScript 6 defines a new flag for regular expressions: u for “Unicode”.
+
+很多常见的字符串操作都是通过使用正则表达式来实现的。然而，正如前面指出，正则表达式基于16位编码单元工作，每个单元代表一个字符。为了解决这个问题，ECMAScript 6 为正则表达式定义了一个新的标志：u for “Unicode”
 
 When a regular expression has the u flag set, it switches modes to work on characters and not code units. That means the regular expression will no longer get confused about surrogate pairs in strings and can behave as expected. For example:
 
+当一个正则表达式带有一个u标志时，它可以切换工作于字符模式而不是编码单元。这意味着正则表达式不再在字符串混淆于代理对而是可以预期执行。例如
+
+```JavaScript
 var text = "𠮷";
 
 console.log(text.length);           // 2
 console.log(/^.$/.test(text));      // false
 console.log(/^.$/u.test(text));     // true
+```
+
 Adding the u flag allows the regular expression to correctly match the string by characters. Unfortunately, ECMAScript 6 does not natively have a way of determining how many code points are present in a string; fortunately, regular expressions with the u flag can be used to figure it out:
 
+增加u标志允许正则表达式通过字符去正确匹配字符串。不幸的是，ECMAScript 6 没有自带的方法去找出一个字符串中有多少个编码点；幸运的是，带有u标志的正则表达式可以用来找出它：
+
+```JavaScript
 function codePointLength(text) {
     var result = text.match(/[\s\S]/gu);
     return result ? result.length : 0;
@@ -237,7 +259,11 @@ function codePointLength(text) {
 
 console.log(codePointLength("abc"));    // 3
 console.log(codePointLength("𠮷bc"));   // 3
+```
+
 The regular expression in this example matches both whitespace and non-whitespace characters, and is applied globally with Unicode enabled. The result contains an array of matches when there’s at least one match, so the array length ends up being the number of code points in the string.
+
+例子中的正则表达式匹配了空白和非空白字符，应用全局 Unicode 。当至少存在一个匹配结果将包含一个匹配的数组，所以数组的长度取决于在字符串中编码点的长度。
 
 Although this approach works, it’s not very fast, especially when applied to long strings. Try to minimize counting code points whenever possible. Hopefully ECMAScript 7 will bring a more performant means by which to count code points.
 
