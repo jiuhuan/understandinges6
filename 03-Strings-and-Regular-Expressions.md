@@ -297,14 +297,31 @@ If your code still needs to work in older JavaScript engines, it’s best to use
 
 JavaScript strings have always lagged behind similar features of other languages. It was only in ECMAScript 5 that strings finally gained a trim() method, and ECMAScript 6 continues extending strings with new functionality.
 
-includes(), startsWith(), endsWith()
+JavaScript 字符串总滞后于其他语言的类似功能。在ECMAScript 5中字符串最终只获得了一个 trim() 方法，ECMAScript 6中持续扩展字符串新的功能。
+
+####includes(), startsWith(), endsWith()
+
 Developers have used indexOf() as a way to identify strings inside of other strings since JavaScript was first introduced. ECMAScript 6 adds three new methods whose purpose is to identify strings inside of other strings:
 
+自从JavaScript首次引入，开发者已经使用过 indexOf() 识别在其他字符串中的字符串。ECMAScript 6 增加了3个方法目的是为了识别在其他字符串中的字符串。
+
 includes() - returns true if the given text is found anywhere within the string or false if not.
+
+includes() - 如果给定的文字在字符串中任何位置被找到将返回true，否则返回假。
+
 startsWith() - returns true if the given text is found at the beginning of the string or false if not.
+
+startsWith() - 如果给定的文字在字符串开头的位置被找到将返回true，否则返回假。
+
 endsWith() - returns true if the given text is found at the end of the string or false if not.
+
+endsWith() - 如果给定的文字在字符串末尾的位置被找到将返回true，否则返回假。
+
 Each of these methods accepts two arguments: the text to search for and an optional location from which to start the search. When the second argument is omitted, includes() and startsWith() start search from the beginning of the string while endsWith() starts from the end. In effect, the second argument results in less of the string being searched. Here are some examples:
 
+这些方法都接受两个参数：被搜索的文字和从哪里开始选择的可选的位置。当省略第二个参数时，includes() 和 startsWith() 从字符串的开头搜索，而 endsWith() 开始于末尾。在效果上，第二个参数导致更少的字符串被搜索。例子：
+
+```JavaScript
 var msg = "Hello world!";
 
 console.log(msg.startsWith("Hello"));       // true
@@ -318,29 +335,48 @@ console.log(msg.includes("x"));             // false
 console.log(msg.startsWith("o", 4));        // true
 console.log(msg.endsWith("o", 8));          // true
 console.log(msg.includes("o", 8));          // false
+```
+
 These three methods make it much easier to identify substrings without needing to worry about identifying their exact position.
+
+这3个方法让识别子字符串更容易而不需要考虑他们的位置。
 
 All of these methods return a boolean value. If you need to find the position of a string within another, use indexOf() or lastIndexOf().
 
+所有的这些方法都返回一个布尔值。如果需要识别在字符串中的子字符串的位置，使用 indexOf() 和 lastIndexOf()。
+
 The startsWith(), endsWith(), and includes() methods will throw an error if you pass a regular expression instead of a string. This stands in contrast to indexOf() and lastIndexOf(), which both convert a regular expression argument into a string and then search for that string.
 
-repeat()
+如果你传递一个正则表达式而不是字符串，那 startsWith(), endsWith() 和 includes() 将抛出错误。这个建立于 indexOf() 和 lastIndexOf() 间的差异，它们都会转换参数正则表达式为一个字符串，然后再寻找这个字符串。
+
+####repeat() 
+
 ECMAScript 6 also adds a repeat() method to strings. This method accepts a single argument, which is the number of times to repeat the string, and returns a new string that has the original string repeated the specified number of times. For example:
 
+ECMAScript 6 还为字符串添加了方法 repeat()。该方法接受一个字符串重复次数的参数，返回一个有着指定重复次数的原始字符串的新的字符串。例如：
+
+```JavaScript
 console.log("x".repeat(3));         // "xxx"
 console.log("hello".repeat(2));     // "hellohello"
 console.log("abc".repeat(4));       // "abcabcabcabc"
+```
+
 This method is really a convenience function above all else, which can be especially useful when dealing with text manipulation. One example where this functionality comes in useful is with code formatting utilities where you need to create indentation levels:
 
+这个方法确实有用，特别是在处理文本操作时。例如当你需要创建缩进等级的代码格式化功能时，这个功能便会很有用。
+
+
+```JavaScript
 // indent using a specified number of spaces
 var indent = " ".repeat(size),
     indentLevel = 0;
 
 // whenever you increase the indent
 var newIndent = indent.repeat(++indentLevel);
+```
 
+###*Other Regular Expression Changes 其他正则表达式变化*
 
-###*Other Regular Expression Changes*
 Regular expressions are an important part of working with strings in JavaScript, and like many parts of the language, haven’t really changed very much in recent versions. ECMAScript 6, however, makes several improvements to regular expressions to go along with the updates to strings.
 
 The Regular Expression y Flag
