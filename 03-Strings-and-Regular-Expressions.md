@@ -585,7 +585,7 @@ Using source and flags together allow you to extract just the pieces of the regu
 
 结合 source 和 flags 一起可以提取正则表达式中必要的片段而不需要直接对正则表达式字符串进行解析。
 
-###*Template Literals 模板文本*
+###*Template Literals 模板字符串*
 
 JavaScript’s strings have been fairly limited when compared to those in other languages. Template literals add new syntax to allow the creation of domain-specific languages (DSLs) for working with content in a way that is safer than the solutions we have today. The description on the `template literal strawman` was as follows:
 
@@ -593,18 +593,24 @@ JavaScript 的字符串相比于其它语言相当有限。模板文本增加了
 
 - This scheme extends ECMAScript syntax with syntactic sugar to allow libraries to provide DSLs that easily produce, query, and manipulate content from other languages that are immune or resistant to injection attacks such as XSS, SQL Injection, etc.
 
-- 
 
 In reality, though, template literals are ECMAScript 6’s answer to several ongoing problems in JavaScript:
 
-- Multiline strings - JavaScript has never had a formal concept of multiline strings.
-- Basic string formatting - The ability to substitute parts of the string for values contained in variables.
-- HTML escaping - The ability to transform a string such that it is safe to insert into HTML.
+在现实中，模板字符串是ECMAScript 6对一些正在进行的问题的解答：
+
+- Multiline strings - JavaScript has never had a formal concept of multiline strings. 多行字符串 - JavaScript 没有一个多行字符串的正式概念。
+- Basic string formatting - The ability to substitute parts of the string for values contained in variables. 基本字符串格式化 - 替换变量中包含字符串值的能力。
+- HTML escaping - The ability to transform a string such that it is safe to insert into HTML. HTML转义 - 安全的将字符串插入HTML的能力。
+
 Rather than trying to add more functionality to JavaScript’s already-existing strings, template literals represent an entirely new approach to solving these problems.
 
-####Basic Syntax
+比起向JavaScript已经存在的字符串添加功能，代表一个全新方法的模板字符串更接近于解决这些问题。
+
+####Basic Syntax 基本语法
 
 At their simplest, template literals act like regular strings that are delimited by backticks (`) instead of double or single quotes. For example:
+
+最简单的，模板字符串像普通字符串被限制在反引号（`）代替双引号和单引号。例如：
 
 ```JavaScript
 let message = `Hello world!`;
@@ -616,7 +622,11 @@ console.log(message.length);        // 12
 
 This code demonstrates that the variable message contains a normal JavaScript string. The template literal syntax only is used to create the string value, which is then assigned to message.
 
+这段代码展示变量 message 包含了一个正常的 JavaScript 字符串。模板字符串语法只用来创建字符串的值然后分配给 message.
+
 If you want to use a backtick in your string, then you need only escape it by using a backslash (\):
+
+如果你想要对你的字符串使用反引号，你需要使用反斜杠进行转义：
 
 ```JavaScript
 let message = `\`Hello\` world!`;
@@ -628,7 +638,10 @@ console.log(message.length);        // 14
 
 There’s no need to escape either double or single quotes inside of template literals.
 
-####Multiline Strings
+模板字符串中不需要对双引号或者单引号进行转义。
+
+####Multiline Strings 多行字符串
+
 Ever since the first version of JavaScript, developers have longed for a way to create multiline strings in JavaScript. When using double or single quotes, strings must be completely contained on a single line. JavaScript has long had a syntax bug that would allow multiline strings by using a backslash (\) before a newline, such as:
 
 ```JavaScript
