@@ -416,9 +416,11 @@ console.log(stickyResult[0]);   // Error! stickyResult is null
 
 In this example, three regular expressions are used, one each with the y flag, the g flag, and no flags. When used the first time, all three regular expressions return the same value "hello1 " (with a space at the end). After that, the lastIndex property is changed to 1, meaning that the regular expression should start matching from the second character. The regular expression with no flags completely ignores the change to lastIndex and still matches "hello1 "; the regular expression with the g flag goes on to match "hello2 " because it is searching forward from the second character of the string (“e”); the sticky regular expression doesn’t match anything beginning at the second character so stickyResult is null.
 
-例子中，3个正则表达式被使用，一个 y 标志，一个 g 标志 和 没有标志。当使用第一次是，3个正则表达式都返回同样的值“hello1 ”（有空格）。此后，把 lastIndex 属性改为 1， 意味着应该从第2个字符重新开始匹配。没有标志的正则表达式忽略了lastIndex的变化仍匹配到 “hello1 ”；带有 g 标志的表倒是继续匹配到 “hello2” 因为它是从字符串的第二字符中搜索的；带有 y 标志的正则表达式在第二个字符开始处没有匹配到任何东西所以 sticky 为 null。
+例子中，3个正则表达式被使用，一个 y 标志，一个 g 标志 和 没有标志。当使用第一次是，3个正则表达式都返回同样的值“hello1 ”（有空格）。此后，把 lastIndex 属性改为 1， 意味着应该从第2个字符重新开始匹配。没有标志的正则表达式忽略了lastIndex的变化仍匹配到 “hello1 ”；带有 g 标志的表倒是继续匹配到 “hello2” 因为它是从字符串的第二字符（“e”）开始搜索的；带有 y 标志的正则表达式在第二个字符开始处没有匹配到任何东西所以 sticky 为 null。
 
 The sticky flag saves the index of the next character after the last match in lastIndex whenever an operation is performed. If an operation results in no match then lastIndex is set back to 0. This behavior is the same as the global flag:
+
+y 标志保存下一个字符的引索在最后的匹配不管操作何时执行。如果操作结果没有匹配到内容 lastIndex 会设置回 0。这点和 g 标志一样：
 
 ```JavaScript
 var text = "hello1 hello2 hello3",
@@ -452,19 +454,39 @@ console.log(stickyPattern.lastIndex);   // 14
 
 The value of lastIndex changed to 7 after the first call to exec() and to 14 after the second call for both the sticky and global patterns.
 
+在第一次调用 exec() 之后 lastIndex 的值改变为 7，在第二次调用只用之后，y 和 g 模式都变为14。
+
 There are also a couple other subtle details to the sticky flag:
 
-The lastIndex property is only honored when calling methods on the regular expression object such as exec() and test(). Passing the regular expression to a string method, such as match(), will not result in the sticky behavior.
-When using the ^ character to match the start of a string, sticky regular expressions will only match from the start of the string (or start of line in multiline mode). So long as lastIndex is 0, the ^ makes a sticky regular expression no different from a non-sticky one. If lastIndex doesn’t correspond to the beginning of the string (in single-line mode) or the beginning of a line (in multiline mode), the sticky regular expression will never match
+关于 y 标志还有其他几个微小的细节：
+
+1. The lastIndex property is only honored when calling methods on the regular expression object such as exec() and test(). Passing the regular expression to a string method, such as match(), will not result in the sticky behavior.
+
+只有在正则表达式对象调用exec()和test()方法时lastIndex属性才会使用。将正则表达式给字符串方法，如match()方法，将不会有sticky结果。
+
+2. When using the ^ character to match the start of a string, sticky regular expressions will only match from the start of the string (or start of line in multiline mode). So long as lastIndex is 0, the ^ makes a sticky regular expression no different from a non-sticky one. If lastIndex doesn’t correspond to the beginning of the string (in single-line mode) or the beginning of a line (in multiline mode), the sticky regular expression will never match
+
+当使用 ^ 字符去匹配一个字符串的开头，y 正则表达式将只匹配字符串的开头（or start of line in multiline mode）。只要lastIndex为0，^ 让sticky正则表达式和非sticky正则表达式没有区别。如果lastIndex不符合字符串开头(单行模式) 或者 一行的开头（多行模式），sticky正则表达式便永远不会匹配。
+
 As with other regular expression flags, you can detect the presence of y by using a property. The sticky property is set to true with the sticky flag is present and false if not:
 
+如同其他正则表达式标志一样，你可以使用一个属性来检测 y 是否存在。如果有y标志存在 sticky 属性就为true，否则为false：
+
+```JavaScript
 var pattern = /hello\d/y;
 
 console.log(pattern.sticky);    // true
+```
+
 The sticky property is read-only based on the presence of the flag and so cannot be changed in code.
+
+sticky 属性基于存在标志为只读，不能被代码修改。
 
 Similar to the u flag, the y flag is a syntax change, so it will cause a syntax error in older JavaScript engines. You can use the same approach to detect support:
 
+类似于 u 标志，y 标志是新增语法，所以在旧版JavaScript工程中会引发错误。你可以用同样的方法来检测支持：
+
+```JavaScript
 function hasRegExpY() {
     try {
         var pattern = new RegExp(".", "y");
@@ -473,9 +495,14 @@ function hasRegExpY() {
         return false;
     }
 }
+```
+
 Also similar to u, if you need to use y in code that runs in older JavaScript engines, be sure to use the RegExp constructor when defining those regular expressions to avoid a syntax error.
 
-Duplicating Regular Expressions
+同样类似于 u , 如果需要在旧版JavaScript引擎中使用 y，当定义正则表达式时，确保使用 RegExp 构造方法以避免语法错误。 
+
+####Duplicating Regular Expressions 复制正则表达式
+
 In ECMAScript 5, you can duplicate regular expressions by passing them into the RegExp constructor, such as:
 
 var re1 = /ab/i,
