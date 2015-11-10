@@ -548,7 +548,7 @@ In this code, re1 has the case-insensitive i flag present while re2 has only the
 
 代码中，re1 有区分大小写的 i 标志出现而 re2 只有 g 标志。RegExp 构造器复制 re1 的模式 然后取代 i 为 g。如果不设置第二参数，re2 将拥有和re1一样的标志。
 
-####The flags Property 
+####The flags Property flags 属性
 
 In ECMAScript 5, it’s possible to get the text of the regular expression by using the source property, but to get the flag string requires parsing the output of toString(), such as:
 
@@ -585,55 +585,73 @@ Using source and flags together allow you to extract just the pieces of the regu
 
 结合 source 和 flags 一起可以提取正则表达式中必要的片段而不需要直接对正则表达式字符串进行解析。
 
-###*Template Literals*
-JavaScript’s strings have been fairly limited when compared to those in other languages. template literals add new syntax to allow the creation of domain-specific languages (DSLs) for working with content in a way that is safer than the solutions we have today. The description on the template literal strawman was as follows:
+###*Template Literals 模板文本*
 
-This scheme extends ECMAScript syntax with syntactic sugar to allow libraries to provide DSLs that easily produce, query, and manipulate content from other languages that are immune or resistant to injection attacks such as XSS, SQL Injection, etc.
+JavaScript’s strings have been fairly limited when compared to those in other languages. Template literals add new syntax to allow the creation of domain-specific languages (DSLs) for working with content in a way that is safer than the solutions we have today. The description on the `template literal strawman` was as follows:
+
+JavaScript 的字符串相比于其它语言相当有限。模板文本增加了新的语法允许为工作内容创建领域特有语言（DSLs）并比现有的解决方案更安全。在‘模板文本技术说明草案’中是这样描述的：
+
+- This scheme extends ECMAScript syntax with syntactic sugar to allow libraries to provide DSLs that easily produce, query, and manipulate content from other languages that are immune or resistant to injection attacks such as XSS, SQL Injection, etc.
+
+- 
 
 In reality, though, template literals are ECMAScript 6’s answer to several ongoing problems in JavaScript:
 
-Multiline strings - JavaScript has never had a formal concept of multiline strings.
-Basic string formatting - The ability to substitute parts of the string for values contained in variables.
-HTML escaping - The ability to transform a string such that it is safe to insert into HTML.
+- Multiline strings - JavaScript has never had a formal concept of multiline strings.
+- Basic string formatting - The ability to substitute parts of the string for values contained in variables.
+- HTML escaping - The ability to transform a string such that it is safe to insert into HTML.
 Rather than trying to add more functionality to JavaScript’s already-existing strings, template literals represent an entirely new approach to solving these problems.
 
-Basic Syntax
+####Basic Syntax
+
 At their simplest, template literals act like regular strings that are delimited by backticks (`) instead of double or single quotes. For example:
 
+```JavaScript
 let message = `Hello world!`;
 
 console.log(message);               // "Hello world!"
 console.log(typeof message);        // "string"
 console.log(message.length);        // 12
+```
+
 This code demonstrates that the variable message contains a normal JavaScript string. The template literal syntax only is used to create the string value, which is then assigned to message.
 
 If you want to use a backtick in your string, then you need only escape it by using a backslash (\):
 
+```JavaScript
 let message = `\`Hello\` world!`;
 
 console.log(message);               // "`Hello` world!"
 console.log(typeof message);        // "string"
 console.log(message.length);        // 14
+```
+
 There’s no need to escape either double or single quotes inside of template literals.
 
-Multiline Strings
+####Multiline Strings
 Ever since the first version of JavaScript, developers have longed for a way to create multiline strings in JavaScript. When using double or single quotes, strings must be completely contained on a single line. JavaScript has long had a syntax bug that would allow multiline strings by using a backslash (\) before a newline, such as:
 
+```JavaScript
 let message = "Multiline \
 string";
 
 console.log(message);       // "Multiline string"
+```
+
 Note that the string has no newlines present when output, that’s because the backslash is treated as a continuation rather than a newline. In order to have a newline at that point, you would need to manually include it, such as:
 
+```JavaScript
 let message = "Multiline \n\
 string";
 
 console.log(message);       // "Multiline
                             //  string"
+```
 Despite this working in all major JavaScript engines, the behavior was defined as a bug and many recommended avoiding its usage.
 
 Other attempts to create multiline strings usually relied on arrays or string concatenation, such as:
 
+```JavaScript
 let message = [
     "Multiline ",
     "string"
@@ -641,90 +659,120 @@ let message = [
 
 let message = "Multiline \n" +
     "string";
+```
+
 All of the ways developers worked around JavaScript’s lack of multiline strings left something to be desired.
 
 Template literals make multiline strings easy because there is no special syntax. Just include a newline where you want and it shows up in the result. For example:
 
+```JavaScript
 let message = `Multiline
 string`;
 
 console.log(message);           // "Multiline
                                 //  string"
 console.log(message.length);    // 16
+```
+
 All whitespace inside of the backticks is considered to be part of the string, so be careful with indentation. For example:
 
+```JavaScript
 let message = `Multiline
                string`;
 
 console.log(message);           // "Multiline
                                 //                 string"
 console.log(message.length);    // 31
+```
+
 In this code, all of the whitespace before the second line of the template literal is considered to be a part of the string itself. If making the text line up with proper indentation is important to you, then you consider leaving nothing on the first line of a multiline template literal and then indenting after that, such as this:
 
+```JavaScript
 let html = `
 <div>
     <h1>Title</h1>
 </div>`.trim();
+```
+
 This code begins the template literal on the first line but doesn’t have any text until the second. The HTML tags are indented to look correct and then the trim() method is called to remove the initial (empty) line.
 
 If you prefer, you can also use \n in a template literal to indicate where a newline should be inserted:
 
+```JavaScript
 let message = `Multiline\nstring`;
 
 console.log(message);           // "Multiline
                                 //  string"
 console.log(message.length);    // 16
-Substitutions
+```
+
+####Substitutions
 To this point, template literals may look like a fancier way of defining normal JavaScript strings. The real difference is with template literal substitutions. Substitutions allow you to embed any valid JavaScript expression inside of a template literal and have the result be output as part of the string.
 
 Substitutions are delimited by an opening ${ and a closing }, within which you can use any JavaScript expression. At its simplest, substitutions let you embed local variables directly into the result string, like this:
 
+```JavaScript
 let name = "Nicholas",
     message = `Hello, ${name}.`;
 
 console.log(message);       // "Hello, Nicholas."
+```
+
 The substitution ${name} accessed the local variable name to insert it into the string. The message variable then holds the result of the substitution immediately.
 
 template literals can access any variable that is accessible in the scope in which it is defined. Attempting to use an undeclared variable in a template literal results in an error being thrown in both strict and non-strict modes.
 
 Since all substitutions are JavaScript expressions, it’s possible to substitute more than just simple variable names. You can easily embed calculations, function calls, and more. For example:
 
+```JavaScript
 let count = 10,
     price = 0.25,
     message = `${count} items cost $${(count * price).toFixed(2)}.`;
 
 console.log(message);       // "10 items cost $2.50."
+```
+
 This code performs a calculation as part of the template literal. The variables count and price are multiplied together to get a result, and then formatted to two decimal places using .toFixed(). The dollar sign before the second substitution is output as-is because it’s not followed by an opening curly brace.
 
-Tagged Templates
+####Tagged Templates
 To this point, you’ve seen how template literals can be used for multiline strings and to insert values into strings without using concatenation. The real power of template literals comes from tagged templates. A template tag performs a transformation on the template literal and returns the final string value. This tag is specified at the start of the template, just before the first ` character, such as:
 
+```JavaScript
 let message = tag`Hello world`;
+```
+
 In this example, tag is the template tag to apply to `Hello world`.
 
-Defining Tags
+####Defining Tags
 A tag is simply a function that is called with the processed template literal data. The function receives data about the template literal as individual pieces that the tag must then combined to create the finished value. The first argument is an array containing the literal strings as they are interpreted by JavaScript. Each subsequent argument is the interpreted value of each substitution. Tag functions are typically defined using rest arguments to make dealing with the data easier:
 
+```JavaScript
 function tag(literals, ...substitutions) {
     // return a string
 }
+```
+
 To better understand what is passed to tags, consider the following:
 
+```JavaScript
 let count = 10,
     price = 0.25,
     message = passthru`${count} items cost $${(count * price).toFixed(2)}.`;
+```
+
 If you had a function called passthru(), that function would receive three arguments:
 
-literals, containing:
-"" - the empty string before the first substitution
-" items cost $" - the string after the first substitution and before the second
-"." - the string after the second substitution
-10 - the interpreted value for count (this becomes substitutions[0])
-"2.50" - the interpreted value for (count * price).toFixed(2) (this becomes substitutions[1])
+1. literals, containing:
+    - "" - the empty string before the first substitution
+    - " items cost $" - the string after the first substitution and before the second
+    - "." - the string after the second substitution
+2. 10 - the interpreted value for count (this becomes substitutions[0])
+3. "2.50" - the interpreted value for (count * price).toFixed(2) (this becomes substitutions[1])
 Note that the first item in literals is an empty string. This is to ensure that literals[0] is always the start of the string, just like literals[literals.length - 1] is always the end of the string. There is always one fewer substitution than literal, which is to say that substitutions.length === literals.length - 1 all the time.
 
 Using this pattern, the literals and substitutions arrays can be interweaved to create the result. The first item in literals comes first, then the first item in substitutions, and so on, until the string has been completed. So to mimic the default behavior of template, you need only define a function that performs this operation:
 
+```JavaScript
 function passthru(literals, ...substitutions) {
     let result = "";
 
@@ -745,23 +793,29 @@ let count = 10,
     message = passthru`${count} items cost $${(count * price).toFixed(2)}.`;
 
 console.log(message);       // "10 items cost $2.50."
+```
+
 This example defines a passthru tag that performs the same transformation as the default template literal behavior. The only trick is to use substitutions.length for the loop rather than literals.length to avoid accidentally going past the end of substitutions. This works because the relationship between literals and substitutions is well-defined.
 
 The values contained in substitutions are not necessarily strings. If an expression is evaluated to be a number, as in the previous example, then the numeric value is passed in. It’s part of the tag’s job to determine how such values should be output in the result.
 
-Using Raw Values
+####Using Raw Values
 Template tags also have access to raw string information, which primarily means access to character escapes before they are transformed into their character equivalents. The simplest way to work with raw string values is to the built-in String.raw() tag. For example:
 
+```JavaScript
 let message1 = `Multiline\nstring`,
     message2 = String.raw`Multiline\nstring`;
 
 console.log(message1);          // "Multiline
                                 //  string"
 console.log(message2);          // "Multiline\\nstring"
+```
+
 In this code, the \n in message1 is interpreted as a newline while the \n in message2 is returned in its raw form of "\\n" (two characters, the slash and n). Retrieving the raw string information in this way allows for more complex processing (when necessary).
 
 The raw string information is also passed into template tags. The first argument in a tag function is an array with an extra property called raw. The raw property is an array containing the raw equivalent of each literal value. So the value in literals[0] always has an equivalent literals.raw[0] that contains the raw string information. Knowing that, it’s possible to mimic String.raw() using the following:
 
+```JavaScript
 function raw(literals, ...substitutions) {
     let result = "";
 
@@ -781,6 +835,8 @@ let message = raw`Multiline\nstring`;
 
 console.log(message);           // "Multiline\\nstring"
 console.log(message.length);    // 17
+```
+
 This example uses literals.raw instead of literals to output the string result. That means any character escapes, including Unicode code point escapes, will be returned in their raw form.
 
 ###*Summary*
