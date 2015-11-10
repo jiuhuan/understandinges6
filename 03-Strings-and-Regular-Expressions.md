@@ -505,16 +505,29 @@ Also similar to u, if you need to use y in code that runs in older JavaScript en
 
 In ECMAScript 5, you can duplicate regular expressions by passing them into the RegExp constructor, such as:
 
+ECMAScript 5 中，你可以将它们传递到 RegExp 构造器中来复制正则表达式，如：
+
+```JavaScript
 var re1 = /ab/i,
     re2 = new RegExp(re1);
+```
+
 However, if you provide the second argument to RegExp, which specifies the flags for the regular expression, then an error is thrown:
 
+然而，如果你为 RegExp 提供第二个参数，为正则表达式指定标志，那将抛出错误：
+
+```JavaScript
 var re1 = /ab/i,
 
     // throws an error in ES5, okay in ES6
     re2 = new RegExp(re1, "g");
+```
+
 If you execute this code in an ECMAScript 5 environment, you’ll get an error stating that the second argument cannot be used when the first argument is a regular expression. ECMAScript 6 changed this behavior such that the second argument is allowed and will override whichever flags are present on the first argument. For example:
 
+如果在 ECMAScript 5 环境中执行这代码，当第一个参数是正则表达式时你会得到一个错误说明第二个参数不能被使用。ECMAScript 6 修改了这一行为第二个参数允许使用并且会重写出现在第一个参数的任何一个标志。例如
+
+```JavaScript
 var re1 = /ab/i,
 
     // throws an error in ES5, okay in ES6
@@ -529,11 +542,19 @@ console.log(re2.test("ab"));            // true
 
 console.log(re1.test("AB"));            // true
 console.log(re2.test("AB"));            // false
+```
+
 In this code, re1 has the case-insensitive i flag present while re2 has only the global g flag. The RegExp constructor duplicated the pattern from re1 and then substituted g for i. If the second argument was missing then re2 would have the same flags as re1.
 
-The flags Property
+代码中，re1 有区分大小写的 i 标志出现而 re2 只有 g 标志。RegExp 构造器复制 re1 的模式 然后取代 i 为 g。如果不设置第二参数，re2 将拥有和re1一样的标志。
+
+####The flags Property 
+
 In ECMAScript 5, it’s possible to get the text of the regular expression by using the source property, but to get the flag string requires parsing the output of toString(), such as:
 
+ECMAScript 5 中，利用源代码属性来获取正则表达式的文本是有可能的，但是要获得标志就得分析 toString() 输出的字符串，例如：
+
+```JavaScript
 function getFlags(re) {
     var text = re.toString();
     return text.substring(text.lastIndexOf("/") + 1, text.length);
@@ -543,15 +564,26 @@ function getFlags(re) {
 var re = /ab/g;
 
 console.log(getFlags(re));          // "g"
+```
+
 ECMAScript 6 adds a flags property to go along with source. Both properties are prototype accessor properties with only a getter assigned (making them read-only). The addition of flags makes it easier to inspect regular expressions for both debugging and inheritance purposes.
+
+ECMAScript 6 中添加flags属性和source属性。两个属性都是只读的原型属性。添加flags在调试和继承中让检测正则表达式变得容易
 
 A late addition to ECMAScript 6, the flags property returns the string representation of any flags applied to a regular expression. For example:
 
+flags属性返回了一个正则表达式中任何标志表现形式的字符串。例如：
+
+```JavaScript
 var re = /ab/g;
 
 console.log(re.source);     // "ab"
 console.log(re.flags);      // "g"
+```
+
 Using source and flags together allow you to extract just the pieces of the regular expression that are necessary without needing to parse the regular expression string directly.
+
+结合 source 和 flags 一起可以提取正则表达式中必要的片段而不需要直接对正则表达式字符串进行解析。
 
 ###*Template Literals*
 JavaScript’s strings have been fairly limited when compared to those in other languages. template literals add new syntax to allow the creation of domain-specific languages (DSLs) for working with content in a way that is safer than the solutions we have today. The description on the template literal strawman was as follows:
