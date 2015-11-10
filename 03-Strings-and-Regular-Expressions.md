@@ -379,9 +379,16 @@ var newIndent = indent.repeat(++indentLevel);
 
 Regular expressions are an important part of working with strings in JavaScript, and like many parts of the language, haven’t really changed very much in recent versions. ECMAScript 6, however, makes several improvements to regular expressions to go along with the updates to strings.
 
-The Regular Expression y Flag
+JavaScript中正则表达式是配合字符串工作的一个重要的部分，和语言的许多部分一样，在最近的版本中没有太多的改变。然而，伴随着字符串的更新 ECMAScript 6 做了一些正则表达式的改进。
+
+####The Regular Expression y Flag 正则表达式 y 标志
+
 ECMAScript 6 standardized the y flag after it had been implemented in Firefox as a proprietary extension to regular expressions. The y (sticky) flag starts matching at the position specified by its lastIndex property. If there is no match at that location, then the regular expression stops matching. For example:
 
+ECMAScript 6 规范 y 标志后火狐浏览器已经实现它作为一个正则表达式专有的扩展。y (sticky) 标志开始匹配通过写在它最后的位置上。 如果没有在那个位置匹配到，正则表达式会停止匹配。
+
+
+```JavaScript
 var text = "hello1 hello2 hello3",
     pattern = /hello\d\s?/,
     result = pattern.exec(text),
@@ -405,10 +412,15 @@ stickyResult = stickyPattern.exec(text);
 console.log(result[0]);         // "hello1 "
 console.log(globalResult[0]);   // "hello2 "
 console.log(stickyResult[0]);   // Error! stickyResult is null
+```
+
 In this example, three regular expressions are used, one each with the y flag, the g flag, and no flags. When used the first time, all three regular expressions return the same value "hello1 " (with a space at the end). After that, the lastIndex property is changed to 1, meaning that the regular expression should start matching from the second character. The regular expression with no flags completely ignores the change to lastIndex and still matches "hello1 "; the regular expression with the g flag goes on to match "hello2 " because it is searching forward from the second character of the string (“e”); the sticky regular expression doesn’t match anything beginning at the second character so stickyResult is null.
+
+例子中，3个正则表达式被使用，一个 y 标志，一个 g 标志 和 没有标志。当使用第一次是，3个正则表达式都返回同样的值“hello1 ”（有空格）。此后，把 lastIndex 属性改为 1， 意味着应该从第2个字符重新开始匹配。没有标志的正则表达式忽略了lastIndex的变化仍匹配到 “hello1 ”；带有 g 标志的表倒是继续匹配到 “hello2” 因为它是从字符串的第二字符中搜索的；带有 y 标志的正则表达式在第二个字符开始处没有匹配到任何东西所以 sticky 为 null。
 
 The sticky flag saves the index of the next character after the last match in lastIndex whenever an operation is performed. If an operation results in no match then lastIndex is set back to 0. This behavior is the same as the global flag:
 
+```JavaScript
 var text = "hello1 hello2 hello3",
     pattern = /hello\d\s?/,
     result = pattern.exec(text),
@@ -436,6 +448,8 @@ console.log(stickyResult[0]);   // "hello2 "
 console.log(pattern.lastIndex);         // 0
 console.log(globalPattern.lastIndex);   // 14
 console.log(stickyPattern.lastIndex);   // 14
+```
+
 The value of lastIndex changed to 7 after the first call to exec() and to 14 after the second call for both the sticky and global patterns.
 
 There are also a couple other subtle details to the sticky flag:
