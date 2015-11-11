@@ -924,6 +924,10 @@ Additional methods for working with strings were added, allowing you to more eas
 
 Template literals are an important addition to ECMAScript 6 that allows the creating of domain-specific languages (DSLs) to make creating strings easier. The ability to embed variables directly into template literals means that developers have a safer tool than string concatenation for composing long strings with variables.
 
+模板字符串是 ECMAScript 6 重要的添加功能允许创建 区域性特定语言（DSLs）让创建字符串变得更容易。想模板字符串直接嵌入变量意味着开发者拥有一个比通过用变量组合出长的字符串连接更安全的工具。
+
 Built-in support for multiline strings also makes template literals a useful upgrade over normal JavaScript strings, which have never had this ability. Despite allowing newlines directly inside the template literal, you can still use \n and other character escape sequences.
 
 Template tags are the most important part of this feature for creating DSLs. Tags are functions that receive the pieces of the template literal as arguments. You can then use that data to return an appropriate string value. The data provided includes literals, their raw equivalents, and any substitution values. These pieces of information can then be used to determine the correct output for the tag.
+
+模板标签是未来创建 DSLs重要的一部分。tags 函数将模板字符串片段作为参数。然后你可以使用该数据返回一个适当的字符串。提供的数据包括 literals，它们的原始数据，和任何 substitution 值。然后这些信息片段可以被用来确定正确的输出值。
