@@ -644,6 +644,8 @@ There’s no need to escape either double or single quotes inside of template li
 
 Ever since the first version of JavaScript, developers have longed for a way to create multiline strings in JavaScript. When using double or single quotes, strings must be completely contained on a single line. JavaScript has long had a syntax bug that would allow multiline strings by using a backslash (\) before a newline, such as:
 
+自JavaScript的第一个版本之后，开发者期望JavaScript有一种创建多行字符串的方式。当使用双引号或者单引号，字符串必须完全包含在一行中。JavaScript 一直有一个在新起行前使用反斜杠以实现多行字符串的语法错误，如：
+
 ```JavaScript
 let message = "Multiline \
 string";
@@ -653,6 +655,8 @@ console.log(message);       // "Multiline string"
 
 Note that the string has no newlines present when output, that’s because the backslash is treated as a continuation rather than a newline. In order to have a newline at that point, you would need to manually include it, such as:
 
+注意，输出时字符串没有换行，是因为反斜杠是一个延续而不是换行。为了在这一点上有一个换行符，你需要手动包含它，如：
+
 ```JavaScript
 let message = "Multiline \n\
 string";
@@ -660,9 +664,14 @@ string";
 console.log(message);       // "Multiline
                             //  string"
 ```
+
 Despite this working in all major JavaScript engines, the behavior was defined as a bug and many recommended avoiding its usage.
 
+尽管在所有主要的JavaScript引擎中是这么运行的，但这个行为还是被定义为一个bug并且大多数都建议避免使用它。
+
 Other attempts to create multiline strings usually relied on arrays or string concatenation, such as:
+
+其他尝试创建多行字符串依靠数组或者字符串连接，如：
 
 ```JavaScript
 let message = [
@@ -676,7 +685,11 @@ let message = "Multiline \n" +
 
 All of the ways developers worked around JavaScript’s lack of multiline strings left something to be desired.
 
+开发者围绕JavaScript缺失的多行字符串工作的所有这些方法都是需要的。
+
 Template literals make multiline strings easy because there is no special syntax. Just include a newline where you want and it shows up in the result. For example:
+
+模板字符串让多行字符串容易实现因为没有特俗语法。仅包含一个你想换行的地方换行，结果显示了换行。例如：
 
 ```JavaScript
 let message = `Multiline
@@ -689,6 +702,8 @@ console.log(message.length);    // 16
 
 All whitespace inside of the backticks is considered to be part of the string, so be careful with indentation. For example:
 
+引号内的所有空白格都是字符串的一部分，所以要注意缩进。例如：
+
 ```JavaScript
 let message = `Multiline
                string`;
@@ -700,6 +715,8 @@ console.log(message.length);    // 31
 
 In this code, all of the whitespace before the second line of the template literal is considered to be a part of the string itself. If making the text line up with proper indentation is important to you, then you consider leaving nothing on the first line of a multiline template literal and then indenting after that, such as this:
 
+代码中，模板字符串第二行之前的所有空白格是字符串本身的一部分。如果补充文本行适当的缩进很重要，那你可以考虑让多行模板字符串第一行空白，然后再缩进，例如：
+
 ```JavaScript
 let html = `
 <div>
@@ -709,7 +726,11 @@ let html = `
 
 This code begins the template literal on the first line but doesn’t have any text until the second. The HTML tags are indented to look correct and then the trim() method is called to remove the initial (empty) line.
 
+这段代码在模板字符串的第一行没有任何文本直到第二行。HTML标签缩进正确，然后使用了 trim() 方法去除空行。
+
 If you prefer, you can also use \n in a template literal to indicate where a newline should be inserted:
+
+如果你喜欢，你也可以在模板字符串中使用 \n 表明该处应该插入一个换行：
 
 ```JavaScript
 let message = `Multiline\nstring`;
