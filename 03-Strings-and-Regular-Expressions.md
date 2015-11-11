@@ -918,15 +918,22 @@ This example uses literals.raw instead of literals to output the string result. 
 这个例子使用了 literals.raw 代替了 literals 输出字符串的结果。这意味着任何字符串转义，包括Unicode编码点转义，将会返回他们的原始格式。
 
 ###*Summary 总结*
+
 Full Unicode support allows JavaScript to start dealing with UTF-16 characters in logical ways. The ability to transfer between code point and character via codePointAt() and String.fromCodePoint() is an important step for string manipulation. The addition of the regular expression u flag makes it possible to operate on code points instead of 16-bit characters, and the normalize() method allows for more appropriate string comparisons.
 
+完整的 Unicode 支持允许 JavaScript 开始以逻辑的方式处理 UTF-16 字符。在编码点和字符之间通过 codePointAt() 和 String.fromCodePoint() 的能力是字符串处理一个重要的补奏。正则表达式添加 u 标志让操作编码点而不是16位字符有可能，而且 normalize() 方法允许更多适合字符串比较。
+
 Additional methods for working with strings were added, allowing you to more easily identify substrings no matter where they are found, and more functionality was added to regular expressions.
+
+用于处理字符串的额外添加的方法，允许你更容易容易识别子字符串不管在哪被找到，并且更多的功能被添加到正则表达式。
 
 Template literals are an important addition to ECMAScript 6 that allows the creating of domain-specific languages (DSLs) to make creating strings easier. The ability to embed variables directly into template literals means that developers have a safer tool than string concatenation for composing long strings with variables.
 
 模板字符串是 ECMAScript 6 重要的添加功能允许创建 区域性特定语言（DSLs）让创建字符串变得更容易。想模板字符串直接嵌入变量意味着开发者拥有一个比通过用变量组合出长的字符串连接更安全的工具。
 
 Built-in support for multiline strings also makes template literals a useful upgrade over normal JavaScript strings, which have never had this ability. Despite allowing newlines directly inside the template literal, you can still use \n and other character escape sequences.
+
+内置多行字符串支持也让模板字符串称为常规JavaScript字符串一个有用的升级，字符串原本没有这个功能。尽管允许直接在模板字符串中内嵌新行，但你仍然可以使用 \n 和其他字符转义序列。
 
 Template tags are the most important part of this feature for creating DSLs. Tags are functions that receive the pieces of the template literal as arguments. You can then use that data to return an appropriate string value. The data provided includes literals, their raw equivalents, and any substitution values. These pieces of information can then be used to determine the correct output for the tag.
 
