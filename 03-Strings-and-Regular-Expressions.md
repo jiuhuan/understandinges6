@@ -740,10 +740,15 @@ console.log(message);           // "Multiline
 console.log(message.length);    // 16
 ```
 
-####Substitutions
+####Substitutions 替换
+
 To this point, template literals may look like a fancier way of defining normal JavaScript strings. The real difference is with template literal substitutions. Substitutions allow you to embed any valid JavaScript expression inside of a template literal and have the result be output as part of the string.
 
+对于这个，模板字符串可能看起来像一种华丽的方式定义了标志JavaScript字符串的。真正不同处是用模板字符串替换。替换允许你向模板字符串嵌入任何有效的JavaScript表达式并将结果作为字符串的一部分输出。
+
 Substitutions are delimited by an opening ${ and a closing }, within which you can use any JavaScript expression. At its simplest, substitutions let you embed local variables directly into the result string, like this:
+
+替换被限制在以${开头以}结尾中，${} 中可以使用任何JavaScript表达式。最简单的，替换让你直接嵌入本地变量到结果字符串中，如：
 
 ```JavaScript
 let name = "Nicholas",
@@ -754,9 +759,15 @@ console.log(message);       // "Hello, Nicholas."
 
 The substitution ${name} accessed the local variable name to insert it into the string. The message variable then holds the result of the substitution immediately.
 
+替换处 ${name} 获得了本地变量 name 值然后嵌入到字符串。变量 message 立即保存了替换的结果。
+
 template literals can access any variable that is accessible in the scope in which it is defined. Attempting to use an undeclared variable in a template literal results in an error being thrown in both strict and non-strict modes.
 
+模板字符串可以获得它所在作用域中的任何变量。在strict 和 non-strict模式中尝试在模板字符串中使用一个不确定的变量结果都会抛出一个错误。
+
 Since all substitutions are JavaScript expressions, it’s possible to substitute more than just simple variable names. You can easily embed calculations, function calls, and more. For example:
+
+既然所有替换都是JavaScript表达式，那不只是替换仅仅简单的变量名。你可以很容易地嵌入计算，函数调用等。例如：
 
 ```JavaScript
 let count = 10,
@@ -768,8 +779,13 @@ console.log(message);       // "10 items cost $2.50."
 
 This code performs a calculation as part of the template literal. The variables count and price are multiplied together to get a result, and then formatted to two decimal places using .toFixed(). The dollar sign before the second substitution is output as-is because it’s not followed by an opening curly brace.
 
-####Tagged Templates
+模板字符串的一部分代码执行了计算。变量 count 和 price 相乘得到一个结果，然后通过 .toFixed() 格式化到小数点后两位。第二处替换前面的$符号输出了本身因为它随后不是一个大括号。
+
+####Tagged Templates 标签模板
+
 To this point, you’ve seen how template literals can be used for multiline strings and to insert values into strings without using concatenation. The real power of template literals comes from tagged templates. A template tag performs a transformation on the template literal and returns the final string value. This tag is specified at the start of the template, just before the first ` character, such as:
+
+你已经看到了模板字符串在不使用延续符的情况下如何被使用于多行字符串和嵌入值到一个字符串中。模板字符串真正牛逼处在于标签模板。模板字符串中一个模板标签执行转义并且返回了最后字符串的值。这个标签指定在了模板的开始处，仅在第一个 ` 字符之前，如：
 
 ```JavaScript
 let message = tag`Hello world`;
@@ -777,8 +793,13 @@ let message = tag`Hello world`;
 
 In this example, tag is the template tag to apply to `Hello world`.
 
-####Defining Tags
+这个例子中，tag 是适用于 `hello world` 的模板标签。
+
+####Defining Tags 定义 Tags
+
 A tag is simply a function that is called with the processed template literal data. The function receives data about the template literal as individual pieces that the tag must then combined to create the finished value. The first argument is an array containing the literal strings as they are interpreted by JavaScript. Each subsequent argument is the interpreted value of each substitution. Tag functions are typically defined using rest arguments to make dealing with the data easier:
+
+一个 tag 是一个简单的函数，通过被加工的模板字符串数据调用。函数接受tag必须结合以完成值的创建的单独一块模板字符串数据。第一个参数是一个包含模板字符串的数组因为它们被解析为JavaScript。后续的参数是每一个替换的解析值。 Tag 函数通常使用其他参数以更容易处理数据：
 
 ```JavaScript
 function tag(literals, ...substitutions) {
@@ -788,6 +809,9 @@ function tag(literals, ...substitutions) {
 
 To better understand what is passed to tags, consider the following:
 
+为了更好理解什么被传递给了tags，考虑下面例子：
+
+
 ```JavaScript
 let count = 10,
     price = 0.25,
@@ -796,15 +820,21 @@ let count = 10,
 
 If you had a function called passthru(), that function would receive three arguments:
 
-1. literals, containing:
-    - "" - the empty string before the first substitution
-    - " items cost $" - the string after the first substitution and before the second
-    - "." - the string after the second substitution
-2. 10 - the interpreted value for count (this becomes substitutions[0])
-3. "2.50" - the interpreted value for (count * price).toFixed(2) (this becomes substitutions[1])
+如果你调用函数 passthru()，函数将接受3个参数：
+
+1. literals, containing: literals，包含：
+    - "" - the empty string before the first substitution 第一个替换之前的空字符串
+    - " items cost $" - the string after the first substitution and before the second 第一个替换的结尾到第二个替换之前
+    - "." - the string after the second substitution 第二个替换之后的字符串
+2. 10 - the interpreted value for count (this becomes substitutions[0]) count 的结果值（这里为 substitutions[0]）
+3. "2.50" - the interpreted value for (count * price).toFixed(2) (this becomes substitutions[1]) (count * price).toFixed(2) 的结果值（这里为 substitutions[1]）
 Note that the first item in literals is an empty string. This is to ensure that literals[0] is always the start of the string, just like literals[literals.length - 1] is always the end of the string. There is always one fewer substitution than literal, which is to say that substitutions.length === literals.length - 1 all the time.
 
+注意：literals 中的第一项是空字符串。这是为了literals[0]始终是字符串的开头，就像 literals[literals.length - 1] 始终是字符串的结尾。substitution 总是比 literal 少一个，也就是说 substitutions.length 总是等于(===) literals.length - 1。
+
 Using this pattern, the literals and substitutions arrays can be interweaved to create the result. The first item in literals comes first, then the first item in substitutions, and so on, until the string has been completed. So to mimic the default behavior of template, you need only define a function that performs this operation:
+
+使用这个模式，literals 和 substitutions 数组可以配合创建出结果。先是 literals 第一项，然后是 substitutions 的第一项，如此循环，直到字符串完整。所以要模仿模板这一默认行为，你仅需要定义一个函数执行这一操作：
 
 ```JavaScript
 function passthru(literals, ...substitutions) {
@@ -831,10 +861,18 @@ console.log(message);       // "10 items cost $2.50."
 
 This example defines a passthru tag that performs the same transformation as the default template literal behavior. The only trick is to use substitutions.length for the loop rather than literals.length to avoid accidentally going past the end of substitutions. This works because the relationship between literals and substitutions is well-defined.
 
+这个例子定义了一个 passthru tag 执行了和模板字符串默认行为同样的转换。唯一的窍门是在 循环中使用substitutions.length 而不是literals.length 以避免意外超出 substitutions 的范围。这个能执行是因为 literals 和 substitutions 之间的关系定义清晰。
+
 The values contained in substitutions are not necessarily strings. If an expression is evaluated to be a number, as in the previous example, then the numeric value is passed in. It’s part of the tag’s job to determine how such values should be output in the result.
 
-####Using Raw Values
+包含在 substitutions 中的值不一定是字符串。如果一个表达式计算后是一个数字，如前面例子，那么数字的值会被传递进入。tag的工作之一是确定值是否应该被输出到结果中。
+
+
+####Using Raw Values 使用原始值
+
 Template tags also have access to raw string information, which primarily means access to character escapes before they are transformed into their character equivalents. The simplest way to work with raw string values is to the built-in String.raw() tag. For example:
+
+模板标签也可以访问原生字符串信息，这意味着在字符转换之前就获取它们。最简单的方式获取原生字符串的值是使用String.raw()。例如：
 
 ```JavaScript
 let message1 = `Multiline\nstring`,
@@ -847,7 +885,11 @@ console.log(message2);          // "Multiline\\nstring"
 
 In this code, the \n in message1 is interpreted as a newline while the \n in message2 is returned in its raw form of "\\n" (two characters, the slash and n). Retrieving the raw string information in this way allows for more complex processing (when necessary).
 
+这段代码中，message1 中的 \n 被解析为一个换行而 message2 中的 \n 被返回 “\\n” 的原生格式（two characters, the slash and n）。这种方式检索原生字符串信息也适用于更复杂的处理（当需要时）。
+
 The raw string information is also passed into template tags. The first argument in a tag function is an array with an extra property called raw. The raw property is an array containing the raw equivalent of each literal value. So the value in literals[0] always has an equivalent literals.raw[0] that contains the raw string information. Knowing that, it’s possible to mimic String.raw() using the following:
+
+原生字符串信息也可以被传入到 tags 中。tag 函数的第一个参数是是一个带有存在的raw属性的数组。属性raw 是一个包含了每一个literal原始值的数组。所以在 literals[0] 中总有一个对应的包含了原始字符串信息值的literals.raw[0]。知道这个后，模仿String.raw()便可以使用：
 
 ```JavaScript
 function raw(literals, ...substitutions) {
@@ -873,7 +915,9 @@ console.log(message.length);    // 17
 
 This example uses literals.raw instead of literals to output the string result. That means any character escapes, including Unicode code point escapes, will be returned in their raw form.
 
-###*Summary*
+这个例子使用了 literals.raw 代替了 literals 输出字符串的结果。这意味着任何字符串转义，包括Unicode编码点转义，将会返回他们的原始格式。
+
+###*Summary 总结*
 Full Unicode support allows JavaScript to start dealing with UTF-16 characters in logical ways. The ability to transfer between code point and character via codePointAt() and String.fromCodePoint() is an important step for string manipulation. The addition of the regular expression u flag makes it possible to operate on code points instead of 16-bit characters, and the normalize() method allows for more appropriate string comparisons.
 
 Additional methods for working with strings were added, allowing you to more easily identify substrings no matter where they are found, and more functionality was added to regular expressions.
