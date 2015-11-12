@@ -21,13 +21,13 @@ Github：https://github.com/nzakas/understandinges6<br>
   - Emerging Best Practices for Block Bindings - 新兴的块绑定最佳实践
   - Summary - 总结
 
->####[Strings and Regular Expressions](03-Strings-and-Regular-Expressions.md)
+>####[Strings and Regular Expressions - 字符串和正则表达式](03-Strings-and-Regular-Expressions.md)
 
-  - Better Unicode Support
-  - Other String Changes
-  - Other Regular Expression Changes
-  - Template Literals
-  - Summary
+  - Better Unicode Support - 更好地支持 Unicode
+  - Other String Changes - 其他字符串的改变
+  - Other Regular Expression Changes - 其他正则表达式变化
+  - Template Literals - 模板字符串
+  - Summary - 总结
 
 >####[Functions](04-Functions.md)
 
