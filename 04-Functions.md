@@ -148,7 +148,6 @@ mixArgs("a", "b");
 
 This outputs:
 
-
 ```JavaScript
 true
 true
@@ -218,13 +217,16 @@ false
 false
 false
 ```
+
 In this example, arguments.length is 1 because only one argument was passed to mixArgs(). That also means arguments[1] is undefined, which is the expected behavior when only one argument is passed to a function. That means first is equal to arguments[0] as well. Changing first and second has no effect on arguments. This behavior occurs in both nonstrict and strict mode, so you can rely on arguments to always reflect the initial call state.
 
 这个例子中，arguments.length 为 1 因为只有一个参数被传入 mixArgs()。这也意味着当只有一个参数被传入函数时我们预期的是  arguments[1] 为 undefined。这也意味着 first 等于 arguments[0]。改变 first 和 second 不影响参数。这个行为在 nonstrict 和 strict 模式都一样，所以你可以依靠 arguments 来反映调用的初始状态。
 
-Default Parameter Expressions
+####Default Parameter Expressions
+
 Perhaps the most interesting feature of default parameter values is that the default value need not be a primitive value. You can, for example, execute a function to retrieve the default parameter, like this:
 
+```JavaScript
 function getValue() {
     return 5;
 }
@@ -235,8 +237,11 @@ function add(first, second = getValue()) {
 
 console.log(add(1, 1));     // 2
 console.log(add(1));        // 6
+```
+
 Here, if the last argument isn’t provided, the function getValue() is called to retrieve the correct default value. Keep in mind that getValue() is only called when add() is called without a second parameter, not when the function declaration is first parsed. That means if getValue() were written differently, it could potentially return a different value. For instance:
 
+```JavaScript
 let value = 5;
 
 function getValue() {
@@ -250,18 +255,24 @@ function add(first, second = getValue()) {
 console.log(add(1, 1));     // 2
 console.log(add(1));        // 6
 console.log(add(1));        // 7
+```
+
 In this example, value begins as five and increments each time getValue() is called. The first call to add(1) returns 6, while the second call to add(1) returns 7 because value was incremented. Because the default value for second is only evaluated when the function is called, changes to that value can be made at any time.
 
 This behavior introduces another interesting capability. You can use a previous parameter as the default for a later parameter. Here’s an example:
 
+```JavaScript
 function add(first, second = first) {
     return first + second;
 }
 
 console.log(add(1, 1));     // 2
 console.log(add(1));        // 2
+```
+
 In this code, the parameter second is given a default value of first, meaning that passing in just one argument leaves both arguments with the same value. So add(1, 1) returns 2 just as add(1) returns 2. Taking this a step further, you can pass first into a function to get the value for second as follows:
 
+```JavaScript
 function getValue(value) {
     return value + 5;
 }
@@ -272,19 +283,24 @@ function add(first, second = getValue(first)) {
 
 console.log(add(1, 1));     // 2
 console.log(add(1));        // 7
+```
+
 This example sets second equal to the value returned by getValue(first), so while add(1, 1) still returns 2, add(1) returns 7 (1 + 6).
 
 The ability to reference parameters from default parameter assignments works only for previous arguments, so earlier arguments do not have access to later arguments. For example:
 
+```JavaScript
 function add(first = second, second) {
     return first + second;
 }
 
 console.log(add(1, 1));     // 2
 console.log(add(1));        // throws error
+```
+
 The call to add(1) throws an error because second is defined after first and is therefore unavailable as a default value. To understand why that happens, it’s important to revisit temporal dead zones.
 
-Default Parameter Temporal Dead Zone
+####Default Parameter Temporal Dead Zone
 Chapter 1 introduced the temporal dead zone (TDZ) as it relates to let and const, and default parameters also have a TDZ where parameters cannot be accessed. Similar to a let declaration, each parameter creates a new identifier binding that can’t be referenced before initialization without throwing an error. Parameter initialization happens when the function is called, either by passing a value for the parameter or by using the default parameter value.
 
 To explore the default parameter TDZ, consider this example from “Default Parameter Expressions” again:
