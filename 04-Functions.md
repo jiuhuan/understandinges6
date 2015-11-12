@@ -2,14 +2,25 @@
 
 Functions are an important part of any programming language, and prior to ECMAScript 6, JavaScript functions hadn’t changed much since the language was created. This left a backlog of problems and nuanced behavior that made making mistakes easy and often required more code just to achieve very basic behaviors.
 
+函数是任何编程语言重要的一部分，在 ECMAScript 6 之前，JavaScript 函数没有过多的改变直到 JavaScript 6 被创建。这样一来一些积压的问题和微小的行为更容易犯错并且经常为了实现基本的行为而写一堆代码。
+
 ECMAScript 6 functions make a big leap forward, taking into account years of complaints and requests from JavaScript developers. The result is a number of incremental improvements on top of ECMAScript 5 functions that make programming in JavaScript less error-prone and more powerful than ever before.
 
-###*Functions with Default Parameters*
+考虑到JavaScript开发者多年的抱怨和要求，ECMAScript 6 函数做了一个大的跃进。结果是添加改善了ECMAScript 5最重要的函数让JavaScript程序少出错和更强大。
+
+###*Functions with Default Parameters 带默认参数的函数*
+
 Functions in JavaScript are unique in that they allow any number of parameters to be passed, regardless of the number of parameters declared in the function definition. This allows you to define functions that can handle different numbers of parameters, often by just filling in default values when parameters aren’t provided. This section covers how default parameters work both in and prior to ECMAScript 6, along with some important information on the arguments object, using expressions as parameters, and another TDZ.
 
-Simulating Default Parameters in ECMAScript 5
+JavaScript 函数是独特的，他们允许接收任意数量的参数，不管参数是否在函数定义中是否声明过。这允许你定义一个可以接收不同数量参数的函数，通常当参数没被提供，只需设置参数的默认值。这部分涵盖默认参数在 ECMAScript 6 中和之前的运行，随着参数对象的重要信息，使用表达式作为参数，和另一个TDZ。
+
+####Simulating Default Parameters in ECMAScript 5 在 ECMAScript 5 中模拟默认参数
+
 In ECMAScript 5 and earlier, you would likely use the following pattern to create a function with default parameters:
 
+在 ECMAScript 6 之前的版本，你可能会使用下面这种模式创建一个带默认参数的函数：
+
+```JavaScript
 function makeRequest(url, timeout, callback) {
 
     timeout = timeout || 2000;
@@ -18,10 +29,17 @@ function makeRequest(url, timeout, callback) {
     // the rest of the function
 
 }
+```
+
 In this example, both timeout and callback are actually optional because they are given a default value if a parameter isn’t provided. The logical OR operator (||) always returns the second operand when the first is falsy. Since named function parameters that are not explicitly provided are set to undefined, the logical OR operator is frequently used to provide default values for missing parameters. There is a flaw with this approach, however, in that a valid value for timeout might actually be 0, but this would replace it with 2000 because 0 is falsy.
+
+这个例子中，timeout 和 callback 实际上是可选的因为如果他们没被提供便会被赋值一个默认值。逻辑或运算符（||）始终返回第二个操作数当第一个为false时。因为命名的函数参数没有显示的提供值所以被设置为undefined，逻辑或运算符唱被用来为确实的参数提供默认值。这种方法有一个缺陷，timeout的值可能是0，但因为0为false，所以这个会被2000代替。
 
 In that case, a safer alternative is to check the type of the argument using typeof, as in this example:
 
+因此，一种更安全的替代是使用 typeof 去检查参数的类型，例如：
+
+```JavaScript
 function makeRequest(url, timeout, callback) {
 
     timeout = (typeof timeout !== "undefined") ? timeout : 2000;
@@ -30,20 +48,34 @@ function makeRequest(url, timeout, callback) {
     // the rest of the function
 
 }
+```
+
 While this approach is safer, it still requires a lot of extra code for a very basic operation. Popular JavaScript libraries are filled with similar patterns, as this represents a common pattern.
 
-Default Parameters in ECMAScript 6
+虽然这个方法更安全，但它仍然需要很多代码来实现这个非常基础的操作。流行的JavaScript库充满了类似的模式，因为这代表着常见的模式。
+
+####Default Parameters in ECMAScript 6 ECMAScript 6使用默认参数
+
 ECMAScript 6 makes it easier to provide default values for parameters by providing initializations that are used when the parameter isn’t formally passed. For example:
 
+ECMAScript 6 通过提供初始化让设置参数值更为容易当参数没有被正常传入时。例如：
+
+```JavaScript
 function makeRequest(url, timeout = 2000, callback = function() {}) {
 
     // the rest of the function
 
 }
+```
 This function only expects the first parameter to always be passed. The other two parameters have default values, which makes the body of the function much smaller because you don’t need to add any code to check for a missing value.
+
+这个函数值预计了第一个参数总会被传入。其他两个参数都有默认值，这让函数体变小因为你不需要添加任何代码去检查缺失值。
 
 When makeRequest() is called with all three parameters, the defaults are not used. For example:
 
+当传入三个参数调用 makeRequest() ，默认值没有被使用。例如：
+
+```JavaScript
 // uses default timeout and callback
 makeRequest("/foo");
 
@@ -54,17 +86,29 @@ makeRequest("/foo", 500);
 makeRequest("/foo", 500, function(body) {
     doSomething(body);
 });
+```
+
 ECMAScript 6 considers url to be required, which is why "/foo" is passed in all three calls to makeRequest(). The two parameters with a default value are considered optional.
+
+ECMAScript 6 认为 url 是必须的，所以 “/foo” 被传递到所有调用中。带有默认值的参数是可选的。
 
 It’s possible to specify default values for any arguments, including those that appear before arguments without default values in the function declaration. For example, this is fine:
 
+为任何一个参数指定默认值是可以的，包括在函数定义中那些出现在没有默认值之前的参数，例如，这是可以的：
+
+```JavaScript
 function makeRequest(url, timeout = 2000, callback) {
 
     // the rest of the function
 
 }
+```
+
 In this case, the default value for timeout will only be used if there is no second argument passed in or if the second argument is explicitly passed in as undefined, as in this example:
 
+在这个例子中，如果没有第二个参数传入或者第二个参数被明确传入值为undefined，timeout 默认值将会被使用，如下：
+
+```JavaScript
 // uses default timeout
 makeRequest("/foo", undefined, function(body) {
     doSomething(body);
@@ -77,11 +121,19 @@ makeRequest("/foo");
 makeRequest("/foo", null, function(body) {
     doSomething(body);
 });
+```
+
 In the case of default parameter values, a value of null is considered to be valid, meaning that in the third call to makeRequest(), the default value for timeout will not be used.
 
-How Default Parameters Affect the arguments Object
+例子中，null 被认为是有效的，意味着第三个makeRequest()函数调用，timeout的默认值将不会被使用。
+
+####How Default Parameters Affect the arguments Object 默认参数如何影响参数对象
+
 Just keep in mind that the behavior of the arguments object is different when default parameters are present. In ECMAScript 5 nonstrict mode, the arguments object reflects changes in the named parameters of a function. Here’s some code that illustrates how this works:
 
+记住，当出现默认参数时参数对象的行为是不同的。在 ECMAScript 5 nonstrict 模式下，参数对象和函数参数是同步的。下面是一些代码，说明了这是如何工作的：
+
+```JavaScript
 function mixArgs(first, second) {
     console.log(first === arguments[0]);
     console.log(second === arguments[1]);
@@ -92,16 +144,27 @@ function mixArgs(first, second) {
 }
 
 mixArgs("a", "b");
+```
+
 This outputs:
 
+
+```JavaScript
 true
 true
 true
 true
+```
+
 The arguments object is always updated in nonstrict mode to reflect changes in the named parameters. Thus, when first and second are assigned new values, arguments[0] and arguments[1] are updated accordingly, making all of the === comparisons resolve to true.
+
+在nonstrict模式下，参数对象时刻和参数值保持一致。因此，当第一个和第二个被赋值新的值是，arguments[0] 和 arguments[1] 相应的更新，让所有 === 比较为真。
 
 ECMAScript 5’s strict mode, however, eliminates this confusing aspect of the arguments object. In strict mode, the arguments object does not reflect changes to the named parameters. Here’s the mixArgs() function again, but in strict mode:
 
+然而，在 ECMAScript 5 的 strict 模式下，排除了参数对象这个混乱的方面。在 strict 模式中，参数对象不反映参数的改变。这里又一次是 mixArgs()，但是在严格模式下：
+
+```JavaScript
 function mixArgs(first, second) {
     "use strict";
 
@@ -114,16 +177,25 @@ function mixArgs(first, second) {
 }
 
 mixArgs("a", "b");
+```
 The call to mixArgs() outputs:
 
+```JavaScript
 true
 true
 false
 false
+```
+
 This time, changing first and second doesn’t affect arguments, so the output behaves as you’d normally expect it to.
+
+这次，first 和 second 没有影响变量对象，所以输出行为如你通常期望的那样。
 
 The arguments object in a function using ECMAScript 6 default parameters, however, will always behave in the same manner as ECMAScript 5 strict mode, regardless of whether the function is explicitly running in strict mode. The presence of default parameters triggers the arguments object to remain detached from the named parameters. This is a subtle but important detail because of how the arguments object may be used. Consider the following:
 
+函数中参数对象使用 ES6 默认的参数，不过，行为和在 ES5 strict 模式中使用相同的模式，不管函数是否在 strict 模式中运行。默认参数的出现触发参数对象独立于参数。这细节虽小但很重要因为参数对象可能被使用。考虑如下代码：
+
+```JavaScript
 // not in strict mode
 function mixArgs(first, second = "b") {
     console.log(arguments.length);
@@ -136,14 +208,19 @@ function mixArgs(first, second = "b") {
 }
 
 mixArgs("a");
+```
 This outputs:
 
+```JavaScript
 1
 true
 false
 false
 false
+```
 In this example, arguments.length is 1 because only one argument was passed to mixArgs(). That also means arguments[1] is undefined, which is the expected behavior when only one argument is passed to a function. That means first is equal to arguments[0] as well. Changing first and second has no effect on arguments. This behavior occurs in both nonstrict and strict mode, so you can rely on arguments to always reflect the initial call state.
+
+这个例子中，arguments.length 为 1 因为只有一个参数被传入 mixArgs()。这也意味着当只有一个参数被传入函数时我们预期的是  arguments[1] 为 undefined。这也意味着 first 等于 arguments[0]。改变 first 和 second 不影响参数。这个行为在 nonstrict 和 strict 模式都一样，所以你可以依靠 arguments 来反映调用的初始状态。
 
 Default Parameter Expressions
 Perhaps the most interesting feature of default parameter values is that the default value need not be a primitive value. You can, for example, execute a function to retrieve the default parameter, like this:
