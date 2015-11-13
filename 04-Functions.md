@@ -398,7 +398,7 @@ So far, the examples in this chapter have only covered parameters that have been
 
 Early on, JavaScript provided the arguments object as a way to inspect all function parameters that are passed without necessarily defining each parameter individually. While inspecting arguments works fine in most cases, this object can be a little cumbersome to work with. For example, examine this code, which inspects the arguments object:
 
-
+早期，JavaScript 提供参数对象作为一种方法去检查所有函数参数不通过单独定义每一个参数。虽然检查参数在大多数案例中顺利运行，但这个对象有些笨拙。例如，检查这段代码，检查参数对象：
 
 ```JavaScript
 function pick(object) {
@@ -426,19 +426,28 @@ console.log(bookData.year);     // 2015
 
 This function mimics the pick() method from the Underscore.js library, which returns a copy of a given object with some specified subset of the original object’s properties. This example defines only one argument and expects the first argument to be the object from which to copy properties. Every other argument passed is the name of a property that should be copied on the result.
 
+这个函数模仿了库 Underscore.js 的 pick() 方法，返回了一份拥有原始对象指定属性子集的一个对象的拷贝。这个例子仅定义了一个参数，要求第一个参数为一个拷贝属性来源对象。其他被传入的参数是应该被拷贝到 result中的属性名。
+
 There are couple of things to notice about this pick() function. First, it’s not at all obvious that the function can handle more than one parameter. You could define several more parameters, but you would always fall short of indicating that this function can take any number of parameters. Second, because the first parameter is named and used directly, when you look for the properties to copy, you have to start in the arguments object at index 1 instead of index 0. Remembering to use the appropriate indices with arguments isn’t necessarily difficult, but it’s one more thing to keep track of.
+
+关于函数 pick() 有两点要注意。第一，该函数可以操作多于一个的参数这点不明显。你可以定义更多的参数，但你总不能说明这个函数可以带任意数量的参数。第二，因为第一个参数被命名且直接被使用，当你寻找着属性拷贝，你必须从变量对象位置1开始而不是0。记住，使用
+适当的参数指标不一定是困难的，但是一件要跟踪的事。
 
 ECMAScript 6 introduces rest parameters to help with these issues.
 
-####Rest Parameters
+ECMAScript 6 介绍了其他参数帮助处理这些问题。
+
+####Rest Parameters 其他参数
 
 A rest parameter is indicated by three dots (...) preceding a named parameter. That named parameter becomes an Array containing the rest of the parameters passed to the function, which is where the name “rest” parameters originates. For example, pick() can be rewritten using rest parameters, like this:
 
+其他参数通过在命名参数前面用过3个点表示。其他被传入函数的参数被收集到一个被命名的参数数组中。例如，pick() 可以用其他参数来重写，如下：
+
 ```JavaScript
 function pick(object, ...keys) {
-    let result = Object.create(null);
+    var result = Object.create(null);
 
-    for (let i = 0, len = keys.length; i < len; i++) {
+    for (var i = 0, len = keys.length; i < len; i++) {
         result[keys[i]] = object[keys[i]];
     }
 
@@ -448,10 +457,17 @@ function pick(object, ...keys) {
 
 In this version of the function, keys is a rest parameter that contains all parameters passed after object (unlike arguments, which contains all parameters including the first one). That means you can iterate over keys from beginning to end without worry. As a bonus, you can tell by looking at the function that it is capable of handling any number of parameters.
 
+该版本的函数，keys 是包含除object之外的所有参数（不像包含第一个的所有参数的arguments）。这意味着从头到尾你都无需担心keys的迭代。作为奖励，你可以判定函数有能力处理任何数量的参数。
+
 Rest parameters do not affect a function’s length property, which indicates the number of named parameters for the function. The value of length for pick() in this example is 1 because only object counts towards this value.
 
-####Rest Parameter Restrictions
+其他参数不会影响一个函数命名参数的个数的 length 属性。例子中 pick() 值的长度为1因为只有 object 对这个值计算。
+
+####Rest Parameter Restrictions 其他参数的限制
+
 There are two restrictions on rest parameters. The first restriction is that there can be only one rest parameter, and the rest parameter must be last. For example, this code won’t work:
+
+对于其他参数有两个限制。第一，只能有一个其他参数，而且必须放在最后。例如，这段代码不会工作：
 
 ```JavaScript
 // Syntax error: Can't have a named parameter after rest parameters
@@ -468,7 +484,11 @@ function pick(object, ...keys, last) {
 
 Here, the parameter last follows the rest parameter keys, which would cause a syntax error.
 
+参数 last 跟在其他参数 keys 之后，这会引起一个错误。
+
 The second restriction is that rest parameters cannot be used in an object literal setter. That means this code would also cause a syntax error:
+
+第二，其他参数不能被用在一个对象的迭代设置。这意味着这段代码也会引起一个错误：
 
 ```JavaScript
 let object = {
@@ -481,6 +501,8 @@ let object = {
 ```
 
 This restriction exists because object literal setters are restricted to a single argument. Rest parameters are, by definition, an infinite number of arguments, so they’re not allowed in this context.
+
+限制的存在是因为对象迭代设置被限制在一个单一的参数中。通过定义，其他参数是无穷多的参数，所以文本中这样是不被允许的。
 
 ####How Rest Parameters Affect the arguments Object
 Rest parameters were designed to replace arguments in ECMAScript. Originally, ECMAScript 4 did away with arguments and added rest parameters to allow an unlimited number of arguments to be passed to functions. ECMAScript 4 never came into being, but this idea was kept around and reintroduced in ECMAScript 6, despite arguments not being removed from the language.
