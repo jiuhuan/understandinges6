@@ -314,11 +314,13 @@ console.log(add(1));        // throws error
 
 The call to add(1) throws an error because second is defined after first and is therefore unavailable as a default value. To understand why that happens, it’s important to revisit temporal dead zones.
 
-调用 add(1) 会抛出错误因为 second 定义于 first 之后，因此默认值是无法获取的。明白这点，这对重新讨论 TDZ 很重要。
+调用 add(1) 会抛出错误因为 second 定义于 first 之后，因此默认值是无法获取的。明白这点对重新讨论 TDZ 很重要。
 
 ####Default Parameter Temporal Dead Zone 默认参数TDZ
 
 Chapter 1 introduced the temporal dead zone (TDZ) as it relates to let and const, and default parameters also have a TDZ where parameters cannot be accessed. Similar to a let declaration, each parameter creates a new identifier binding that can’t be referenced before initialization without throwing an error. Parameter initialization happens when the function is called, either by passing a value for the parameter or by using the default parameter value.
+
+第一章介绍了 TDZ 由于它涉及 let 和 const，在参数不能被访问那默认参数也有一个 TDZ。类似于一个let的声明，每一个参数创建了一个新的在初始化之前不能被引用的标识符绑定而不抛出错误。但函数被调用参数初始化发生，要么给参数传递一个值，要么使用默认参数值。
 
 To explore the default parameter TDZ, consider this example from “Default Parameter Expressions” again:
 
