@@ -391,9 +391,10 @@ Note: Function parameters have their own scope and their own TDZ that is separat
 ###*Working with Unnamed Parameters*
 So far, the examples in this chapter have only covered parameters that have been named in the function definition. However, JavaScript functions don’t limit the number of parameters that can be passed to the number of named parameters defined. You can always pass fewer or more parameters than formally specified. Default parameters make it clear when a function can accept fewer parameters, and ECMAScript 6 sought to make the problem of passing more parameters than defined better as well.
 
-Unnamed Parameters in ECMAScript 5
+####Unnamed Parameters in ECMAScript 5
 Early on, JavaScript provided the arguments object as a way to inspect all function parameters that are passed without necessarily defining each parameter individually. While inspecting arguments works fine in most cases, this object can be a little cumbersome to work with. For example, examine this code, which inspects the arguments object:
 
+```JavaScript
 function pick(object) {
     let result = Object.create(null);
 
@@ -415,15 +416,19 @@ let bookData = pick(book, "author", "year");
 
 console.log(bookData.author);   // "Nicholas C. Zakas"
 console.log(bookData.year);     // 2015
+```
+
 This function mimics the pick() method from the Underscore.js library, which returns a copy of a given object with some specified subset of the original object’s properties. This example defines only one argument and expects the first argument to be the object from which to copy properties. Every other argument passed is the name of a property that should be copied on the result.
 
 There are couple of things to notice about this pick() function. First, it’s not at all obvious that the function can handle more than one parameter. You could define several more parameters, but you would always fall short of indicating that this function can take any number of parameters. Second, because the first parameter is named and used directly, when you look for the properties to copy, you have to start in the arguments object at index 1 instead of index 0. Remembering to use the appropriate indices with arguments isn’t necessarily difficult, but it’s one more thing to keep track of.
 
 ECMAScript 6 introduces rest parameters to help with these issues.
 
-Rest Parameters
+####Rest Parameters
+
 A rest parameter is indicated by three dots (...) preceding a named parameter. That named parameter becomes an Array containing the rest of the parameters passed to the function, which is where the name “rest” parameters originates. For example, pick() can be rewritten using rest parameters, like this:
 
+```JavaScript
 function pick(object, ...keys) {
     let result = Object.create(null);
 
@@ -433,13 +438,16 @@ function pick(object, ...keys) {
 
     return result;
 }
+```
+
 In this version of the function, keys is a rest parameter that contains all parameters passed after object (unlike arguments, which contains all parameters including the first one). That means you can iterate over keys from beginning to end without worry. As a bonus, you can tell by looking at the function that it is capable of handling any number of parameters.
 
 Rest parameters do not affect a function’s length property, which indicates the number of named parameters for the function. The value of length for pick() in this example is 1 because only object counts towards this value.
 
-Rest Parameter Restrictions
+####Rest Parameter Restrictions
 There are two restrictions on rest parameters. The first restriction is that there can be only one rest parameter, and the rest parameter must be last. For example, this code won’t work:
 
+```JavaScript
 // Syntax error: Can't have a named parameter after rest parameters
 function pick(object, ...keys, last) {
     let result = Object.create(null);
@@ -450,10 +458,13 @@ function pick(object, ...keys, last) {
 
     return result;
 }
+```
+
 Here, the parameter last follows the rest parameter keys, which would cause a syntax error.
 
 The second restriction is that rest parameters cannot be used in an object literal setter. That means this code would also cause a syntax error:
 
+```JavaScript
 let object = {
 
     // Syntax error: Can't use rest param in setter
@@ -461,13 +472,16 @@ let object = {
         // do something
     }
 };
+```
+
 This restriction exists because object literal setters are restricted to a single argument. Rest parameters are, by definition, an infinite number of arguments, so they’re not allowed in this context.
 
-How Rest Parameters Affect the arguments Object
+####How Rest Parameters Affect the arguments Object
 Rest parameters were designed to replace arguments in ECMAScript. Originally, ECMAScript 4 did away with arguments and added rest parameters to allow an unlimited number of arguments to be passed to functions. ECMAScript 4 never came into being, but this idea was kept around and reintroduced in ECMAScript 6, despite arguments not being removed from the language.
 
 The arguments object works together with rest parameters by reflecting the arguments that were passed to the function when called, as illustrated in this program:
 
+```JavaScript
 function checkArgs(...args) {
     console.log(args.length);
     console.log(arguments.length);
@@ -476,12 +490,17 @@ function checkArgs(...args) {
 }
 
 checkArgs("a", "b");
+```
+
 The call to checkArgs() outputs:
 
+```JavaScript
 2
 2
 a a
 b b
+```
+
 The arguments object always correctly reflects the parameters that were passed into a function regardless of rest parameter usage.
 
 That’s all you really need to know about rest parameters to get started using them. The next section continues the parameter discussion with the spread operator, which is closely related to rest parameters.
