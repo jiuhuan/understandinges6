@@ -222,9 +222,11 @@ In this example, arguments.length is 1 because only one argument was passed to m
 
 这个例子中，arguments.length 为 1 因为只有一个参数被传入 mixArgs()。这也意味着当只有一个参数被传入函数时我们预期的是  arguments[1] 为 undefined。这也意味着 first 等于 arguments[0]。改变 first 和 second 不影响参数。这个行为在 nonstrict 和 strict 模式都一样，所以你可以依靠 arguments 来反映调用的初始状态。
 
-####Default Parameter Expressions
+####Default Parameter Expressions 默认参数表达式
 
 Perhaps the most interesting feature of default parameter values is that the default value need not be a primitive value. You can, for example, execute a function to retrieve the default parameter, like this:
+
+可能默认参数值最有趣的特性是默认值不一定是原始值。例如，你可以执行一个函数去检索默认参数，如下：
 
 ```JavaScript
 function getValue() {
@@ -240,6 +242,8 @@ console.log(add(1));        // 6
 ```
 
 Here, if the last argument isn’t provided, the function getValue() is called to retrieve the correct default value. Keep in mind that getValue() is only called when add() is called without a second parameter, not when the function declaration is first parsed. That means if getValue() were written differently, it could potentially return a different value. For instance:
+
+这里，如果 second 参数没有被提供，函数getValue()调用会以接收准确的默认值。注意，getValue()只有当add()被调用且没有传入第二个参数时才会被调用，而不是当函数声明开始解析。这意味着如果getValue()写法不同，可以返回一个不同的值。如：
 
 ```JavaScript
 let value = 5;
@@ -259,7 +263,11 @@ console.log(add(1));        // 7
 
 In this example, value begins as five and increments each time getValue() is called. The first call to add(1) returns 6, while the second call to add(1) returns 7 because value was incremented. Because the default value for second is only evaluated when the function is called, changes to that value can be made at any time.
 
+例子中，value 开始为 5 并且 每次调用 getValue() 都会自加。第一次调用 add(1) 返回 6，但第二次返回 7 因为 value 增加了。因为 second 的默认值是只有当函数被调用才执行的，每次 value 都会改变。
+
 This behavior introduces another interesting capability. You can use a previous parameter as the default for a later parameter. Here’s an example:
+
+这种行为引出了另一个有趣的能力。你可以使用前面的参数作为最后参数的默认值。例子：
 
 ```JavaScript
 function add(first, second = first) {
@@ -271,6 +279,8 @@ console.log(add(1));        // 2
 ```
 
 In this code, the parameter second is given a default value of first, meaning that passing in just one argument leaves both arguments with the same value. So add(1, 1) returns 2 just as add(1) returns 2. Taking this a step further, you can pass first into a function to get the value for second as follows:
+
+代码中，参数 second 被赋值为 first 的值，意味着传入的参数只有一个而两个参数用了同一个值。所以 add(1, 1) 和 add(1) 都返回了2。改进一下，你可以将 first 传入一个函数获取值以赋值给 second 如：
 
 ```JavaScript
 function getValue(value) {
@@ -287,7 +297,11 @@ console.log(add(1));        // 7
 
 This example sets second equal to the value returned by getValue(first), so while add(1, 1) still returns 2, add(1) returns 7 (1 + 6).
 
+改例子设置了 second 等于 getValue(first) 返回的值，所以虽然 add(1, 1) 仍返回2， 但add(1) 返回了7（1+6）。 
+
 The ability to reference parameters from default parameter assignments works only for previous arguments, so earlier arguments do not have access to later arguments. For example:
+
+从默认参数参考参数的能力只限于前面的arguments，所以前面的参数无法连接后面的参数。例如：
 
 ```JavaScript
 function add(first = second, second) {
@@ -300,7 +314,10 @@ console.log(add(1));        // throws error
 
 The call to add(1) throws an error because second is defined after first and is therefore unavailable as a default value. To understand why that happens, it’s important to revisit temporal dead zones.
 
-####Default Parameter Temporal Dead Zone
+调用 add(1) 会抛出错误因为 second 定义于 first 之后，因此默认值是无法获取的。明白这点，这对重新讨论 TDZ 很重要。
+
+####Default Parameter Temporal Dead Zone 默认参数TDZ
+
 Chapter 1 introduced the temporal dead zone (TDZ) as it relates to let and const, and default parameters also have a TDZ where parameters cannot be accessed. Similar to a let declaration, each parameter creates a new identifier binding that can’t be referenced before initialization without throwing an error. Parameter initialization happens when the function is called, either by passing a value for the parameter or by using the default parameter value.
 
 To explore the default parameter TDZ, consider this example from “Default Parameter Expressions” again:
