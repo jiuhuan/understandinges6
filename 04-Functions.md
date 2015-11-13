@@ -324,6 +324,9 @@ Chapter 1 introduced the temporal dead zone (TDZ) as it relates to let and const
 
 To explore the default parameter TDZ, consider this example from “Default Parameter Expressions” again:
 
+探讨默认参数 TDZ，再次考虑“默认参数表达式”的例子：
+
+```JavaScript
 function getValue(value) {
     return value + 5;
 }
@@ -334,8 +337,13 @@ function add(first, second = getValue(first)) {
 
 console.log(add(1, 1));     // 2
 console.log(add(1));        // 7
+```
+
 The calls to add(1, 1) and add(1) effectively execute the following code to create the first and second parameter values:
 
+调用 add(1,1) 和 add(1) 有效的执行代码创建 first 和 second 参数值：
+
+```JavaScript
 // JavaScript representation of call to add(1, 1)
 let first = 1;
 let second = 1;
@@ -343,14 +351,21 @@ let second = 1;
 // JavaScript representation of call to add(1)
 let first = 1;
 let second = getValue(first);
+```
+
 When the function add() is first executed, the bindings first and second are added to a parameter-specific TDZ (similar to how let behaves). So while second can be initialized with the value of first because first is always initialized at that time, the reverse is not true. Now, consider this rewritten add() function:
 
+
+
+```JavaScript
 function add(first = second, second) {
     return first + second;
 }
 
 console.log(add(1, 1));         // 2
 console.log(add(undefined, 1)); // throws error
+```
+
 The calls to add(1, 1) and add(undefined, 1) and this example now map to this code behind the scenes:
 
 // JavaScript representation of call to add(1, 1)
