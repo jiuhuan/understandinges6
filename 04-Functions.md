@@ -355,7 +355,7 @@ let second = getValue(first);
 
 When the function add() is first executed, the bindings first and second are added to a parameter-specific TDZ (similar to how let behaves). So while second can be initialized with the value of first because first is always initialized at that time, the reverse is not true. Now, consider this rewritten add() function:
 
-
+当函数 add() 第一次被执行是，绑定的 first 和 second 被添加到具体参数 TDZ （类似 let 的做法）。所以当 second 可以通过 first 值被初始化因为 first 那时已经被初始化了，反过来就不行了。现在，考虑下重新写过的 add() 函数：
 
 ```JavaScript
 function add(first = second, second) {
@@ -368,6 +368,9 @@ console.log(add(undefined, 1)); // throws error
 
 The calls to add(1, 1) and add(undefined, 1) and this example now map to this code behind the scenes:
 
+调用 add(1, 1) 和 add(undefined, 1) ，这个例子现在映射到屏幕后是代码是这样的：
+
+```JavaScript
 // JavaScript representation of call to add(1, 1)
 let first = 1;
 let second = 1;
@@ -375,9 +378,15 @@ let second = 1;
 // JavaScript representation of call to add(undefined, 1)
 let first = second;
 let second = 1;
+```
+
 In this example, the call to add(undefined, 1) throws an error because second hasn’t yet been initialized when first is initialized. At that point, second is in the TDZ and therefore any references to second throw an error. This mirrors the behavior of let bindings discussed in Chapter 1.
 
+在这个例子中，调用 add(undefined, 1) 会抛出个错误因为当 first 被初始化时 second 还没初始化。这时，second 便在 TDZ 中，因此任何引用 second 都会抛出错误。这反映了第一章中讨论的 let 绑定的行为。
+
 Note: Function parameters have their own scope and their own TDZ that is separate from the function body scope.
+
+注意：函数参数有它们自己的作用域，它们自己的TDZ是和函数主体作用域分开的。
 
 ###*Working with Unnamed Parameters*
 So far, the examples in this chapter have only covered parameters that have been named in the function definition. However, JavaScript functions don’t limit the number of parameters that can be passed to the number of named parameters defined. You can always pass fewer or more parameters than formally specified. Default parameters make it clear when a function can accept fewer parameters, and ECMAScript 6 sought to make the problem of passing more parameters than defined better as well.
