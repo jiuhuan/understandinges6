@@ -435,13 +435,13 @@ There are couple of things to notice about this pick() function. First, it’s n
 
 ECMAScript 6 introduces rest parameters to help with these issues.
 
-ECMAScript 6 介绍了其他参数帮助处理这些问题。
+ECMAScript 6 介绍了 rest parameters 帮助处理这些问题。
 
-####Rest Parameters 其他参数
+####Rest Parameters Rest Parameters
 
 A rest parameter is indicated by three dots (...) preceding a named parameter. That named parameter becomes an Array containing the rest of the parameters passed to the function, which is where the name “rest” parameters originates. For example, pick() can be rewritten using rest parameters, like this:
 
-其他参数通过在命名参数前面用过3个点表示。其他被传入函数的参数被收集到一个被命名的参数数组中。例如，pick() 可以用其他参数来重写，如下：
+A rest parameter 通过在命名参数前面用过3个点表示。其他被传入函数的参数被收集到一个被命名的参数数组中。例如，pick() 可以用  rest parameters 来重写，如下：
 
 ```JavaScript
 function pick(object, ...keys) {
@@ -461,13 +461,13 @@ In this version of the function, keys is a rest parameter that contains all para
 
 Rest parameters do not affect a function’s length property, which indicates the number of named parameters for the function. The value of length for pick() in this example is 1 because only object counts towards this value.
 
-其他参数不会影响一个函数命名参数的个数的 length 属性。例子中 pick() 值的长度为1因为只有 object 对这个值计算。
+Rest parameters不会影响一个函数命名参数的个数的 length 属性。例子中 pick() 值的长度为1因为只有 object 对这个值计算。
 
-####Rest Parameter Restrictions 其他参数的限制
+####Rest Parameter Restrictions Rest Parameter 的限制
 
 There are two restrictions on rest parameters. The first restriction is that there can be only one rest parameter, and the rest parameter must be last. For example, this code won’t work:
 
-对于其他参数有两个限制。第一，只能有一个其他参数，而且必须放在最后。例如，这段代码不会工作：
+对于 rest parameters 有两个限制。第一，只能有一个其他参数，而且必须放在最后。例如，这段代码不会工作：
 
 ```JavaScript
 // Syntax error: Can't have a named parameter after rest parameters
@@ -484,11 +484,11 @@ function pick(object, ...keys, last) {
 
 Here, the parameter last follows the rest parameter keys, which would cause a syntax error.
 
-参数 last 跟在其他参数 keys 之后，这会引起一个错误。
+参数 last 跟在 rest parameter keys 之后，这会引起一个错误。
 
 The second restriction is that rest parameters cannot be used in an object literal setter. That means this code would also cause a syntax error:
 
-第二，其他参数不能被用在一个对象的迭代设置。这意味着这段代码也会引起一个错误：
+第二，rest parameter 不能被用在一个对象的迭代设置。这意味着这段代码也会引起一个错误：
 
 ```JavaScript
 let object = {
@@ -502,12 +502,17 @@ let object = {
 
 This restriction exists because object literal setters are restricted to a single argument. Rest parameters are, by definition, an infinite number of arguments, so they’re not allowed in this context.
 
-限制的存在是因为对象迭代设置被限制在一个单一的参数中。通过定义，其他参数是无穷多的参数，所以文本中这样是不被允许的。
+限制的存在是因为对象迭代设置被限制在一个单一的参数中。通过定义，rest parameter 是无穷多的参数，所以文本中这样是不被允许的。
 
-####How Rest Parameters Affect the arguments Object
+####How Rest Parameters Affect the arguments Object Rest Parameters 怎么影响 arguments 对象
+
 Rest parameters were designed to replace arguments in ECMAScript. Originally, ECMAScript 4 did away with arguments and added rest parameters to allow an unlimited number of arguments to be passed to functions. ECMAScript 4 never came into being, but this idea was kept around and reintroduced in ECMAScript 6, despite arguments not being removed from the language.
 
+在 ECMAScript 中 Rest parameters 设计是为了替换 arguments。起初，ECMAScript 4 移除了 arguments 而添加了 rest parameters 以允许无限量的参数被传入函数。ECMAScript 4 从未实现，但这个思路被保留和引入 ECMAScript 6 中，尽管 arguments 没有从语言中被移除。
+
 The arguments object works together with rest parameters by reflecting the arguments that were passed to the function when called, as illustrated in this program:
+
+arguments 对象通过函数调用时反映传入函数的参数以配合 rest parameters 工作，如这个程序说明的：
 
 ```JavaScript
 function checkArgs(...args) {
@@ -531,28 +536,42 @@ b b
 
 The arguments object always correctly reflects the parameters that were passed into a function regardless of rest parameter usage.
 
+arguments 对象始终正确的反映被传入函数的参数不管是否使用 rest parameter。
+
 That’s all you really need to know about rest parameters to get started using them. The next section continues the parameter discussion with the spread operator, which is closely related to rest parameters.
 
-###*Increased Capabilities of the Function Constructor*
+这是你开始使用 rest parameter 所需要的知道的点。下一部分通过与 rest parameters 密切相关的传播操作继续参数讨论。
+
+###*Increased Capabilities of the Function Constructor 增加函数构造函数功能*
+
 The Function constructor is an infrequently used part of JavaScript that allows you to dynamically create a new function. The arguments to the constructor are the parameters for the function and the function body, all as strings. Here’s an example:
 
+```JavaScript
 var add = new Function("first", "second", "return first + second");
 
 console.log(add(1, 1));     // 2
+```
+
 ECMAScript 6 augments the capabilities of the Function constructor to allow default parameters and rest parameters. You need only add an equals sign and a value to the parameter names, as follows:
 
+```JavaScript
 var add = new Function("first", "second = first",
         "return first + second");
 
 console.log(add(1, 1));     // 2
 console.log(add(1));        // 2
+```
+
 In this example, the parameter second is assigned the value of first when only one parameter is passed. The syntax is the same as for function declarations that don’t use Function.
 
 For rest parameters, just add the ... before the last parameter, like this:
 
+```JavaScript
 var pickFirst = new Function("...args", "return args[0]");
 
 console.log(pickFirst(1, 2));   // 1
+```
+
 This code creates a function that uses only a single rest parameter and returns the first argument that was passed in.
 
 The addition of default and rest parameters ensures that Function has all of the same capabilities as the declarative form of creating functions.
