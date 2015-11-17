@@ -592,7 +592,7 @@ The addition of default and rest parameters ensures that Function has all of the
 
 Closely related to rest parameters is the spread operator. While rest parameters allow you to specify that multiple independent arguments should be combined into an array, the spread operator allows you to specify an array that should be split and have its items passed in as separate arguments to a function. Consider the Math.max() method, which accepts any number of arguments and returns the one with the highest value. Here’s a simple use case for this method:
 
-
+与 rest parameters 紧密相关的是 spread operator。虽然 rest parameters 允许你指定多个应该被组合到数组的独立参数， spread operator 允许你指定一个应该被分割并且作为独立参数被传入一个函数的数组。考虑方法 Math.max() ，接受任何数量的 arguments 和返回最大值。简单例子如下：
 
 ```JavaScript
 let value1 = 25,
@@ -603,6 +603,8 @@ console.log(Math.max(value1, value2));      // 50
 
 When you’re dealing with just two values, as in this example, Math.max() is very easy to use. The two values are passed in, and the higher value is returned. But what if you’ve been tracking values in an array, and now you want to find the highest value? The Math.max() method doesn’t allow you to pass in an array, so in ECMAScript 5 and earlier, you’d be stuck either searching the array yourself or using apply() as follows:
 
+当你处理只有两个值是，像这个例子，Math.max()非常容易使用。两个值传入，比较大的被返回。但如果你把值放在一个数组中，现在你想找到最高值？Math.max() 方法不会允许你传入一个数组，所以在 ECMAScript 5 中及更早，你总会自己搜索数组或者使用像如下使用apply()：
+
 ```JavaScript
 let values = [25, 50, 75, 100]
 
@@ -611,7 +613,11 @@ console.log(Math.max.apply(Math, values));  // 100
 
 This solution works, but using apply() in this manner is a bit confusing. It actually seems to obfuscate the true meaning of the code with additional syntax.
 
+这个方法能行，但是在这种方式中使用 apply() 会有点混乱。这事实上似乎通过额外的语法混淆了代码的真是意义。
+
 The ECMAScript 6 spread operator makes this case very simple. Instead of calling apply(), you can pass the array to Math.max() directly and prefix it with the same ... pattern used with rest parameters. The JavaScript engine then splits the array into individual arguments and passes them in, like this:
+
+ECMAScript 6 spread operator 让这个案例非常简单。取代调用 apply(), 你可以直接传递数组到 Math.max() 和使用 ... 模式做为它的前缀使用 rest parameters。JavaScript引擎分割数组到独立的 arguments和传递它们，如：
 
 ```JavaScript
 let values = [25, 50, 75, 100]
@@ -623,7 +629,11 @@ console.log(Math.max(...values));           // 100
 
 Now the call to Math.max() looks a bit more conventional and avoids the complexity of specifying a this-binding (the first argument to Math.max.apply() in the previous example) for a simple mathematical operation.
 
+现在调用 Math.max() 看起来有些平常了，对于一个简单的算数运算避免了绑定的复杂性（前面例子中传入 Math.max.apply() 的第一个参数）
+
 You can mix and match the spread operator with other arguments as well. Suppose you want the smallest number returned from Math.max() to be 0 (just in case negative numbers sneak into the array). You can pass that argument separately and still use the spread operator for the other arguments, as follows:
+
+你可以混合和匹配 spread operator通过设置其他参数。假如你想最小的值从 Math.max() 中返回通过设置0（单单在这个例子中，负数存在这个数组中）。你可以单独传递参数和仍对其他参数使用spread operator，如：
 
 ```JavaScript
 let values = [-25, -50, -75, -100]
@@ -633,9 +643,15 @@ console.log(Math.max(...values, 0));        // 0
 
 In this example, the last argument passed to Math.max() is 0, which comes after the other arguments are passed in using the spread operator.
 
+例子中，最后的参数被传入 Math.max() 为0，在其他参数传入之后传入
+
 The spread operator for argument passing makes using arrays for function arguments much easier. You’ll likely find it to be a suitable replacement for the apply() method in most circumstances.
 
+用于参数传递的 spread operator 使得函数参数使用数组更加容易。你可能会发现大多数情况下这会是一个 apply() 方法的替换方案。
+
 In addition to the uses you’ve seen for default and rest parameters so far, in ECMAScript 6, you can also apply both parameter types to JavaScript’s Function constructor.
+
+到目前为止，除了使用默认和 rest parameters，在 ECMAScript 6 中，你可以提交参数类型到JavaScript的构造函数中。
 
 ###*ECMAScript 6’s name Property*
 Identifying functions can be challenging in JavaScript given the various ways a function can be defined. Additionally, the prevalence of anonymous function expressions makes debugging a bit more difficult, often resulting in stack traces that are hard to read and decipher. For these reasons, ECMAScript 6 adds the name property to all functions.
