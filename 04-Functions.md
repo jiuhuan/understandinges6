@@ -643,7 +643,7 @@ console.log(Math.max(...values, 0));        // 0
 
 In this example, the last argument passed to Math.max() is 0, which comes after the other arguments are passed in using the spread operator.
 
-例子中，最后的参数被传入 Math.max() 为0，在其他参数传入之后传入
+例子中，最后的参数被传入 Math.max() 为0，在其他参数传入之后传入, which comes after the other arguments are passed in using the spread operator.
 
 The spread operator for argument passing makes using arrays for function arguments much easier. You’ll likely find it to be a suitable replacement for the apply() method in most circumstances.
 
@@ -653,12 +653,19 @@ In addition to the uses you’ve seen for default and rest parameters so far, in
 
 到目前为止，除了使用默认和 rest parameters，在 ECMAScript 6 中，你可以提交参数类型到JavaScript的构造函数中。
 
-###*ECMAScript 6’s name Property*
+###*ECMAScript 6’s name Property ECMAScript 6 name 属性*
+
 Identifying functions can be challenging in JavaScript given the various ways a function can be defined. Additionally, the prevalence of anonymous function expressions makes debugging a bit more difficult, often resulting in stack traces that are hard to read and decipher. For these reasons, ECMAScript 6 adds the name property to all functions.
 
-Choosing Appropriate Names
+在JavaScript中具有挑战性的标识函数有几种方式定义一个函数。此外，流行的匿名函数表达式让 debugging  有点难度，经常返回在很难读取和解密的堆栈中。基于这些原因，ECMAScript 6 为所有函数添加 name 属性
+
+####Choosing Appropriate Names 选择合适的名字
+
 All functions in an ECMAScript 6 program will have an appropriate value for their name property. To see this in action, look at the following example, which shows a function and function expression, and prints the name properties for both:
 
+ECMASCript 6 程序中所有函数的 name 属性都将会有一个合适的值。看下面的例子，一个函数和一个函数表达式，并且打印所有的 name 属性：
+
+```JavaScript
 function doSomething() {
     // ...
 }
@@ -669,11 +676,19 @@ var doAnotherThing = function() {
 
 console.log(doSomething.name);          // "doSomething"
 console.log(doAnotherThing.name);       // "doAnotherThing"
+```
+
 In this code, doSomething() has a name property equal to "doSomething" because it’s a function declaration. The anonymous function expression doAnotherThing() has a name of "doAnotherThing" because that’s the name of the variable to which it is assigned.
 
-Special Cases of the name Property
+代码中，doSomething() 有一个 name 属性等于 “doSomething” 因为这是个函数声明。匿名函数表达式 doAnotherThing() 有一个 “doAnotherThing” 因为它被分配了变量的名字。
+
+####Special Cases of the name Property name 属性的特殊情况
+
 While appropriate names for function declarations and function expressions are easy to find, ECMAScript 6 goes further to ensure that all functions have appropriate names. To illustrate this, consider the following program:
 
+虽然函数声明和函数表达式适当的名字容易被找，ECMAScript 6 进一步确保所有函数都有适当的名字。为了说明这个，考虑下面程序：
+
+```JavaScript
 var doSomething = function doSomethingElse() {
     // ...
 };
@@ -690,10 +705,17 @@ var person = {
 console.log(doSomething.name);      // "doSomethingElse"
 console.log(person.sayName.name);   // "sayName"
 console.log(person.firstName.name); // "get firstName"
+```
+
 In this example, doSomething.name is "doSomethingElse" because the function expression itself has a name, and that name takes priority over the variable to which the function was assigned. The name property of person.sayName() is "sayName", as the value was interpreted from the object literal. Similarly, person.firstName is actually a getter function, so its name is "get firstName" to indicate this difference. Setter functions are prefixed with "set" as well.
+
+在这个例子中，doSomething.name 是 "doSomethingElse" 因为函数表达式自己有名字，name 属性接管了函数被分配的值的优先权。person.sayName() 的 name 属性是 "sayName"，因为这个值从对象字面量解析而来。类似地，person.firstName 实际上是一个getter函数，所以它的名字为 "get firstName" 指出了这种差异。set 开头的 Setter 函数也是一样。
 
 There are a couple of other special cases for function names, too. Functions created using bind() will have their names prefixed with "bound" and functions created using the Function constructor have a name of "anonymous", as in this example:
 
+函数名也有几个特殊的情况。函数使用 bind() 将会在他们名字前加 “bound”，使用构造函数创建的函数会有一个为“anonymous”的名字，如：
+
+```JavaScript
 var doSomething = function() {
     // ...
 };
@@ -701,9 +723,15 @@ var doSomething = function() {
 console.log(doSomething.bind().name);   // "bound doSomething"
 
 console.log((new Function()).name);     // "anonymous"
+```
+
 The name of a bound function will always be the name of the function being bound prefixed with the string "bound ", so the bound version of doSomething() is "bound doSomething".
 
+一个 bound 函数的名字将一直是带有字符串 “bound” 前缀的函数名。所以bound 版的 doSomething() 为 "bound doSomething"。
+
 Keep in mind that the value of name for any function does not necessarily refer to a variable of the same name. The name property is meant to be informative, to help with debugging, so there’s no way to use the value of name to get a reference to the function.
+
+记住，任何函数名字的属性值不一定参考同名的变量。name 属性意味着被提供信息，协助 debugging，所以使用 name 的值去获取函数的引用是不可取的。
 
 ###*Clarifying the Dual Purpose of Functions*
 In ECMAScript 5 and earlier, functions serve the dual purpose of being callable with or without new. When used with new, the this value inside a function is a new object and that new object is returned, as illustrated in this example:
