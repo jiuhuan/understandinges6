@@ -542,9 +542,11 @@ That’s all you really need to know about rest parameters to get started using 
 
 这是你开始使用 rest parameter 所需要的知道的点。下一部分通过与 rest parameters 密切相关的传播操作继续参数讨论。
 
-###*Increased Capabilities of the Function Constructor 增加函数构造函数功能*
+###*Increased Capabilities of the Function Constructor 增加构造函数功能*
 
 The Function constructor is an infrequently used part of JavaScript that allows you to dynamically create a new function. The arguments to the constructor are the parameters for the function and the function body, all as strings. Here’s an example:
+
+构造函数是允许你动态创建一个函数的一个JavaScript不常用的部分。构造函数分函数参数和函数主体，都是字符串。例子：
 
 ```JavaScript
 var add = new Function("first", "second", "return first + second");
@@ -553,6 +555,8 @@ console.log(add(1, 1));     // 2
 ```
 
 ECMAScript 6 augments the capabilities of the Function constructor to allow default parameters and rest parameters. You need only add an equals sign and a value to the parameter names, as follows:
+
+ECMAScript 6  增加了构造函数允许默认参数和 rest parameters 的能力。你只需要添加 一个等号和一个值给参数名，如：
 
 ```JavaScript
 var add = new Function("first", "second = first",
@@ -564,7 +568,11 @@ console.log(add(1));        // 2
 
 In this example, the parameter second is assigned the value of first when only one parameter is passed. The syntax is the same as for function declarations that don’t use Function.
 
+例子中，当只有一个参数传入时参数 second 被分配了 first 的值。语法和不使用 Function 的函数定义一样。
+
 For rest parameters, just add the ... before the last parameter, like this:
+
+对于 rest parameters，只是在最后的参数前使用 ... , 如：
 
 ```JavaScript
 var pickFirst = new Function("...args", "return args[0]");
@@ -574,7 +582,11 @@ console.log(pickFirst(1, 2));   // 1
 
 This code creates a function that uses only a single rest parameter and returns the first argument that was passed in.
 
+这段代码创建一个使用只有一个 rest parameter 的函数并返回传入的第一个argument。
+
 The addition of default and rest parameters ensures that Function has all of the same capabilities as the declarative form of creating functions.
+
+默认和 rest parameters 的添加确保 Function 有和 functoin 定义所有相同的功能。
 
 ###*The Spread Operator*
 Closely related to rest parameters is the spread operator. While rest parameters allow you to specify that multiple independent arguments should be combined into an array, the spread operator allows you to specify an array that should be split and have its items passed in as separate arguments to a function. Consider the Math.max() method, which accepts any number of arguments and returns the one with the highest value. Here’s a simple use case for this method:
