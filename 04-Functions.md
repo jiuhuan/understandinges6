@@ -2,23 +2,23 @@
 
 Functions are an important part of any programming language, and prior to ECMAScript 6, JavaScript functions hadn’t changed much since the language was created. This left a backlog of problems and nuanced behavior that made making mistakes easy and often required more code just to achieve very basic behaviors.
 
-函数是任何编程语言重要的一部分，在 ECMAScript 6 之前，JavaScript 函数没有过多的改变直到 JavaScript 6 被创建。这样一来一些积压的问题和微小的行为更容易犯错并且经常为了实现基本的行为而写一堆代码。
+函数是任何编程语言重要的一部分，在 ES6 之前，JavaScript 函数没有过多的改变直到 JavaScript 6 被创建。这样一来一些积压的问题和微小的行为更容易犯错并且经常为了实现基本的行为而写一堆代码。
 
 ECMAScript 6 functions make a big leap forward, taking into account years of complaints and requests from JavaScript developers. The result is a number of incremental improvements on top of ECMAScript 5 functions that make programming in JavaScript less error-prone and more powerful than ever before.
 
-考虑到JavaScript开发者多年的抱怨和要求，ECMAScript 6 函数做了一个大的跃进。结果是添加改善了ECMAScript 5最重要的函数让JavaScript程序少出错和更强大。
+考虑到JavaScript开发者多年的抱怨和要求，ES6 函数做了一个大的跃进。结果是添加改善了ECMAScript 5最重要的函数让JavaScript程序少出错和更强大。
 
 ###*Functions with Default Parameters 带默认参数的函数*
 
 Functions in JavaScript are unique in that they allow any number of parameters to be passed, regardless of the number of parameters declared in the function definition. This allows you to define functions that can handle different numbers of parameters, often by just filling in default values when parameters aren’t provided. This section covers how default parameters work both in and prior to ECMAScript 6, along with some important information on the arguments object, using expressions as parameters, and another TDZ.
 
-JavaScript 函数是独特的，他们允许接收任意数量的参数，不管参数是否在函数定义中是否声明过。这允许你定义一个可以接收不同数量参数的函数，通常当参数没被提供，只需设置参数的默认值。这部分涵盖默认参数在 ECMAScript 6 中和之前的运行，随着参数对象的重要信息，使用表达式作为参数，和另一个TDZ。
+JavaScript 函数是独特的，他们允许接收任意数量的参数，不管参数是否在函数定义中是否声明过。这允许你定义一个可以接收不同数量参数的函数，通常当参数没被提供，只需设置参数的默认值。这部分涵盖默认参数在 ES6 中和之前的运行，随着参数对象的重要信息，使用表达式作为参数，和另一个TDZ。
 
 ####Simulating Default Parameters in ECMAScript 5 在 ECMAScript 5 中模拟默认参数
 
 In ECMAScript 5 and earlier, you would likely use the following pattern to create a function with default parameters:
 
-在 ECMAScript 6 之前的版本，你可能会使用下面这种模式创建一个带默认参数的函数：
+在 ES6 之前的版本，你可能会使用下面这种模式创建一个带默认参数的函数：
 
 ```JavaScript
 function makeRequest(url, timeout, callback) {
@@ -54,11 +54,11 @@ While this approach is safer, it still requires a lot of extra code for a very b
 
 虽然这个方法更安全，但它仍然需要很多代码来实现这个非常基础的操作。流行的JavaScript库充满了类似的模式，因为这代表着常见的模式。
 
-####Default Parameters in ECMAScript 6 ECMAScript 6使用默认参数
+####Default Parameters in ECMAScript 6 ES6 使用默认参数
 
 ECMAScript 6 makes it easier to provide default values for parameters by providing initializations that are used when the parameter isn’t formally passed. For example:
 
-ECMAScript 6 通过提供初始化让设置参数值更为容易当参数没有被正常传入时。例如：
+ES6 通过提供初始化让设置参数值更为容易当参数没有被正常传入时。例如：
 
 ```JavaScript
 function makeRequest(url, timeout = 2000, callback = function() {}) {
@@ -90,7 +90,7 @@ makeRequest("/foo", 500, function(body) {
 
 ECMAScript 6 considers url to be required, which is why "/foo" is passed in all three calls to makeRequest(). The two parameters with a default value are considered optional.
 
-ECMAScript 6 认为 url 是必须的，所以 “/foo” 被传递到所有调用中。带有默认值的参数是可选的。
+ES6 认为 url 是必须的，所以 “/foo” 被传递到所有调用中。带有默认值的参数是可选的。
 
 It’s possible to specify default values for any arguments, including those that appear before arguments without default values in the function declaration. For example, this is fine:
 
@@ -392,7 +392,7 @@ Note: Function parameters have their own scope and their own TDZ that is separat
 
 So far, the examples in this chapter have only covered parameters that have been named in the function definition. However, JavaScript functions don’t limit the number of parameters that can be passed to the number of named parameters defined. You can always pass fewer or more parameters than formally specified. Default parameters make it clear when a function can accept fewer parameters, and ECMAScript 6 sought to make the problem of passing more parameters than defined better as well.
 
-迄今为止，这个章节中的例子都是涵盖函数中有命名的参数。However, JavaScript functions don’t limit the number of parameters that can be passed to the number of named parameters defined. 你可以传递少于或者多于指定的参数。当函数接受少于指定参数时默认参数让这点很清晰，ECMAScript 6 设法让传递更多的问题比定义更好。
+迄今为止，这个章节中的例子都是涵盖函数中有命名的参数。However, JavaScript functions don’t limit the number of parameters that can be passed to the number of named parameters defined. 你可以传递少于或者多于指定的参数。当函数接受少于指定参数时默认参数让这点很清晰，ES6 设法让传递更多的问题比定义更好。
 
 ####Unnamed Parameters in ECMAScript 5  ECMAScript 5 中非命名参数
 
@@ -435,7 +435,7 @@ There are couple of things to notice about this pick() function. First, it’s n
 
 ECMAScript 6 introduces rest parameters to help with these issues.
 
-ECMAScript 6 介绍了 rest parameters 帮助处理这些问题。
+ES6 介绍了 rest parameters 帮助处理这些问题。
 
 ####Rest Parameters Rest Parameters
 
@@ -508,7 +508,7 @@ This restriction exists because object literal setters are restricted to a singl
 
 Rest parameters were designed to replace arguments in ECMAScript. Originally, ECMAScript 4 did away with arguments and added rest parameters to allow an unlimited number of arguments to be passed to functions. ECMAScript 4 never came into being, but this idea was kept around and reintroduced in ECMAScript 6, despite arguments not being removed from the language.
 
-在 ECMAScript 中 Rest parameters 设计是为了替换 arguments。起初，ECMAScript 4 移除了 arguments 而添加了 rest parameters 以允许无限量的参数被传入函数。ECMAScript 4 从未实现，但这个思路被保留和引入 ECMAScript 6 中，尽管 arguments 没有从语言中被移除。
+在 ECMAScript 中 Rest parameters 设计是为了替换 arguments。起初，ECMAScript 4 移除了 arguments 而添加了 rest parameters 以允许无限量的参数被传入函数。ECMAScript 4 从未实现，但这个思路被保留和引入 ES6 中，尽管 arguments 没有从语言中被移除。
 
 The arguments object works together with rest parameters by reflecting the arguments that were passed to the function when called, as illustrated in this program:
 
@@ -556,7 +556,7 @@ console.log(add(1, 1));     // 2
 
 ECMAScript 6 augments the capabilities of the Function constructor to allow default parameters and rest parameters. You need only add an equals sign and a value to the parameter names, as follows:
 
-ECMAScript 6  增加了构造函数允许默认参数和 rest parameters 的能力。你只需要添加 一个等号和一个值给参数名，如：
+ES6  增加了构造函数允许默认参数和 rest parameters 的能力。你只需要添加 一个等号和一个值给参数名，如：
 
 ```JavaScript
 var add = new Function("first", "second = first",
@@ -617,7 +617,7 @@ This solution works, but using apply() in this manner is a bit confusing. It act
 
 The ECMAScript 6 spread operator makes this case very simple. Instead of calling apply(), you can pass the array to Math.max() directly and prefix it with the same ... pattern used with rest parameters. The JavaScript engine then splits the array into individual arguments and passes them in, like this:
 
-ECMAScript 6 spread operator 让这个案例非常简单。取代调用 apply(), 你可以直接传递数组到 Math.max() 和使用 ... 模式做为它的前缀使用 rest parameters。JavaScript引擎分割数组到独立的 arguments和传递它们，如：
+ES6 spread operator 让这个案例非常简单。取代调用 apply(), 你可以直接传递数组到 Math.max() 和使用 ... 模式做为它的前缀使用 rest parameters。JavaScript引擎分割数组到独立的 arguments和传递它们，如：
 
 ```JavaScript
 let values = [25, 50, 75, 100]
@@ -651,19 +651,19 @@ The spread operator for argument passing makes using arrays for function argumen
 
 In addition to the uses you’ve seen for default and rest parameters so far, in ECMAScript 6, you can also apply both parameter types to JavaScript’s Function constructor.
 
-到目前为止，除了使用默认和 rest parameters，在 ECMAScript 6 中，你可以提交参数类型到JavaScript的构造函数中。
+到目前为止，除了使用默认和 rest parameters，在 ES6 中，你可以提交参数类型到JavaScript的构造函数中。
 
-###*ECMAScript 6’s name Property ECMAScript 6 name 属性*
+###*ECMAScript 6’s name Property ES6 name 属性*
 
 Identifying functions can be challenging in JavaScript given the various ways a function can be defined. Additionally, the prevalence of anonymous function expressions makes debugging a bit more difficult, often resulting in stack traces that are hard to read and decipher. For these reasons, ECMAScript 6 adds the name property to all functions.
 
-在JavaScript中具有挑战性的标识函数有几种方式定义一个函数。此外，流行的匿名函数表达式让 debugging  有点难度，经常返回在很难读取和解密的堆栈中。基于这些原因，ECMAScript 6 为所有函数添加 name 属性
+在JavaScript中具有挑战性的标识函数有几种方式定义一个函数。此外，流行的匿名函数表达式让 debugging  有点难度，经常返回在很难读取和解密的堆栈中。基于这些原因，ES6 为所有函数添加 name 属性
 
 ####Choosing Appropriate Names 选择合适的名字
 
 All functions in an ECMAScript 6 program will have an appropriate value for their name property. To see this in action, look at the following example, which shows a function and function expression, and prints the name properties for both:
 
-ECMASCript 6 程序中所有函数的 name 属性都将会有一个合适的值。看下面的例子，一个函数和一个函数表达式，并且打印所有的 name 属性：
+ES6 程序中所有函数的 name 属性都将会有一个合适的值。看下面的例子，一个函数和一个函数表达式，并且打印所有的 name 属性：
 
 ```JavaScript
 function doSomething() {
@@ -686,7 +686,7 @@ In this code, doSomething() has a name property equal to "doSomething" because i
 
 While appropriate names for function declarations and function expressions are easy to find, ECMAScript 6 goes further to ensure that all functions have appropriate names. To illustrate this, consider the following program:
 
-虽然函数声明和函数表达式适当的名字容易被找，ECMAScript 6 进一步确保所有函数都有适当的名字。为了说明这个，考虑下面程序：
+虽然函数声明和函数表达式适当的名字容易被找，ES6 进一步确保所有函数都有适当的名字。为了说明这个，考虑下面程序：
 
 ```JavaScript
 var doSomething = function doSomethingElse() {
@@ -784,7 +784,7 @@ var notAPerson = Person("Nicholas");  // throws error
 
 Here, the this value is checked to see if it’s an instance of the constructor, and if so, execution continues as normal. If this isn’t an instance of Person, then an error is thrown. This works because the [[Construct]] method creates a new instance of Person and assigns it to this. Unfortunately, this approach is not completely reliable because this can be an instance of Person without using new, as in this example:
 
-例子中，this 的值被检查是不是 构造函数的一个实例，如果是，按旧执行。如果不是，抛出一个错误。这能工作是因为[[Construct]]方法创建了一个Person的实例并分配给this。不幸的是，这种方法是不完全可靠因为this可以是一个Person的实例不通过使用new。如：
+例子中，this 的值被检查是不是构造函数的一个实例，如果是，按旧执行。如果不是，抛出一个错误。这能工作是因为[[Construct]]方法创建了一个Person的实例并分配给this。不幸的是，这种方法是不完全可靠因为this可以是一个Person的实例不通过使用new。如：
 
 ```JavaScript
 function Person(name) {
@@ -803,10 +803,15 @@ The call to Person.call() passes the person variable as the first argument, whic
 
 Person.call() 传递person值作为第一参数，这意味着在Person函数内部设置了person。对于函数，没有方法区分 this 是来自new调用。
 
-####The new.target MetaProperty
+####The new.target MetaProperty new.target 元属性
+
 To solve this problem, ECMAScript 6 introduces the new.target metaproperty. A metaproperty is a property of a non-object that provides additional information related to its target (such as new). When a function’s [[Construct]] method is called, new.target is filled with the target of the new operator. That target is typically the constructor of the newly created object instance that will become this inside the function body. If [[Call]] is executed, then new.target is undefined.
 
+为了解决这个问题，ES6 介绍了 new.target 元属性。元属性是一个提供额外信息针对它的target（如new）的非对象的一个属性。当函数的[[Construct]]方法被调用，new.target 指向了新操作的目标。这个 target 通常是新建在函数内部变成 this 的对象实例的构造函数。如果 [[Call]] 执行，new.target 为 undefined。
+
 This new metaproperty allows you to safely detect if a function is called with new by checking whether new.target is defined as follows:
+
+这个新的元属性允许你通过检测 new.target 是否被定义来安全的判断函数是否通过 new 来调用。如：
 
 ```JavaScript
 function Person(name) {
@@ -823,7 +828,11 @@ var notAPerson = Person.call(person, "Michael");    // error!
 
 By using new.target instead of this instanceof Person, the Person constructor is now correctly throwing an error when used without new.
 
+通过使用 new.target 代替 this instanceof Person，当不使用 new时，Person 构造函数现在正确地抛出错误。
+
 You can also check that new.target was called with a specific constructor. For instance, look at this example:
+
+你还可以检查 new.target 通过具体构造函数调用。例如：
 
 ```JavaScript
 function Person(name) {
@@ -844,9 +853,15 @@ var anotherPerson = new AnotherPerson("Nicholas");  // error!
 
 In this code, new.target must be Person in order to work correctly. When new AnotherPerson("Nicholas") is called, new.target is set to AnotherPerson, so the subsequent call to Person.call(this, name) will throw an error even though new.target is defined.
 
+代码中，为了正确地工作 new.target 必须是 Person。当调用 new AnotherPerson("Nicholas") ，new.target 被设置为 AnotherPerson， 所以调用 Person.call(this, name) 将会抛出一个错误，即使 new.target 被定义。
+
 Warning: Using new.target outside of a function is a syntax error.
 
+注意：不能在函数外部使用 new.target。
+
 By adding new.target, ECMAScript 6 helped to clarify some ambiguity around functions calls. Following on this theme, ECMAScript 6 also addresses another previously ambiguous part of the language: declaring functions inside of blocks.
+
+通过添加 new.target，ES6 帮助澄清了函数调用的一些歧义。在这一主题之后，ES6 还处理了以前语言含糊不清的部分：在块中声明函数。
 
 ###*Block-Level Functions*
 In ECMAScript 3 and earlier, a function declaration occurring inside of a block (a block-level function) was technically a syntax error, but many browsers still supported it. Unfortunately, each browser that allowed the syntax behaved in a slightly different way, so it is considered a best practice to avoid function declarations inside of blocks (the best alternative is to use a function expression).
