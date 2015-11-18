@@ -914,6 +914,8 @@ Block level functions are hoisted to the top of the block in which they are defi
 
 Block level functions are a similar to let function expressions in that the function definition is removed once execution flows out of the block in which it’s defined. The key difference is that block level functions are hoisted to the top of the containing block. Function expressions that use let are not hoisted, as this example illustrates:
 
+块级函数类似一旦执行离开所定义的块函数便被移除的 let 函数表达式。最大的不同是块函数会被提升到当前块的顶部。使用 let 的函数表达式没有被提升，如：
+
 ```JavaScript
 "use strict";
 
@@ -933,9 +935,13 @@ console.log(typeof doSomething);
 
 Here, code execution stops when typeof doSomething is executed, because the let statement hasn’t been executed yet, leaving doSomething() in the TDZ. Knowing this difference, you can choose whether to use block level functions or let expressions based on whether or not you want the hoisting behavior.
 
-####Block-Level Functions in Nonstrict Mode
+代码执行到 typeof doSomething 时就停止了，因为 let 语句 还没被执行，doSomething() 存在于TDZ。明白这点差异，你可以基于你是否想要提升行为选择是使用块级函数还是使用let函数表达式。
+
+####Block-Level Functions in Nonstrict Mode 非严格模式下的块级函数
 
 ECMAScript 6 also allows block-level functions in nonstrict mode, but the behavior is slightly different. Instead of hoisting these declarations to the top of the block, they are hoisted all the way to the containing function or global environment. For example:
+
+ES6 也允许非严格模式下的块级函数，但行为略有不同。与这些声明提升到块的顶部不同的是，他们提升到块顶部或者全局环境顶部。如
 
 ```JavaScript
 // ECMAScript 6 behavior
@@ -955,26 +961,33 @@ console.log(typeof doSomething);            // "function"
 
 In this example, doSomething() is hoisted into the global scope so that it still exists outside of the if block. ECMAScript 6 standardized this behavior to remove the incompatible browser behaviors that previously existed, so all ECMAScript 6 runtimes should behave in the same way.
 
+例子中，doSomething() 被提升到全局作用域，这样它仍存在于 if 块之外。ES6 规范这个行为以删除之前存在的不兼容浏览器的行为，所以所有 ES6 允许时应该有同样的方式。
+
 Allowing block-level functions improves your ability to declare functions in JavaScript, but ECMAScript 6 also introduced a completely new way to declare functions.
 
-###*Arrow Functions*
+允许块级函数加强了在JavaScript中声明函数的能力，但 ES6 也介绍了一种完整的新方式去声明函数。
+
+###*Arrow Functions Arrow 函数*
+
 One of the most interesting new parts of ECMAScript 6 is the arrow function. Arrow functions are, as the name suggests, functions defined with a new syntax that uses an “arrow” (=>). But arrow functions behave differently than traditional JavaScript functions in a number of important ways:
 
-No this, super, arguments, and new.target bindings - The value of this, super, arguments, and new.target inside of the function is by the closest containing nonarrow function. (super is covered in Chapter 4.)
-Cannot be called with new - Arrow functions do not have a [[Construct]] method and therefore cannot be used as constructors. Arrow functions throw an error when used with new.
-No prototype - since you can’t use new on an arrow function, there’s no need for a prototype. The prototype property of an arrow function doesn’t exist.
-Can’t change this - The value of this inside of the function can’t be changed. It remains the same throughout the entire lifecycle of the function.
-No arguments object - Since arrow functions have no arguments binding, you must rely on named and rest parameters to access function arguments..
-No duplicate named arguments - arrow functions cannot have duplicate named arguments in strict or nonstrict mode, as opposed to nonarrow functions that cannot have duplicate named arguments only in strict mode.
+- No this, super, arguments, and new.target bindings - The value of this, super, arguments, and new.target inside of the function is by the closest containing nonarrow function. (super is covered in Chapter 4.)
+- Cannot be called with new - Arrow functions do not have a [[Construct]] method and therefore cannot be used as constructors. Arrow functions throw an error when used with new.
+- No prototype - since you can’t use new on an arrow function, there’s no need for a prototype. The prototype property of an arrow function doesn’t exist.
+- Can’t change this - The value of this inside of the function can’t be changed. It remains the same throughout the entire lifecycle of the function.
+- No arguments object - Since arrow functions have no arguments binding, you must rely on named and rest parameters to access function arguments..
+- No duplicate named arguments - arrow functions cannot have duplicate named arguments in strict or nonstrict mode, as opposed to nonarrow functions that cannot have duplicate named arguments only in strict mode.
+
 There are a few reasons for these differences. First and foremost, this binding is a common source of error in JavaScript. It’s very easy to lose track of the this value inside a function, which can result in unintended program behavior, and arrow functions eliminate this confusion. Second, by limiting arrow functions to simply executing code with a single this value, JavaScript engines can more easily optimize these operations, unlike regular functions, which might be used as a constructor or otherwise modified.
 
 The rest of the differences are also focused on reducing errors and ambiguities inside of arrow functions. By doing so, JavaScript engines are better able to optimize arrow function execution.
 
 Note: Arrow functions also have a name property that follows the same rule as other functions.
 
-Arrow Function Syntax
+####Arrow Function Syntax
 The syntax for arrow functions comes in many flavors depending upon what you’re trying to accomplish. All variations begin with function arguments, followed by the arrow, followed by the body of the function. Both the arguments and the body can take different forms depending on usage. For example, the following arrow function takes a single argument and simply returns it:
 
+```JavaScript
 var reflect = value => value;
 
 // effectively equivalent to:
@@ -982,10 +995,13 @@ var reflect = value => value;
 var reflect = function(value) {
     return value;
 };
+```
+
 When there is only one argument for an arrow function, that one argument can be used directly without any further syntax. The arrow comes next and the expression to the right of the arrow is evaluated and returned. Even though there is no explicit return statement, this arrow function will return the first argument that is passed in.
 
 If you are passing in more than one argument, then you must include parentheses around those arguments, like this:
 
+```JavaScript
 var sum = (num1, num2) => num1 + num2;
 
 // effectively equivalent to:
@@ -993,10 +1009,13 @@ var sum = (num1, num2) => num1 + num2;
 var sum = function(num1, num2) {
     return num1 + num2;
 };
+```
+
 The sum() function simply adds two arguments together and returns the result. The only difference between this arrow function and the reflect() function is that the arguments are enclosed in parentheses with a comma separating them (like traditional functions).
 
 If there are no arguments to the function, then you must include an empty set of parentheses in the declaration, as follows:
 
+```JavaScript
 var getName = () => "Nicholas";
 
 // effectively equivalent to:
@@ -1004,8 +1023,11 @@ var getName = () => "Nicholas";
 var getName = function() {
     return "Nicholas";
 };
+```
+
 When you want to provide a more traditional function body, perhaps consisting of more than one expression, then you need to wrap the function body in braces and explicitly define a return value, as in this version of sum():
 
+```JavaScript
 var sum = (num1, num2) => {
     return num1 + num2;
 };
@@ -1015,17 +1037,23 @@ var sum = (num1, num2) => {
 var sum = function(num1, num2) {
     return num1 + num2;
 };
+```
+
 You can more or less treat the inside of the curly braces the same as you would in a traditional function, with the exception that arguments is not available.
 
 If you want to create a function that does nothing, then you need to include curly braces, like this:
 
+```JavaScript
 var doNothing = () => {};
 
 // effectively equivalent to:
 
 var doNothing = function() {};
+```
+
 Curly braces are used to denote the function’s body, which works just fine in the cases you’ve seen so far. But an arrow function that wants to return an object literal outside of a function body must wrap the literal in parentheses. For example:
 
+```JavaScript
 var getTempItem = id => ({ id: id, name: "Temp" });
 
 // effectively equivalent to:
@@ -1037,11 +1065,14 @@ var getTempItem = function(id) {
         name: "Temp"
     };
 };
+```
+
 Wrapping the object literal in parentheses signals that the braces are an object literal instead of the function body.
 
-Creating Immediately-Invoked Function Expressions
+####Creating Immediately-Invoked Function Expressions
 One popular use of functions in JavaScript is creating immediately-invoked function expressions (IIFEs). IIFEs allow you to define an anonymous function and call it immediately without saving a reference. This pattern comes in handy when you want to create a scope that is shielded from the rest of a program. For example:
 
+```JavaScript
 let person = function(name) {
 
     return {
@@ -1053,10 +1084,13 @@ let person = function(name) {
 }("Nicholas");
 
 console.log(person.getName());      // "Nicholas"
+```
+
 In this code, the IIFE is used to create an object with a getName() method. The method uses the name argument as the return value, effectively making name a private member of the returned object.
 
 You can accomplish the same thing using arrow functions, so long as you wrap the arrow function in parentheses:
 
+```JavaScript
 let person = ((name) => {
 
     return {
@@ -1068,11 +1102,14 @@ let person = ((name) => {
 })("Nicholas");
 
 console.log(person.getName());      // "Nicholas"
+```
+
 Note that the parentheses are only around the arrow function definition, and not around ("Nicholas"). This is different from a formal function, where the parentheses can be placed outside of the passed-in parameters as well as just around the function definition.
 
-No this Binding
+####No this Binding
 One of the most common areas of error in JavaScript is the binding of this inside of functions. Since the value of this can change inside a single function depending on the context in which the function is called, it’s possible to mistakenly affect one object when you meant to affect another. Consider the following example:
 
+```JavaScript
 var PageHandler = {
 
     id: "123456",
@@ -1087,12 +1124,15 @@ var PageHandler = {
         console.log("Handling " + type  + " for " + this.id);
     }
 };
+```
+
 In this code, the object PageHandler is designed to handle interactions on the page. The init() method is called to set up the interactions, and that method in turn assigns an event handler to call this.doSomething(). However, this code doesn’t work exactly as intended.
 
 The call to this.doSomething() is broken because this is a reference to the object that was the target of the event (in this case document), instead of being bound to PageHandler. If you tried to run this code, you’d get an error when the event handler fires because this.doSomething() doesn’t exist on the target document object.
 
 You could fix this by binding the value of this to PageHandler explicitly using the bind() method on the function instead, like this:
 
+```JavaScript
 var PageHandler = {
 
     id: "123456",
@@ -1107,10 +1147,13 @@ var PageHandler = {
         console.log("Handling " + type  + " for " + this.id);
     }
 };
+```
+
 Now the code works as expected, but it may look a little bit strange. By calling bind(this), you’re actually creating a new function whose this is bound to the current this, which is PageHandler. To avoid creating an extra function, a better way to fix this code is to use an arrow function.
 
 Arrow functions have no this binding, which means the value of this inside an arrow function can only be determined by looking up the scope chain. If the arrow function is contained within a nonarrow function, this will be the same as the containing function; otherwise, this is undefined. Here’s one way you could write this code using an arrow function:
 
+```JavaScript
 var PageHandler = {
 
     id: "123456",
@@ -1124,31 +1167,43 @@ var PageHandler = {
         console.log("Handling " + type  + " for " + this.id);
     }
 };
+```
+
 The event handler in this example is an arrow function that calls this.doSomething(). The value of this is the same as it is within init(), so this version of the code works similarly to the one using bind(this). Even though the doSomething() method doesn’t return a value, it’s still the only statement executed in the function body, and so there is no need to include braces.
 
 Arrow functions are designed to be “throwaway” functions, and so cannot be used to define new types; this is evident from the missing prototype property, which regular functions have. If you try to use the new operator with an arrow function, you’ll get an error, as in this example:
 
+```JavaScript
 var MyType = () => {},
     object = new MyType();  // error - you can't use arrow functions with 'ne\
 w'
+```
+
 In this code, the call to new MyType() fails because MyType is an arrow function and therefore has no [[Construct]] behavior. Knowing that arrow functions cannot be used with new allows JavaScript engines to further optimize their behavior.
 
 Also, since the this value is determined by the containing function in which the arrow function is defined, you cannot change the value of this using call(), apply(), or bind().
 
-Arrow Functions and Arrays
+####Arrow Functions and Arrays
 The concise syntax for arrow functions makes them ideal for use with array processing, too. For example, if you want to sort an array using a custom comparator, you’d typically write something like this:
 
+```JavaScript
 var result = values.sort(function(a, b) {
     return a - b;
 });
+```
+
 That’s a lot of syntax for a very simple procedure. Compare that to the more terse arrow function version:
 
+```JavaScript
 var result = values.sort((a, b) => a - b);
+```
+
 The array methods that accept callback functions such as sort(), map(), and reduce() can all benefit from simpler arrow function syntax, which changes seemingly complex processes into simpler code.
 
-No arguments Binding
+####No arguments Binding
 Even though arrow functions don’t have their own arguments object, it’s possible for them to access the arguments object from a containing function. That arguments object is then available no matter where the arrow function is executed later on. For example:
 
+```JavaScript
 function createArrowFunctionReturningFirstArg() {
     return () => arguments[0];
 }
@@ -1156,19 +1211,25 @@ function createArrowFunctionReturningFirstArg() {
 var arrowFunction = createArrowFunctionReturningFirstArg(5);
 
 console.log(arrowFunction());       // 5
+```
+
 Inside createArrowFunctionReturningFirstArg(), the arguments[0] element is referenced by the created arrow function. That reference contains the first argument passed to the createArrowFunctionReturningFirstArg() function. When the arrow function is later executed, it returns 5, which was the first argument passed to createArrowFunctionReturningFirstArg(). Even though the arrow function is no longer in the scope of the function that created it, arguments remains accessible due to scope chain resolution of the arguments identifier.
 
-Identifying Arrow Functions
+####Identifying Arrow Functions
 Despite the different syntax, arrow functions are still functions, and are identified as such. Consider the following code:
 
+```JavaScript
 var comparator = (a, b) => a - b;
 
 console.log(typeof comparator);                 // "function"
 console.log(comparator instanceof Function);    // true
+```
+
 The console.log() output reveales that both typeof and instanceof behave the same with arrow functions as they do with other functions.
 
 Also like other functions, you can still use call(), apply(), and bind() on arrow functions, although the this-binding of the function will not be affected. Here are some examples:
 
+```JavaScript
 var sum = (num1, num2) => num1 + num2;
 
 console.log(sum.call(null, 1, 2));      // 3
@@ -1177,6 +1238,8 @@ console.log(sum.apply(null, [1, 2]));   // 3
 var boundSum = sum.bind(null, 1, 2);
 
 console.log(boundSum());                // 3
+```
+
 The sum() function is called using call() and apply() to pass arguments, as you’d do with any function. The bind() method is used to create boundSum(), which has its two arguments bound to 1 and 2 so that they don’t need to be passed directly.
 
 Arrow functions are appropriate to use anywhere you’re currently using an anonymous function expression, such as with callbacks. The next section covers another major ECMAScript 6 development, but this one is all internal, and has no new syntax.
