@@ -734,8 +734,12 @@ Keep in mind that the value of name for any function does not necessarily refer 
 记住，任何函数名字的属性值不一定参考同名的变量。name 属性意味着被提供信息，协助 debugging，所以使用 name 的值去获取函数的引用是不可取的。
 
 ###*Clarifying the Dual Purpose of Functions*
+
 In ECMAScript 5 and earlier, functions serve the dual purpose of being callable with or without new. When used with new, the this value inside a function is a new object and that new object is returned, as illustrated in this example:
 
+在ES5 或者更早版本中，函数服务于使用或者不使用new的双重调用方式。当使用 new 时，this 在函数内部是一个被返回的新的对象，如例：
+
+```JavaScript
 function Person(name) {
     this.name = name;
 }
@@ -745,15 +749,27 @@ var notAPerson = Person("Nicholas");
 
 console.log(person);        // "[Object object]"
 console.log(notAPerson);    // "undefined"
+```
+
 When creating notAPerson, calling Person() without new results in undefined (and sets a name property on the global object in nonstrict mode). The capitalization of Person is the only real indicator that the function is meant to be called using new, as is common in JavaScript programs. This confusion over the dual roles of functions led to some changes in ECMAScript 6.
+
+当创建 notAPerson 时，不通过 new 调用 Person() 结果是 undefined （在非严格模式下设置了一个 name 属性在全局对象中）。 Person的大写标志唯一真实指示器意味着函数需要使用 new 来调用，在JavaScript程序中是常见的。这些混乱覆盖了函数的双重规则导致了在ES6中的一些改变。
 
 ECMAScript 6 defines two different internal-only methods for functions: [[Call]] and [[Construct]]. When a function is called without new, the [[Call]] method is executed, which executes the body of the function as it appears in the code. When a function is called with new, that’s when the [[Construct]] method is called. The [[Construct]] method is responsible for creating a new object, called the new target, and then executing the function body with this set to the new target. Functions that have a [[Construct]] method are called constructors.
 
+ES6 为函数定义了两种不同的内部方法：[[Call]]和[[Construct]]。当函数不用 new 被调用时，[[Call]]会被执行，执行函数的主题就如同它出现在代码一样里一样。当函数用 new 调用时，[[Construct]]方法会被调用。[[Construct]]方法是创造一个新的对象，调用新的target，然后通过这个设置的新的target执行函数体。函数有[[Construct]]方法的被称为构造函数。 
+
 Note: Keep in mind that not all functions have [[Construct]], and therefore not all functions can be called with new. Arrow functions, discussed in the “Section Name” section on page xx, do not have a [[Construct]] method.
 
-Determining How a Function was Called in ECMAScript 5
+注：记住并不是所有函数都有[[Construct]]，因此不是所有函数都可以被new调用。Arrow 函数，在第xx页的 “Section Name” 部分中讨论，没有[[Construct]]方法。
+
+####Determining How a Function was Called in ECMAScript 5
+
 The most popular way to determine if a function was called with new (and hence, with constructor) in ECMAScript 5 is to use instanceof, for example:
 
+在ES5中，通过使用 instanceof 是最流行的方式确定函数是否通过 new （查明构造函数），例如：
+
+```JavaScript
 function Person(name) {
     if (this instanceof Person) {
         this.name = name;   // using new
@@ -764,8 +780,13 @@ function Person(name) {
 
 var person = new Person("Nicholas");
 var notAPerson = Person("Nicholas");  // throws error
+```
+
 Here, the this value is checked to see if it’s an instance of the constructor, and if so, execution continues as normal. If this isn’t an instance of Person, then an error is thrown. This works because the [[Construct]] method creates a new instance of Person and assigns it to this. Unfortunately, this approach is not completely reliable because this can be an instance of Person without using new, as in this example:
 
+例子中，this 的值被检查是不是 构造函数的一个实例，如果是，按旧执行。如果不是，抛出一个错误。这能工作是因为[[Construct]]方法创建了一个Person的实例并分配给this。不幸的是，这种方法是不完全可靠因为this可以是一个Person的实例不通过使用new。如：
+
+```JavaScript
 function Person(name) {
     if (this instanceof Person) {
         this.name = name;   // using new
@@ -776,13 +797,18 @@ function Person(name) {
 
 var person = new Person("Nicholas");
 var notAPerson = Person.call(person, "Michael");    // works!
+```
+
 The call to Person.call() passes the person variable as the first argument, which means this is set to person inside of the Person function. To the function, there’s no way to distinguish this from being called with new.
 
-The new.target MetaProperty
+Person.call() 传递person值作为第一参数，这意味着在Person函数内部设置了person。对于函数，没有方法区分 this 是来自new调用。
+
+####The new.target MetaProperty
 To solve this problem, ECMAScript 6 introduces the new.target metaproperty. A metaproperty is a property of a non-object that provides additional information related to its target (such as new). When a function’s [[Construct]] method is called, new.target is filled with the target of the new operator. That target is typically the constructor of the newly created object instance that will become this inside the function body. If [[Call]] is executed, then new.target is undefined.
 
 This new metaproperty allows you to safely detect if a function is called with new by checking whether new.target is defined as follows:
 
+```JavaScript
 function Person(name) {
     if (typeof new.target !== "undefined") {
         this.name = name;   // using new
@@ -793,10 +819,13 @@ function Person(name) {
 
 var person = new Person("Nicholas");
 var notAPerson = Person.call(person, "Michael");    // error!
+```
+
 By using new.target instead of this instanceof Person, the Person constructor is now correctly throwing an error when used without new.
 
 You can also check that new.target was called with a specific constructor. For instance, look at this example:
 
+```JavaScript
 function Person(name) {
     if (typeof new.target === Person) {
         this.name = name;   // using new
@@ -811,6 +840,8 @@ function AnotherPerson(name) {
 
 var person = new Person("Nicholas");
 var anotherPerson = new AnotherPerson("Nicholas");  // error!
+```
+
 In this code, new.target must be Person in order to work correctly. When new AnotherPerson("Nicholas") is called, new.target is set to AnotherPerson, so the subsequent call to Person.call(this, name) will throw an error even though new.target is defined.
 
 Warning: Using new.target outside of a function is a syntax error.
