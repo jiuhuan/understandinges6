@@ -971,12 +971,20 @@ Allowing block-level functions improves your ability to declare functions in Jav
 
 One of the most interesting new parts of ECMAScript 6 is the arrow function. Arrow functions are, as the name suggests, functions defined with a new syntax that uses an “arrow” (=>). But arrow functions behave differently than traditional JavaScript functions in a number of important ways:
 
+ES6 中最有趣的部分之一就是 arrow 函数。arrow 函数是，如名，函数定义通过使用新语法 “arrow” （=>）。但是 arrow 函数不同于传统函数的几个重要点：
+
 - No this, super, arguments, and new.target bindings - The value of this, super, arguments, and new.target inside of the function is by the closest containing nonarrow function. (super is covered in Chapter 4.)
+- 没有 this, super, arguments, 和 new.target 绑定 - 函数内 this, super, arguments, 和 new.target 的值是通过最近的非arrow函数取值。（第4章讲super）
 - Cannot be called with new - Arrow functions do not have a [[Construct]] method and therefore cannot be used as constructors. Arrow functions throw an error when used with new.
+- 不能通过new调用 - arrow 函数没有[[Construct]]方法，因此不能被当做构造函数使用。要是对arrow函数使用 new 会抛出错误。
 - No prototype - since you can’t use new on an arrow function, there’s no need for a prototype. The prototype property of an arrow function doesn’t exist.
+- 没有 prototype - 由于你能对 arrow 函数使用 new，所以不需要 prototype。arrow 函数的 prototype 属性是不存在的。
 - Can’t change this - The value of this inside of the function can’t be changed. It remains the same throughout the entire lifecycle of the function.
+- 不能改 this 值 - 函数内的 this 值不能被改变。在整个生命周期中，它都是相同的。
 - No arguments object - Since arrow functions have no arguments binding, you must rely on named and rest parameters to access function arguments..
+- 没有 arguments 对象 - 由于 arrow 函数没有参数绑定，你必须依靠命名和 rest parameters 获得函数参数。
 - No duplicate named arguments - arrow functions cannot have duplicate named arguments in strict or nonstrict mode, as opposed to nonarrow functions that cannot have duplicate named arguments only in strict mode.
+- 没有重复命名参数 - 不管是严格还是非严格模式 arrow 函数都不能重复命名参数，就如同非arrow函数在严格模式下不能重复重复命名参数。
 
 There are a few reasons for these differences. First and foremost, this binding is a common source of error in JavaScript. It’s very easy to lose track of the this value inside a function, which can result in unintended program behavior, and arrow functions eliminate this confusion. Second, by limiting arrow functions to simply executing code with a single this value, JavaScript engines can more easily optimize these operations, unlike regular functions, which might be used as a constructor or otherwise modified.
 
