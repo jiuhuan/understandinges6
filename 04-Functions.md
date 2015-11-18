@@ -863,11 +863,17 @@ By adding new.target, ECMAScript 6 helped to clarify some ambiguity around funct
 
 通过添加 new.target，ES6 帮助澄清了函数调用的一些歧义。在这一主题之后，ES6 还处理了以前语言含糊不清的部分：在块中声明函数。
 
-###*Block-Level Functions*
+###*Block-Level Functions 块级函数*
+
 In ECMAScript 3 and earlier, a function declaration occurring inside of a block (a block-level function) was technically a syntax error, but many browsers still supported it. Unfortunately, each browser that allowed the syntax behaved in a slightly different way, so it is considered a best practice to avoid function declarations inside of blocks (the best alternative is to use a function expression).
+
+ES3 中及更早版本中，函数声明在一个块内是一个技术性的语法错误（块级函数），但很多浏览器仍然支持它。不幸地是，每个浏览器允许语法表现稍有不同，所以最好的做法是提供函数在块中声明（最好的替代是使用函数表达式）。
 
 In an attempt to reign in this incompatible behavior, ECMAScript 5 strict mode introduced an error whenever a function declaration was used inside of a block in this way:
 
+尝试着统一这不相容的行为，如下，在ES5 严格模式会出现一个错误不管何时在块内声明一个函数：
+
+```JavaScript
 "use strict";
 
 if (true) {
@@ -877,8 +883,13 @@ if (true) {
         // ...
     }
 }
+```
+
 In ECMAScript 5, this code throws a syntax error. In ECMAScript 6, the doSomething() function is considered a block-level declaration and can be accessed and called within the same block in which it was defined. For example:
 
+ES5 中，这段代码会抛出语法错误。在 ES6 中，函数 doSomething() 是一个块级的声明且可以在它被定义所在的同一块内被访问和调用，如：
+
+```JavaScript
 "use strict";
 
 if (true) {
@@ -893,11 +904,17 @@ if (true) {
 }
 
 console.log(typeof doSomething);            // "undefined"
+```
+
 Block level functions are hoisted to the top of the block in which they are defined, so typeof doSomething returns "function" even though it appears before the function declaration in the code. Once the if block is finished executing, doSomething() no longer exists.
 
-Deciding When to Use Block-Level Functions
+块级函数会被提升到它们所在块的顶部。所以 typeof doSomething 返回 “function” 即使它出现在函数定义之前。一旦 if 块完成执行，doSomething() 不在存在。
+
+####Deciding When to Use Block-Level Functions 决定何时使用块函数
+
 Block level functions are a similar to let function expressions in that the function definition is removed once execution flows out of the block in which it’s defined. The key difference is that block level functions are hoisted to the top of the containing block. Function expressions that use let are not hoisted, as this example illustrates:
 
+```JavaScript
 "use strict";
 
 if (true) {
@@ -912,11 +929,15 @@ if (true) {
 }
 
 console.log(typeof doSomething);
+```
+
 Here, code execution stops when typeof doSomething is executed, because the let statement hasn’t been executed yet, leaving doSomething() in the TDZ. Knowing this difference, you can choose whether to use block level functions or let expressions based on whether or not you want the hoisting behavior.
 
-Block-Level Functions in Nonstrict Mode
+####Block-Level Functions in Nonstrict Mode
+
 ECMAScript 6 also allows block-level functions in nonstrict mode, but the behavior is slightly different. Instead of hoisting these declarations to the top of the block, they are hoisted all the way to the containing function or global environment. For example:
 
+```JavaScript
 // ECMAScript 6 behavior
 if (true) {
 
@@ -930,6 +951,8 @@ if (true) {
 }
 
 console.log(typeof doSomething);            // "function"
+```
+
 In this example, doSomething() is hoisted into the global scope so that it still exists outside of the if block. ECMAScript 6 standardized this behavior to remove the incompatible browser behaviors that previously existed, so all ECMAScript 6 runtimes should behave in the same way.
 
 Allowing block-level functions improves your ability to declare functions in JavaScript, but ECMAScript 6 also introduced a completely new way to declare functions.
