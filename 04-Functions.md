@@ -998,8 +998,11 @@ Note: Arrow functions also have a name property that follows the same rule as ot
 
 注意：箭头函数也有一个和其他函数一样的 name 属性。
 
-####Arrow Function Syntax
+####Arrow Function Syntax arrow 函数语法
+
 The syntax for arrow functions comes in many flavors depending upon what you’re trying to accomplish. All variations begin with function arguments, followed by the arrow, followed by the body of the function. Both the arguments and the body can take different forms depending on usage. For example, the following arrow function takes a single argument and simply returns it:
+
+arrow 函数的语法有很多种方式取决于你想要用哪种。所有变化开始于函数参数，然后是 arrow，然后是函数主体。所有参数和主体可以根据使用采用不同形式。例如，一下 arrow 函数带有一个单一参数和简单的放回这个参数：
 
 ```JavaScript
 var reflect = value => value;
@@ -1013,7 +1016,11 @@ var reflect = function(value) {
 
 When there is only one argument for an arrow function, that one argument can be used directly without any further syntax. The arrow comes next and the expression to the right of the arrow is evaluated and returned. Even though there is no explicit return statement, this arrow function will return the first argument that is passed in.
 
+当 arrow 函数只有一个参数时，这个参数可以不通过任何语法直接被使用。参数接下来是 arrow ，在箭头右侧的表达式用于求值和返回。即使没有明确的返回语句，arrow 函数也会返回传入的第一个参数。
+
 If you are passing in more than one argument, then you must include parentheses around those arguments, like this:
+
+如果传递多于一个的参数，那必须包含这些参数在括号中，如：
 
 ```JavaScript
 var sum = (num1, num2) => num1 + num2;
@@ -1027,7 +1034,11 @@ var sum = function(num1, num2) {
 
 The sum() function simply adds two arguments together and returns the result. The only difference between this arrow function and the reflect() function is that the arguments are enclosed in parentheses with a comma separating them (like traditional functions).
 
+函数 sum() 简单求两个参数相加值然后返回结果。这个 arrow 函数和 reflect() 的唯一区别是参数被封闭在括号中且被逗号分隔（如传统的函数）。
+
 If there are no arguments to the function, then you must include an empty set of parentheses in the declaration, as follows:
+
+如果函数没有参数，在声明中必须使用空的括号，如：
 
 ```JavaScript
 var getName = () => "Nicholas";
@@ -1040,6 +1051,8 @@ var getName = function() {
 ```
 
 When you want to provide a more traditional function body, perhaps consisting of more than one expression, then you need to wrap the function body in braces and explicitly define a return value, as in this version of sum():
+
+当你想提供一个传统的函数体是，可能包含一个以上的表达式，那你需要用大括号包住函数体和显示定义一个返回值，如这个版本的 sum()：
 
 ```JavaScript
 var sum = (num1, num2) => {
@@ -1055,7 +1068,11 @@ var sum = function(num1, num2) {
 
 You can more or less treat the inside of the curly braces the same as you would in a traditional function, with the exception that arguments is not available.
 
+你可以或多或少地对待这个大括号里面的语句如同传统函数里的那样，with the exception that arguments is not available.
+
 If you want to create a function that does nothing, then you need to include curly braces, like this:
+
+如果你先创建一个什么都不做的函数，你需要包括大括号，如：
 
 ```JavaScript
 var doNothing = () => {};
@@ -1066,6 +1083,8 @@ var doNothing = function() {};
 ```
 
 Curly braces are used to denote the function’s body, which works just fine in the cases you’ve seen so far. But an arrow function that wants to return an object literal outside of a function body must wrap the literal in parentheses. For example:
+
+大括号用来表示函数体，到目前为止在这些案例中运作良好。但 arrow 函数想要返回一个对象字面量到函数体外，必须用`()`括住字面量。如：
 
 ```JavaScript
 var getTempItem = id => ({ id: id, name: "Temp" });
@@ -1083,7 +1102,10 @@ var getTempItem = function(id) {
 
 Wrapping the object literal in parentheses signals that the braces are an object literal instead of the function body.
 
+用括号括住对象字面量表示括号是一个对象，而不是函数体。
+
 ####Creating Immediately-Invoked Function Expressions
+
 One popular use of functions in JavaScript is creating immediately-invoked function expressions (IIFEs). IIFEs allow you to define an anonymous function and call it immediately without saving a reference. This pattern comes in handy when you want to create a scope that is shielded from the rest of a program. For example:
 
 ```JavaScript
