@@ -988,9 +988,15 @@ ES6 中最有趣的部分之一就是 arrow 函数。arrow 函数是，如名，
 
 There are a few reasons for these differences. First and foremost, this binding is a common source of error in JavaScript. It’s very easy to lose track of the this value inside a function, which can result in unintended program behavior, and arrow functions eliminate this confusion. Second, by limiting arrow functions to simply executing code with a single this value, JavaScript engines can more easily optimize these operations, unlike regular functions, which might be used as a constructor or otherwise modified.
 
+对于这些差异有几个原因。首要的，this 的绑定在JavaScript中是个错误源。在函数中 this 的值非常容易变化，会导致意外的程序行为，而 arrow 函数消除这种混乱。第二，把 arrow 函数局限于带单一 this 值的简单执行代码，JavaScript 引擎可以更容易优化这些操作，不像常规函数，可以被当做构造函数或者别的修改使用。
+
 The rest of the differences are also focused on reducing errors and ambiguities inside of arrow functions. By doing so, JavaScript engines are better able to optimize arrow function execution.
 
+其他不同点也是集中在减少 arrow 函数中错误和含糊不清的地方。这样，JavaScript引擎更有能力优化 arrow 函数执行。
+
 Note: Arrow functions also have a name property that follows the same rule as other functions.
+
+注意：箭头函数也有一个和其他函数一样的 name 属性。
 
 ####Arrow Function Syntax
 The syntax for arrow functions comes in many flavors depending upon what you’re trying to accomplish. All variations begin with function arguments, followed by the arrow, followed by the body of the function. Both the arguments and the body can take different forms depending on usage. For example, the following arrow function takes a single argument and simply returns it:
