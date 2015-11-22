@@ -1183,6 +1183,8 @@ The call to this.doSomething() is broken because this is a reference to the obje
 
 You could fix this by binding the value of this to PageHandler explicitly using the bind() method on the function instead, like this:
 
+你可以通过明确地使用 bind() 方法绑定 this 值到 PageHandler 来修复这个 this，如：
+
 ```JavaScript
 var PageHandler = {
 
@@ -1202,7 +1204,11 @@ var PageHandler = {
 
 Now the code works as expected, but it may look a little bit strange. By calling bind(this), you’re actually creating a new function whose this is bound to the current this, which is PageHandler. To avoid creating an extra function, a better way to fix this code is to use an arrow function.
 
+现在，代码如期工作，但看起来有点奇怪。通过调用 bind(this)，你事实上创建了一个新的函数，函数的 this 绑定到当前 this，为 PageHandler。为避免创建额外的函数，一个更好的方式去修复这个代码通过使用 arrow 函数。
+
 Arrow functions have no this binding, which means the value of this inside an arrow function can only be determined by looking up the scope chain. If the arrow function is contained within a nonarrow function, this will be the same as the containing function; otherwise, this is undefined. Here’s one way you could write this code using an arrow function:
+
+arrow 函数没有 this 绑定，这意味着 this 的值在 arrow 函数内只能通过寻找作用域链来确定。如果 arrow 函数被包含在一个非arrow函数内，this 将和非 arrow 函数一样；否则，this 为 undefined。以下是一种方式使用 arrow 函数：
 
 ```JavaScript
 var PageHandler = {
@@ -1222,7 +1228,11 @@ var PageHandler = {
 
 The event handler in this example is an arrow function that calls this.doSomething(). The value of this is the same as it is within init(), so this version of the code works similarly to the one using bind(this). Even though the doSomething() method doesn’t return a value, it’s still the only statement executed in the function body, and so there is no need to include braces.
 
+例子中事件处理程序是一个 arrow 函数，调用 this.doSomething()。this 的值和 init() 内的值是一样的，所以这个版本的代码和使用 bind(this) 是一样的。即使 doSomething() 方法没有返回一个值，它仍是函数内部唯一的一条执行语句，所以不需要括在括号内。
+
 Arrow functions are designed to be “throwaway” functions, and so cannot be used to define new types; this is evident from the missing prototype property, which regular functions have. If you try to use the new operator with an arrow function, you’ll get an error, as in this example:
+
+arrow 函数被设计类作为 “一次性” 函数，所以不能被用来定义为新类型；从却失而常规函数有的 prototype 属性这很明显。如果你尝试使用通过 arrow 函数使用一个新的操作，你将获得一个错误，如：
 
 ```JavaScript
 var MyType = () => {},
@@ -1232,9 +1242,14 @@ w'
 
 In this code, the call to new MyType() fails because MyType is an arrow function and therefore has no [[Construct]] behavior. Knowing that arrow functions cannot be used with new allows JavaScript engines to further optimize their behavior.
 
+这段代码中，调用 new MyType() 失败因为 MyType 是一个 arrow 函数，因此没有 [[Construct]] 行为。知道 arrow 函数不能和 new 一起使用这点允许JavaScript引擎进一步优化自己的行为。
+
 Also, since the this value is determined by the containing function in which the arrow function is defined, you cannot change the value of this using call(), apply(), or bind().
 
-####Arrow Functions and Arrays
+而且，因为 this 的值通过 arrow 函数所在函数来确定，你不能通过调用 call(), apply(), 或者 bind() 来改变 this 的值。
+
+####Arrow Functions and Arrays arrow 函数和数组
+
 The concise syntax for arrow functions makes them ideal for use with array processing, too. For example, if you want to sort an array using a custom comparator, you’d typically write something like this:
 
 ```JavaScript
