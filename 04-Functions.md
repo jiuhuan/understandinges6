@@ -1252,6 +1252,8 @@ Also, since the this value is determined by the containing function in which the
 
 The concise syntax for arrow functions makes them ideal for use with array processing, too. For example, if you want to sort an array using a custom comparator, you’d typically write something like this:
 
+arrow 函数的简洁语法也可以用于数组进程。例如，如果你想对一个数组使用自定义比较器来排序，你通常会这么写：
+
 ```JavaScript
 var result = values.sort(function(a, b) {
     return a - b;
@@ -1260,14 +1262,21 @@ var result = values.sort(function(a, b) {
 
 That’s a lot of syntax for a very simple procedure. Compare that to the more terse arrow function version:
 
+为一个简单的程序写很多语法。比较更为简洁的 arrow 函数版本：
+
 ```JavaScript
 var result = values.sort((a, b) => a - b);
 ```
 
 The array methods that accept callback functions such as sort(), map(), and reduce() can all benefit from simpler arrow function syntax, which changes seemingly complex processes into simpler code.
 
-####No arguments Binding
+数组方法接收毁掉函数如 sort(), map() 和 reduce() 都可用受益于 arrow 函数，从而改变看似复杂的过程变成简单的代码。
+
+####No arguments Binding 没有参数绑定
+
 Even though arrow functions don’t have their own arguments object, it’s possible for them to access the arguments object from a containing function. That arguments object is then available no matter where the arrow function is executed later on. For example:
+
+虽然 arrow 函数没有它们自己的 arguments 对象，它们可能从包含它们的函数中获取参数对象。该参数对象将在稍后的箭头函数执行的地方使用。例如：
 
 ```JavaScript
 function createArrowFunctionReturningFirstArg() {
@@ -1281,8 +1290,13 @@ console.log(arrowFunction());       // 5
 
 Inside createArrowFunctionReturningFirstArg(), the arguments[0] element is referenced by the created arrow function. That reference contains the first argument passed to the createArrowFunctionReturningFirstArg() function. When the arrow function is later executed, it returns 5, which was the first argument passed to createArrowFunctionReturningFirstArg(). Even though the arrow function is no longer in the scope of the function that created it, arguments remains accessible due to scope chain resolution of the arguments identifier.
 
-####Identifying Arrow Functions
+ createArrowFunctionReturningFirstArg() 内部，arguments[0] 元素被箭头函数引用。那个引用包含被传入  createArrowFunctionReturningFirstArg() 函数的第一参数。当 arrow 函数执行，返回被传入 createArrowFunctionReturningFirstArg() 的第一参数5。即使 arrow 函数不在创建函数的作用域中，但参数仍可获取由于参数标识符作用域链解析。
+
+####Identifying Arrow Functions arrow 函数识别
+
 Despite the different syntax, arrow functions are still functions, and are identified as such. Consider the following code:
+
+尽管语法不同，arrow 函数仍是函数，因此被确定。考虑如下代码：
 
 ```JavaScript
 var comparator = (a, b) => a - b;
@@ -1293,7 +1307,11 @@ console.log(comparator instanceof Function);    // true
 
 The console.log() output reveales that both typeof and instanceof behave the same with arrow functions as they do with other functions.
 
+console.log() 打印解释了 arrow 函数的 typeof 和 instanceof 行为和其他行为函数相同。
+
 Also like other functions, you can still use call(), apply(), and bind() on arrow functions, although the this-binding of the function will not be affected. Here are some examples:
+
+也像其他函数，仍可以在 arrow 函数上使用 call()，apply() 和 bind()，虽然函数的 this-binding 将不会被影响。例如：
 
 ```JavaScript
 var sum = (num1, num2) => num1 + num2;
@@ -1308,17 +1326,25 @@ console.log(boundSum());                // 3
 
 The sum() function is called using call() and apply() to pass arguments, as you’d do with any function. The bind() method is used to create boundSum(), which has its two arguments bound to 1 and 2 so that they don’t need to be passed directly.
 
+sum() 函数被调用使用 call() 和 apply() 传递参数，就如你对任何函数这么做。bind() 方法被用来创建有两个参数绑定1和2的 boundSum()，所以不需要直接被传递。
+
 Arrow functions are appropriate to use anywhere you’re currently using an anonymous function expression, such as with callbacks. The next section covers another major ECMAScript 6 development, but this one is all internal, and has no new syntax.
 
+arrow 函数在使用匿名函数表达式时使用的任何地方都是适当的，就如回调。下一部分覆盖 ES6 另一个主要的部分，但内部并没有新的语法。
+
 ###*Tail Call Optimization*
+
 Perhaps the most interesting change to functions in ECMAScript 6 is an engine optimization, which changes the tail call system. A tail call is when a function is called as the last statement in another function, like this:
 
+```JavaScript
 function doSomething() {
     return doSomethingElse();   // tail call
 }
+```
+
 Tail calls as implemented in ECMAScript 5 engines are handled just like any other function call: a new stack frame is created and pushed onto the call stack to represent the function call. That means every previous stack frame is kept in memory, which is problematic when the call stack gets too large.
 
-What’s Different?
+####What’s Different?
 ECMAScript 6 seeks to reduce the size of the call stack for certain tail calls in strict mode (nonstrict mode tail calls are left untouched). With this optimization, instead of creating a new stack frame for a tail call, the current stack frame is cleared and reused so long as the following conditions are met:
 
 The tail call does not require access to variables in the current stack frame (meaning the function is not a closure)
@@ -1326,32 +1352,42 @@ The function making the tail call has no further work to do after the tail call 
 The result of the tail call is returned as the function value
 As an example, this code can easily be optimized because it fits all three criteria:
 
+```JavaScript
 "use strict";
 
 function doSomething() {
     // optimized
     return doSomethingElse();
 }
+```
+
 This function makes a tail call to doSomethingElse(), returns the result immediately, and doesn’t access any variables in the local scope. One small change, not returning the result, results in an unoptimized function:
 
+```JavaScript
 "use strict";
 
 function doSomething() {
     // not optimized - no return
     doSomethingElse();
 }
+```
+
 Similarly, if you have a function that performs an operation after returning from the tail call, then the function can’t be optimized:
 
+```JavaScript
 "use strict";
 
 function doSomething() {
     // not optimized - must add after returning
     return 1 + doSomethingElse();
 }
+```
+
 This example adds the result of doSomethingElse() with 1 before returning the value, and that’s enough to turn off optimization.
 
 Another common way to inadvertently turn off optimization is to store the result of a function call in a variable and then return the result, such as:
 
+```JavaScript
 "use strict";
 
 function doSomething() {
@@ -1359,10 +1395,13 @@ function doSomething() {
     var result = doSomethingElse();
     return result;
 }
+```
+
 This example cannot be optimized because the value of doSomethingElse() isn’t immediately returned.
 
 Perhaps the hardest situation to avoid is in using closures. Because a closure has access to variables in the containing scope, tail call optimization may be turned off. For example:
 
+```JavaScript
 "use strict";
 
 function doSomething() {
@@ -1372,11 +1411,14 @@ function doSomething() {
     // not optimized - function is a closure
     return func();
 }
+```
+
 The closure func() has access to the local variable num in this example. Even though the call to func() immediately returns the result, optimization can’t occur due to referencing the variable num.
 
-How to Harness Tail Call Optimization
+####How to Harness Tail Call Optimization
 In practice, tail call optimization happens behind-the-scenes, so you don’t need to think about it unless you’re trying to optimize a function. The primary use case for tail call optimization is in recursive functions, as that is where the optimization has the greatest effect. Consider this function, which computes factorials:
 
+```JavaScript
 function factorial(n) {
 
     if (n <= 1) {
@@ -1387,10 +1429,13 @@ function factorial(n) {
         return n * factorial(n - 1);
     }
 }
+```
+
 This version of the function cannot be optimized, because multiplication must happen after the recursive call to factorial(). If n is a very large number, the call stack size will grow and could potentially cause a stack overflow.
 
 In order to optimize the function, you need to ensure that the multiplication doesn’t happen after the last function call. To do this, you can use a default parameter to move the multiplication operation outside of the return statement. The resulting function carries along the temporary result into the next iteration, creating a function that behaves the same but can be optimized by an ECMAScript 6 engine. Here’s the new code:
 
+```JavaScript
 function factorial(n, p = 1) {
 
     if (n <= 1) {
@@ -1402,6 +1447,8 @@ function factorial(n, p = 1) {
         return factorial(n - 1, result);
     }
 }
+```
+
 In this rewritten version of factorial(), a second argument p is added as a parameter with a default value of 1. The p parameter holds the previous multiplication result so that the next result can be computed without another function call. When n is greater than 1, the multiplication is done first and then passed in as the second argument to factorial(). This allows the ECMAScript 6 engine to optimize the recursive call.
 
 Tail call optimization is something you should think about whenever you’re writing a recursive function, as it can provide a significant performance improvement, especially when applied in a computationally-expensive function.
