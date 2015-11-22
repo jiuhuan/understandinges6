@@ -1179,7 +1179,7 @@ In this code, the object PageHandler is designed to handle interactions on the p
 
 The call to this.doSomething() is broken because this is a reference to the object that was the target of the event (in this case document), instead of being bound to PageHandler. If you tried to run this code, you’d get an error when the event handler fires because this.doSomething() doesn’t exist on the target document object.
 
-
+执行到 this.doSomething() 是不行的因为 this 是 event 目标对象的一个引用（在这种情况下 document），而不是绑定到 PageHandler。如果你想运行这段代码，你会得到一个错误当事件处理程序fires因为 this.doSomething() 不存在目标文档对象上。
 
 You could fix this by binding the value of this to PageHandler explicitly using the bind() method on the function instead, like this:
 
