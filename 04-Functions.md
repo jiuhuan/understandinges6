@@ -1148,8 +1148,13 @@ console.log(person.getName());      // "Nicholas"
 
 Note that the parentheses are only around the arrow function definition, and not around ("Nicholas"). This is different from a formal function, where the parentheses can be placed outside of the passed-in parameters as well as just around the function definition.
 
-####No this Binding
+注意括号只围绕着 arrow 函数定义，并不围绕着 ("Nicholas")。这点和常规函数不同，（常规函数）既可以把传入参数括住也可以只括住函数定义。
+
+####No this Binding 没有 this 绑定
+
 One of the most common areas of error in JavaScript is the binding of this inside of functions. Since the value of this can change inside a single function depending on the context in which the function is called, it’s possible to mistakenly affect one object when you meant to affect another. Consider the following example:
+
+JavaScript 中错误的最常见领域之一是函数内部 this 的绑定。由于在一个函数内部 this 的值依靠函数在哪个上下文中被调用可以改变，所以可能错误的影响到一个对象。
 
 ```JavaScript
 var PageHandler = {
@@ -1170,7 +1175,11 @@ var PageHandler = {
 
 In this code, the object PageHandler is designed to handle interactions on the page. The init() method is called to set up the interactions, and that method in turn assigns an event handler to call this.doSomething(). However, this code doesn’t work exactly as intended.
 
+这段代码中，对象 PageHandler 被设计来控制页面的互动。方法 init() 被调用来建立互动，该方法反过来分配一个事件处理程序来调用 this.doSomething()。但是，这段代码不能确切地如预期执行。
+
 The call to this.doSomething() is broken because this is a reference to the object that was the target of the event (in this case document), instead of being bound to PageHandler. If you tried to run this code, you’d get an error when the event handler fires because this.doSomething() doesn’t exist on the target document object.
+
+
 
 You could fix this by binding the value of this to PageHandler explicitly using the bind() method on the function instead, like this:
 
