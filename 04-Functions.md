@@ -1104,9 +1104,11 @@ Wrapping the object literal in parentheses signals that the braces are an object
 
 用括号括住对象字面量表示括号是一个对象，而不是函数体。
 
-####Creating Immediately-Invoked Function Expressions
+####Creating Immediately-Invoked Function Expressions 创建立即调动的函数表达式
 
 One popular use of functions in JavaScript is creating immediately-invoked function expressions (IIFEs). IIFEs allow you to define an anonymous function and call it immediately without saving a reference. This pattern comes in handy when you want to create a scope that is shielded from the rest of a program. For example:
+
+创建立即调动的函数表达式（IIFEs）在 JavaScript 中一个常见的使用。IIFEs 允许你定义匿名函数和不保存引用立即调用。当你想创建一个屏蔽其他程序的作用域时这个模式会很方便。例如：
 
 ```JavaScript
 let person = function(name) {
@@ -1124,7 +1126,11 @@ console.log(person.getName());      // "Nicholas"
 
 In this code, the IIFE is used to create an object with a getName() method. The method uses the name argument as the return value, effectively making name a private member of the returned object.
 
+代码中，IIFE 被用来创建一个带有 getName() 方法的对象。这个方法用 name 参数作为返回值，有效地让 name 成为返回对象的一个私有成员。
+
 You can accomplish the same thing using arrow functions, so long as you wrap the arrow function in parentheses:
+
+你可以使用 arrow 函数完成相同的事情，只要你将箭头函数括在括号内：
 
 ```JavaScript
 let person = ((name) => {
