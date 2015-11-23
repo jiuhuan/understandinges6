@@ -1336,6 +1336,8 @@ arrow 函数在使用匿名函数表达式时使用的任何地方都是适当�
 
 Perhaps the most interesting change to functions in ECMAScript 6 is an engine optimization, which changes the tail call system. A tail call is when a function is called as the last statement in another function, like this:
 
+可能在 ES6 中最有趣的改变是引擎优化，改变了尾部调用系统。尾部调用是一个函数在另一个函数中作为最后一条语句被调用，例如：
+
 ```JavaScript
 function doSomething() {
     return doSomethingElse();   // tail call
@@ -1344,8 +1346,13 @@ function doSomething() {
 
 Tail calls as implemented in ECMAScript 5 engines are handled just like any other function call: a new stack frame is created and pushed onto the call stack to represent the function call. That means every previous stack frame is kept in memory, which is problematic when the call stack gets too large.
 
-####What’s Different?
+
+
+####What’s Different? 有何不同？
+
 ECMAScript 6 seeks to reduce the size of the call stack for certain tail calls in strict mode (nonstrict mode tail calls are left untouched). With this optimization, instead of creating a new stack frame for a tail call, the current stack frame is cleared and reused so long as the following conditions are met:
+
+
 
 The tail call does not require access to variables in the current stack frame (meaning the function is not a closure)
 The function making the tail call has no further work to do after the tail call returns
