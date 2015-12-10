@@ -388,13 +388,13 @@ Note: Function parameters have their own scope and their own TDZ that is separat
 
 注意：函数参数有它们自己的作用域，它们自己的TDZ是和函数主体作用域分开的。
 
-###*Working with Unnamed Parameters*
+###*Working with Unnamed Parameters 使用未命名参数*
 
 So far, the examples in this chapter have only covered parameters that have been named in the function definition. However, JavaScript functions don’t limit the number of parameters that can be passed to the number of named parameters defined. You can always pass fewer or more parameters than formally specified. Default parameters make it clear when a function can accept fewer parameters, and ECMAScript 6 sought to make the problem of passing more parameters than defined better as well.
 
 迄今为止，这个章节中的例子都是涵盖函数中有命名的参数。However, JavaScript functions don’t limit the number of parameters that can be passed to the number of named parameters defined. 你可以传递少于或者多于指定的参数。当函数接受少于指定参数时默认参数让这点很清晰，ES6 设法让传递更多的问题比定义更好。
 
-####Unnamed Parameters in ECMAScript 5  ECMAScript 5 中非命名参数
+####Unnamed Parameters in ECMAScript 5  ECMAScript 5 中未命名参数
 
 Early on, JavaScript provided the arguments object as a way to inspect all function parameters that are passed without necessarily defining each parameter individually. While inspecting arguments works fine in most cases, this object can be a little cumbersome to work with. For example, examine this code, which inspects the arguments object:
 
@@ -733,7 +733,7 @@ Keep in mind that the value of name for any function does not necessarily refer 
 
 记住，任何函数名字的属性值不一定参考同名的变量。name 属性意味着被提供信息，协助 debugging，所以使用 name 的值去获取函数的引用是不可取的。
 
-###*Clarifying the Dual Purpose of Functions*
+###*Clarifying the Dual Purpose of Functions 明确函数的双重目的*
 
 In ECMAScript 5 and earlier, functions serve the dual purpose of being callable with or without new. When used with new, the this value inside a function is a new object and that new object is returned, as illustrated in this example:
 
