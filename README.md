@@ -29,21 +29,18 @@ Github：https://github.com/nzakas/understandinges6<br>
   - Template Literals - 模板字符串
   - Summary - 总结
 
->####[Functions](04-Functions.md)
+>####[Functions - 函数](04-Functions.md)
 
-  - Default Parameters
-  - The arguments Object
-  - Default Parameter Expressions
-  - Parameter Temporal Dead Zone
-  - Rest Parameters
-  - The Spread Operator
-  - The name Property
-  - new.target, [[Call]], and [[Construct]]
-  - Block-Level Functions
-  - Arrow Functions
-  - Syntax
-  - Tail Call Optimization
-  - Summary
+  - Functions with Default Parameters - 带默认参数的函数
+  - Working with Unnamed Parameters - 使用未命名参数
+  - Increased Capabilities of the Function Constructor - 增加构造函数功能
+  - The Spread Operator - 
+  - ECMAScript 6’s name Property - ES6 的 name 属性
+  - Clarifying the Dual Purpose of Functions - 明确函数的双重目的
+  - Block-Level Functions - 块级函数
+  - Arrow Functions - Arrow 函数
+  - Tail Call Optimization - 
+  - Summary - 总结
 
 >####[Objects](05-Objects.md)
 
