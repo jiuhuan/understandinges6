@@ -37,7 +37,7 @@ console.log(name);      // "foo"
 In this code, the value of node.type is stored in a variable called type and the value of node.name is stored in a variable called name. This syntax is the same as the object literal property initializer shorthand introduced in Chapter 4. The identifiers type and name are both declarations of local variables and the property to read the value from on options.
 
 
--
+----
 ####Don’t Forget the Initializer
 When using destructuring to declare variables using var, let, or const, you must supply an initializer (the value after the equals sign). The following lines of code will all throw syntax errors due to a missing initializer:
 
@@ -54,7 +54,7 @@ const { type, name };
 
 While const always requires an initializer, even when using nondestructured variables, var and let only require initializers when using destructuring.
 
--
+----
 
 ####Destructuring Assignment
 
@@ -94,10 +94,10 @@ console.log(anotherNode.name);  // "foo"
 
 This code specifies anotherNode.type and anotherNode.name as the locations in which to store the destructured information. Note that anotherNode is initially declared without any properties, but that’s unimportant because properties can be added to anotherNode at any point in time. The end result is that two new properties are added to anotherNode through destructuring assignment.
 
--
+----
 An error is thrown when the right side of the destructured assignment expression (the expression after =) evaluates to null or undefined. This happens because any attempt to read a property of null or undefined results in a runtime error.
 
--
+----
 
 
 ####Default Values
@@ -225,7 +225,7 @@ In this version of the code, node.loc.start is stored in a new local variable lo
 
 While object destructuring is very powerful and has a lot of options, array destructuring offers some unique capabilities that allow you to extract information from arrays.
 
--
+----
 Syntax Gotcha
 Be careful when using nested destructuring because you an inadvertently create a statement that has no effect. Empty curly braces are legal in object destructuring, however, they don’t do anything. For example:
 
@@ -236,7 +236,7 @@ let { loc: {} } = node;
 
 There are no bindings declared in this statement. Due to the curly braces on the right, loc is used as a location to inspect rather than a binding to create. In such a case, it’s likely that the intent was to use = to define a default value rather than : to define a location. It’s possible that this syntax will be made illegal in the future, but for now, this is a bit of a gotcha to look out for.
 
--
+----
 
 ####Array Destructuring
 
@@ -265,10 +265,10 @@ console.log(thirdColor);        // "blue"
 
 This code uses a destructuring assignment to retrieve the third item in colors. The commas preceding thirdColor in the pattern are placeholders for the array items that come before it. By using this approach, you can easily pick out values from any number of slots in the middle of an array without needing to provide variable names for them.
 
--
+----
 Similar to object destructuring, you must always provide an initializer when using array destructuring with var, let, or const.
 
--
+----
 
 ####Destructuring Assignment
 You can use array destructuring in the context of an assignment, but unlike object destructuring, there is no need to wrap the expression in parentheses. For example:
@@ -317,10 +317,10 @@ console.log(b);     // 1
 
 The array destructuring assignment in this example looks like a mirror image. The left side of the assignment (before the equals sign) is the destructuring pattern just like you’ve seen in the previous examples. The right side is an array literal that is temporarily created for the purposes of doing the swap. The destructuring happens on the temporary array, which has the values of b and a copied into its first and second positions. The effect is that the variables have swapped values.
 
--
+----
 As with object destructuring assignment, an error is thrown when the right side of the destructured assignment expression evaluates to null or undefined.
 
--
+----
 
 ####Default Values
 
@@ -391,10 +391,10 @@ console.log(clonedColors);      //"[red,green,blue]"
 
 In this example, rest items are used to copy values from colors into clonedColors. While it’s a matter of perception as to whether this or concat() makes the developer’s intent clearer, this is a useful ability to be aware of.
 
--
+----
 Rest items must be the last entry in the destructured array and cannot be followed by a comma. Including a comma after rest items is a syntax error.
 
--
+----
 
 ###*Mixed Destructuring*
 
