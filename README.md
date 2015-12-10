@@ -55,8 +55,7 @@ Github：https://github.com/nzakas/understandinges6<br>
 
 >####[Destructuring](06-Destructuring.md)
 
-  - Object Destructuring
-  - Array Destructuring
+  - What is Destructuring?
   - Mixed Destructuring
   - Destructured Parameters
   - Summary
