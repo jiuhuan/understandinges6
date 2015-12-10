@@ -2,6 +2,8 @@
 
 Objects and arrays are two of the most frequently used types in JavaScript. Thanks to the popularity of JSON as a data format, object and array literals have become an important part of JavaScript. It’s quite common to define objects and arrays, and then systematically pull out the relevant pieces of information from those structures. In ECMAScript 5 and earlier, this could lead to a lot of code that looks the same, just to get certain data into local variables. For example:
 
+对象和数组是JavaScript中两个最常用的类型。由于JSON数据格式的流行，对象和数组字面量成为JavaScript的重要部分。定义对象和数组很常见，然后系统地从这些数据结构中取出相关信息。在 ES5 或者更早版本中，这会导致很多一样的代码，只是为了获取某些数据到本地变量。例如：
+
 ```JavaScript
 let options = {
         repeat: true,
@@ -15,12 +17,19 @@ let repeat = options.repeat,
 
 This code extracts information from the options object and stores them in local variables of the same name. While this code looks simple, imagine if you had a large number of variables to assign, or if there was a nested data structure to traverse to find the information. This is where destructuring comes in.
 
-###*What is Destructuring?*
+这段代码从对象 options 中提取信息并存储它们到相同名字的本地变量中。虽然这段代码看起来很简单，但想象下如果你有很多变量去分配值，或者如果有一个嵌套的数据结构来遍历查找信息。这个地方就需要用到解构了。
+
+###*What is Destructuring? 什么是解构？*
 
 ECMAScript 6 adds destructuring for both objects and arrays. Destructuring is the process of breaking down a data structure into smaller parts. Many languages implement destructuring using a minimal amount of syntax to make it simpler to use. The ECMAScript 6 implementation of destructuring makes use of syntax you’re already familiar with: object and array literals.
 
-####Object Destructuring
+ES6 为对象和数组添加了解构。解构是将数据结构分解成更小部分的过程。很多语言通过少量语法实现解构，使它更容易使用。ES6 使用你已经熟悉的语法实现解构：对象和数组字面量。
+
+####Object Destructuring 对象解构
+
 Object destructuring syntax uses an object literal on the left side of an assignment operation. For example:
+
+对象解构语法在赋值操作左边使用对象字面量。如：
 
 ```JavaScript
 let node = {
