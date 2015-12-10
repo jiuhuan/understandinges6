@@ -1463,16 +1463,30 @@ Tail call optimization is something you should think about whenever you’re wri
 ###*Summary*
 Functions haven’t undergone a huge change in ECMAScript 6, but rather, a series of incremental changes that make them easier to work with.
 
+ES6 中函数没有经历巨大的变化，但一系列增加的改变让它们更容易工作。
+
 Default function parameters allow you to easily specify what value to use when a particular argument isn’t passed. Prior to ECMAScript 6, this would require some extra code inside the function, to both check for the presence of arguments and assign a different value.
 
+当一个特定的参数没用被传递进函数，默认函数参数允许你轻松的指定使用的值。在 ES6 之前，需要在函数内插入额外的代码来检查参数的存在和分配一个不同的值。
+
 Rest parameters allow you to specify an array into which all remaining parameters should be placed. Using a real array and letting you indicate which parameters to include makes rest parameters a much more flexible solution than arguments.
+
+Rest parameters 允许你指定一个所有剩余参数应该存在的数组。使用一个真实的数组和让你表示其中的参数让 rest parameters 成为一个比 arguments 更灵活的解决方案。
 
 The spread operator is a companion to rest parameters, allowing you to deconstruct an array into separate parameters when calling a function. Prior to ECMAScript 6, there were only two ways to pass individual parameters contained in an array: by manually specifying each parameter or using apply(). With the spread operator, you can easily pass an array to any function without worrying about the this binding of the function.
 
 The addition of the name property should helps you more easily identify functions for debugging and evaluation purposes. Additionally, ECMAScript 6 formally defines the behavior of block-level functions so they are no longer a syntax error in strict mode.
 
+增加的 name 属性应该可以帮你在调试和评估中更加容易识别函数。此外，ES6 正式定义块级函数的行为所以他们在严格模式下不会再是一个语法错误。
+
 In ECMAScript 6, the behavior of a function is defined by [[Call]], normal function execution, and [[Construct]], when a function is called with new. The new.target metaproperty also allows you to determine if a function was called using new or not.
+
+ES6 中，一个函数的行为被 [[Call]] ，正式函数执行和 [[Construct]] 定义，当一个函数通过 new 被调用。new.target 元属性也允许你确定函数是否由 new 调用。
 
 The biggest change to functions in ECMAScript 6 was the addition of arrow functions. Arrow functions are designed to be used in place of anonymous function expressions. Arrow functions have a more concise syntax, lexical this binding, and no arguments object. Additionally, arrow functions can’t change their this binding, and so can’t be used as constructors.
 
+ES6 中函数的最大改变为新增加的 arrow 函数。 arrow 函数设计用来代替匿名函数表达式。arrow 函数有更为简洁的语法，词法 this 绑定和不再有 arguments 对象。此外，arrow 函数不能改变它们的 this 绑定，所以不能用来做构造函数。
+
 Tail call optimization allows some function calls to be optimized in order to keep a smaller call stack, use less memory, and prevent stack overflow errors. This optimization is applied by the engine automatically when it is safe to do so, however, you may decide to rewrite recursive functions in order to take advantage of this optimization.
+
+
