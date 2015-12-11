@@ -53,12 +53,12 @@ Github：https://github.com/nzakas/understandinges6<br>
   - Super References
   - Summary
 
->####[Destructuring](06-Destructuring.md)
+>####[Destructuring - 解构](06-Destructuring.md)
 
-  - What is Destructuring?
-  - Mixed Destructuring
-  - Destructured Parameters
-  - Summary
+  - What is Destructuring? - 什么是解构？
+  - Mixed Destructuring - 混合解构
+  - Destructured Parameters - 解构参数
+  - Summary - 总结
 
 >####[Symbols](07-Symbols.md)
 
