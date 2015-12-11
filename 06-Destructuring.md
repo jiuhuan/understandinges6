@@ -126,7 +126,10 @@ An error is thrown when the right side of the destructured assignment expression
 
 
 ####Default Values 默认值
+
 If you specify a property name that doesn’t exist on the object, then the local variable is assigned a value of undefined. For example:
+
+如果你指定了一个对象中不存在的属性名，那会被分配为 undefined。例如
 
 ```JavaScript
 let node = {
@@ -143,7 +146,11 @@ console.log(value);     // undefined
 
 This code defines an additional local variable, value, and attempts to assign it a value. However, there is no corresponding value property on node, so it’s assigned the value of undefined.
 
+这段代码定义额外本地变量，value，且视图分配它一个值。然而，node 中并没有相应的 value 属性，所以该值为 undefined。
+
 You can optionally define a different value to use when a specified property doesn’t exist. To do so, insert an equals sign (=) after the property name and specify the default value. For example:
+
+你可以可选地定义一个不同的值当一个指定的属性不存在。为此，插入一个等号（=）在属性名之后和指定的默认值。如：
 
 ```JavaScript
 let node = {
@@ -160,7 +167,10 @@ console.log(value);     // true
 
 In this example, the variable value is given a default value of true that is used only if the property is missing or has the value of undefined. Since there is no node.value, the variable value uses the default value. This works similar to default parameter values as discussed in Chapter 3.
 
-####Assigning to Different Local Variable Names
+例子中，变量 value 被分配一个默认的值 true，仅当属性不存在或者值为 undefined时被使用。由于没有 node.value，变量 value 使用默认值。这个类似第3章中讨论的默认参数值。
+
+####Assigning to Different Local Variable Names 分配到不同的本地变量名
+
 To this point, each example has used the object property name as the local variable name, so the value of options.repeat was stored in repeat. That works well when you want to use the same name, but what if you don’t? There is an extended syntax that allows you to assign to a local variable with a different name, and that syntax looks like the object literal nonshorthand property initializer syntax. Here’s an example:
 
 ```JavaScript
