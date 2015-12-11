@@ -52,7 +52,7 @@ In this code, the value of node.type is stored in a variable called type and the
 
 When using destructuring to declare variables using var, let, or const, you must supply an initializer (the value after the equals sign). The following lines of code will all throw syntax errors due to a missing initializer:
 
-
+当使用解构声明变量通过使用 var，let 或者 const 时，你必须提供一个初始化（等号后面的值）。一下几行代码都会抛出错误原因是少了初始化：
 
 ```JavaScript
 // syntax error!
@@ -67,11 +67,15 @@ const { type, name };
 
 While const always requires an initializer, even when using nondestructured variables, var and let only require initializers when using destructuring.
 
+const 总是需要初始化，即使不解构变量，var 和 let 仅在使用解构时需要初始化。
+
 ----
 
-####Destructuring Assignment
+####Destructuring Assignment 解构赋值
 
 The object destructuring examples so far have used variable declarations. However, it’s also possible to use destructuring in assignments. For instance, you may decide to change the value of variables after they are defined:
+
+到目前为止对象解构的例子使用变量声明。不过，也可以在赋值中使用解构。例如，你可能决定修改变量的值在它们被定义之后：
 
 ```JavaScript
 let node = {
@@ -90,7 +94,11 @@ console.log(name);      // "foo"
 
 In this example, type and name are initialized with values when declared. The next line uses destructuring assignment to change those values by reading from node. Note that you must put parentheses around a destructuring assignment statement. That’s because an opening curly brace is expected to a be a block statement, and a block statement cannot appear on the left side of an assignment. The parentheses signal that the next curly brace is not a block statement and should be interpreted as an expression, allowing the assignment to complete.
 
+例子中，type 和 name 在声明时被初始化。下一行使用解构赋值改变这些值通过从node中读取。你必须将解构声明放置在括号内。这是因为打开的大括号会被执行为一个块语句，而块声明不能出现在赋值的左边。小括号不是块级语句，应该会被解析为一个表达式，允许完成赋值。
+
 Destructuring assignment is a bit more flexible than destructuring declarations, as it’s possible to store values into object properties. Here’s an example:
+
+解构赋值比解构声明更灵活，可能存储值到一个对象属性中。例子：
 
 ```JavaScript
 let node = {
@@ -107,13 +115,17 @@ console.log(anotherNode.name);  // "foo"
 
 This code specifies anotherNode.type and anotherNode.name as the locations in which to store the destructured information. Note that anotherNode is initially declared without any properties, but that’s unimportant because properties can be added to anotherNode at any point in time. The end result is that two new properties are added to anotherNode through destructuring assignment.
 
+这段代码指定了 anotherNode.type 和 anotherNode.name 存储解构信息。注意 anotherNode 最初声明是没有任何属性的，但是那不重要因为属性可以在任何时间点被添加到 anotherNode 中。最后结果是两个新的属性通过解构赋值被添加到 anotherNode 中。
+
 ----
 An error is thrown when the right side of the destructured assignment expression (the expression after =) evaluates to null or undefined. This happens because any attempt to read a property of null or undefined results in a runtime error.
 
+当在解构赋值表达式右边（表达式在等号后）为 null 或者 undefined 时会抛出一个错误。因为任何尝试读取 null 或者 undefined 的一个属性会导致运行时错误。
+
 ----
 
 
-####Default Values
+####Default Values 默认值
 If you specify a property name that doesn’t exist on the object, then the local variable is assigned a value of undefined. For example:
 
 ```JavaScript
