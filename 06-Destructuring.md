@@ -45,10 +45,14 @@ console.log(name);      // "foo"
 
 In this code, the value of node.type is stored in a variable called type and the value of node.name is stored in a variable called name. This syntax is the same as the object literal property initializer shorthand introduced in Chapter 4. The identifiers type and name are both declarations of local variables and the property to read the value from on options.
 
+这段代码，node.type 的值被储存在一个叫 type 的变量中，node.name 的值被储存在一个叫 name 的变量中。这个语法和第4章中的对象字面量属性初始化速记一样。标识符 type 和 name 都是局部变量声明和从选项上要读的属性。
 
 ----
-####Don’t Forget the Initializer
+####Don’t Forget the Initializer 不要忘了初始化
+
 When using destructuring to declare variables using var, let, or const, you must supply an initializer (the value after the equals sign). The following lines of code will all throw syntax errors due to a missing initializer:
+
+
 
 ```JavaScript
 // syntax error!
@@ -405,7 +409,7 @@ Rest items must be the last entry in the destructured array and cannot be follow
 
 ----
 
-###*Mixed Destructuring*
+###*Mixed Destructuring 混合解构*
 
 Object and array destructuring can be used together to create more complex expressions. In doing so, you are able to extract just the pieces of information you want from any mixture of objects and arrays. For example:
 
@@ -435,7 +439,7 @@ console.log(start.column);      // 1
 console.log(startIndex);        // 0
 This code extracts node.loc.start and node.loc.range[0] into start and startIndex, respectively. Keep in mind that loc: and range: in the destructured pattern are just locations that correspond to properties in node. There is no part of node that cannot be extracted using destructuring when you use a mix of object and array destructuring. This approach is particularly useful for pulling values out of JSON configuration structures without navigating the entire structure.
 
-###*Destructured Parameters*
+###*Destructured Parameters 解构参数*
 
 There is another case where destructuring is useful, and that is as function arguments. A common pattern for JavaScript functions that take a large number of optional parameters is to use an options object whose properties specify the additional parameters. For example:
 
@@ -551,7 +555,7 @@ function setCookie(name, value,
 }
 In this code, the default values have been extracted into setCookieDefaults. The destructured parameter references that object directly for setting the default value of each binding and also as the overall default parameter value. If a default value needs to change, you can change it in setCookieDefaults and the data will end up being used in all of the correct spots. This is an unfortunate side effect of using destructured parameters, as handling all defaults can be complicated.
 
-###*Summary*
+###*Summary 总结*
 
 Destructuring makes it easier to work with objects and arrays in JavaScript. Using syntax that’s already familiar to many developers, object literals and array literals, you can now pick data structures apart to get at just the information you’re interested in. Object patterns allow you to extract data from objects while array patterns let you extract data from arrays.
 
