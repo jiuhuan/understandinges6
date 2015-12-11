@@ -173,6 +173,8 @@ In this example, the variable value is given a default value of true that is use
 
 To this point, each example has used the object property name as the local variable name, so the value of options.repeat was stored in repeat. That works well when you want to use the same name, but what if you don’t? There is an extended syntax that allows you to assign to a local variable with a different name, and that syntax looks like the object literal nonshorthand property initializer syntax. Here’s an example:
 
+关于这一点，每个例子都使用了对象属性 name 作为本地变量 name，所以 options.repeat 的值被储存在 repeat 中。这个在你想使用相同的名字可以很好的运行，但如果你不想呢？有一个扩展语法允许你分配一个本地变量到一个不同值，这个语法看起来像对象字面量非解构属性初始化语法。例子：
+
 ```JavaScript
 let node = {
         type: "Identifier",
@@ -187,7 +189,11 @@ console.log(localName);     // "foo"
 
 This code uses destructuring assignment to declare two variables, localType and localName, that contain the values from node.type and node.name, respectively. The syntax type: localType says to read the property named type and store it in the variable localType. This syntax is effectively the opposite of traditional object literal syntax where the name is on the left of the colon and the value is on the right. In this case, the name is on the right of the colon and the location of the value to read is on the left.
 
+这段代码使用解构赋值声明两个变量，localType 和 localName，值分别来自 node.type 和 node.name，语法 type：localType 表示读取 type 属性和储存到变量 localType。这个语法与传统对象字面量名字在冒号左边值在右边的语法相反。这个例子中，名字在冒号右边而要读取的本地值在左边。
+
 You can add default values when using a different variable name, as well. The equals sign and default value are placed after the local variable name. For example:
+
+你也可以添加默认值当使用一个不同变量名。等号和默认值出现在本地变量名后面。如：
 
 ```JavaScript
 let node = {
@@ -202,7 +208,11 @@ console.log(localName);     // "bar"
 
 Here, the localName variable has a default value of "bar". The default value is used because there is no node.name property, so localName has a value of "bar".
 
+这里，变量 localName 有一个默认值 “bar”。默认值被使用是因为没有 node.name 属性，所以 localName 有值为“bar”。
+
 So far, you’ve seen how to deal with destructuring of an object whose properties are primitive values. Object destructuring can also be used to retrieve values in nested object structures.
+
+到此，你已经知道如何处理一个有原始值的对象的解构。对象解构也可以在嵌套的对象结构中被用来检索值。
 
 ####Nested Object Destructuring
 By using a syntax similar to object literals, you can navigate into a nested object structure to retrieve just the information you want. Here’s an example:
