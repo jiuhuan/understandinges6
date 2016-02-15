@@ -214,7 +214,7 @@ So far, you’ve seen how to deal with destructuring of an object whose properti
 
 到此，你已经知道如何处理一个有原始值的对象的解构。对象解构也可以在嵌套的对象结构中被用来检索值。
 
-####Nested Object Destructuring
+####Nested Object Destructuring 嵌套对象解构
 By using a syntax similar to object literals, you can navigate into a nested object structure to retrieve just the information you want. Here’s an example:
 
 ```JavaScript
