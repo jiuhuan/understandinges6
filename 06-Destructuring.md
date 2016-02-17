@@ -217,6 +217,8 @@ So far, you’ve seen how to deal with destructuring of an object whose properti
 ####Nested Object Destructuring 嵌套对象解构
 By using a syntax similar to object literals, you can navigate into a nested object structure to retrieve just the information you want. Here’s an example:
 
+通过使用类似于对象的语法，你可以浏览一个嵌套对象结构体获取你想要的信息，例子如下：
+
 ```JavaScript
 let node = {
         type: "Identifier",
